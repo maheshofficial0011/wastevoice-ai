@@ -1,26 +1,26 @@
-import './App.css'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+
+import AppLayout from './components/layout/AppLayout'
+
+import HomePage from './pages/HomePage'
+import LoginPage from './pages/LoginPage'
+import ReporterDashboard from './pages/ReporterDashboard'
+import AuthorityDashboard from './pages/AuthorityDashboard'
+import StaffDashboard from './pages/StaffDashboard'
 
 function App() {
   return (
-    <main className="min-h-screen bg-slate-950 text-white flex items-center justify-center p-6">
-      <div className="max-w-xl text-center">
-        <p className="mb-4 text-sm font-semibold tracking-widest text-emerald-400 uppercase">
-          Tailwind CSS Connected
-        </p>
-
-        <h1 className="text-5xl font-bold tracking-tight">
-          WasteVoice AI ♻
-        </h1>
-
-        <p className="mt-6 text-lg leading-8 text-slate-300">
-          AI-assisted campus waste reporting and evidence-based resolution tracking.
-        </p>
-
-        <div className="mt-8 rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-5 py-4 text-emerald-300">
-          Tailwind CSS v4 is working successfully.
-        </div>
-      </div>
-    </main>
+    <BrowserRouter>
+      <AppLayout>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/reporter" element={<ReporterDashboard />} />
+          <Route path="/authority" element={<AuthorityDashboard />} />
+          <Route path="/staff" element={<StaffDashboard />} />
+        </Routes>
+      </AppLayout>
+    </BrowserRouter>
   )
 }
 
