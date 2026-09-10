@@ -1,0 +1,72 @@
+.app {
+  min-height: 100vh;
+  padding: 48px 24px;
+}
+
+.hero {
+  width: min(900px, 100%);
+  margin: 0 auto;
+  padding: 72px 48px;
+  text-align: center;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 14px;
+  border: 1px solid #2f855a;
+  border-radius: 999px;
+  margin-bottom: 24px;
+  font-size: 0.9rem;
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: clamp(3rem, 8vw, 5.5rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.subtitle {
+  margin: 24px auto 0;
+  max-width: 720px;
+  font-size: 1.2rem;
+  line-height: 1.6;
+}
+
+.description {
+  margin: 18px auto 0;
+  max-width: 700px;
+  line-height: 1.7;
+}
+
+.workflow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 36px;
+  font-weight: 600;
+}
+
+.workflow span:nth-child(even) {
+  opacity: 0.6;
+}
+
+.status-card {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 42px;
+  padding: 14px 20px;
+  border: 1px solid rgba(34, 197, 94, 0.35);
+  border-radius: 12px;
+}
+
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #22c55e;
+}
