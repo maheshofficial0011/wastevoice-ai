@@ -2,40 +2,24 @@ import './App.css'
 
 function App() {
   return (
-    <main className="app">
-      <section className="hero">
-        <div className="badge">♻️ Better Tomorrow Project</div>
-
-        <h1>WasteVoice AI</h1>
-
-        <p className="subtitle">
-          AI-Assisted Campus Waste Reporting and Resolution Tracking System
+    <main className="min-h-screen bg-slate-950 text-white flex items-center justify-center p-6">
+      <div className="max-w-xl text-center">
+        <p className="mb-4 text-sm font-semibold tracking-widest text-emerald-400 uppercase">
+          Tailwind CSS Connected
         </p>
 
-        <p className="description">
-          Report waste, structure the information with AI, track cleaning action,
-          and support human-verified resolution with before-and-after evidence.
+        <h1 className="text-5xl font-bold tracking-tight">
+          WasteVoice AI ♻
+        </h1>
+
+        <p className="mt-6 text-lg leading-8 text-slate-300">
+          AI-assisted campus waste reporting and evidence-based resolution tracking.
         </p>
 
-        <div className="workflow">
-          <span>Report</span>
-          <span>→</span>
-          <span>AI Assist</span>
-          <span>→</span>
-          <span>Review</span>
-          <span>→</span>
-          <span>Clean</span>
-          <span>→</span>
-          <span>Verify</span>
-          <span>→</span>
-          <span>Resolve</span>
+        <div className="mt-8 rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-5 py-4 text-emerald-300">
+          Tailwind CSS v4 is working successfully.
         </div>
-
-        <div className="status-card">
-          <span className="status-dot"></span>
-          <span>Project foundation is successfully running.</span>
-        </div>
-      </section>
+      </div>
     </main>
   )
 }
