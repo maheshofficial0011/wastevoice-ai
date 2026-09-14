@@ -2,7 +2,7 @@ import { supabase } from "./supabase";
 
 export async function testSupabaseConnection() {
     const { data, error } = await supabase
-        .from("waste_reports")
+        .from("reports")
         .select("*")
         .limit(1);
 
