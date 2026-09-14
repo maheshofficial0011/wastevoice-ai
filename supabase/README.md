@@ -1,34 +1,60 @@
-# Supabase setup
+# Supabase integration
 
-WasteVoice AI uses `public.reports` as the single canonical report table. Do not recreate or reintroduce a `waste_reports` table for application reports.
+WasteVoice AI uses Supabase for authentication, PostgreSQL data, and evidence storage.
 
-## Setup
+## Current runtime contract
 
-1. Create/open the project's Supabase database.
-2. Open **SQL Editor**.
-3. Run `schema.sql` once on a fresh project.
-4. In the frontend, configure `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` in the local `.env` file.
-5. Never commit `.env`, service-role keys, or other secrets.
-
-## Data model
+The frontend is already implemented against these application objects:
 
 ```text
 profiles
-   |
-   +-- reports
-          |
-          +-- report_evidence
-          +-- assignments
-          +-- status_history
-          +-- verification
+reports
+report_evidence
+report_assignments
+authority_reviews
 ```
 
-## Workflow
+The frontend also invokes workflow RPCs for protected state changes, including:
 
-`Report → Review → Assign → Clean → Evidence → Verify → Resolve`
+```text
+staff_update_task_status
+assign_report_to_staff
+authority_review_report
+reporter_update_report
+```
 
-The database deliberately keeps the final decision under human authority review. AI output is advisory and can be corrected before a report is accepted as structured data.
+These names are the **application contract observed in the current frontend**, not a claim that a particular SQL migration is already deployed in the connected Supabase project.
 
-## Important migration note
+## Environment
 
-The current application foundation previously contained a connection test against `waste_reports`. That obsolete test has been removed. Existing databases should be migrated to the `reports` identity before application data is connected.
+Create a local `.env` file containing:
+
+```text
+VITE_SUPABASE_URL=your-project-url
+VITE_SUPABASE_ANON_KEY=your-anon-key
+```
+
+Never commit `.env`, service-role keys, database passwords, or other secrets.
+
+## Evidence storage
+
+The report form uses the Supabase Storage bucket:
+
+```text
+waste-evidence
+```
+
+Before-cleaning uploads are stored under a report/user-specific path. Staff after-cleaning evidence is associated with the same report through `report_evidence`.
+
+## Verification before deployment
+
+Before treating the database as production-ready, verify the connected Supabase project directly:
+
+1. Confirm the tables above exist with the columns used by the frontend.
+2. Confirm the four workflow RPCs exist with the expected parameters and return behavior.
+3. Confirm authentication profiles and roles are present.
+4. Confirm Row Level Security prevents cross-role or cross-user access.
+5. Confirm Storage policies allow the intended evidence workflow without exposing unrelated files.
+6. Run the complete Reporter → Authority → Staff → Authority verification flow.
+
+A previous draft `schema.sql` was removed from the public repository because its table/RPC names did not match the application's actual runtime contract. This prevents evaluators from mistaking an unverified draft for the deployed database schema.
