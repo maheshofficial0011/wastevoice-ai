@@ -1,38 +1,48 @@
 # WasteVoice AI ♻️
 
-## AI-Assisted Campus Waste Reporting and Resolution Tracking System
+### AI-Assisted Campus Waste Reporting & Resolution Tracking
 
-WasteVoice AI is an AI-assisted web application designed to improve the reporting and tracking of unmanaged waste in a campus environment.
+> **Project Better Tomorrow · C29 · Semester 3**
+>
+> **Report → Review → Assign → Clean → Evidence → Verify → Resolve**
 
-The system helps transform a waste observation into a structured report and supports the complete workflow from reporting to human-verified resolution.
+WasteVoice AI is a student-built web application prototype designed to make campus waste reporting more structured and make the resolution process more visible and accountable.
 
----
-
-## 🎯 Core Problem
-
-Unmanaged waste may remain unreported or its resolution process may not be clearly visible to the people who observe it.
-
-WasteVoice AI aims to improve:
-
-* Waste reporting accessibility
-* Structured issue information
-* Visibility of reported issues
-* Action tracking
-* Before-and-after evidence collection
-* Accountability in the resolution workflow
+The project continues the field problem identified during the C29 AI Immersion activity: accumulated waste was observed in a campus park, while stakeholder evidence indicated uncertainty around whom to contact, how to report the issue, and when cleanup would occur.
 
 ---
 
-## 🔄 Core Workflow
+## 🎯 Problem
+
+Students and campus users are affected by accumulated waste in the campus park, and the current response may be delayed because people do not always know how to report the problem or when it will be addressed.
+
+### Verified field evidence
+
+- Location: a park inside the campus
+- Approximately **4 waste accumulation points** observed
+- Waste appeared to have remained uncleared for approximately **1 week** during the visit
+- Approximately **8–10 people** were observed passing during the visit
+- Stakeholder evidence indicated that waste removal may generally take approximately **2–3 weeks**
+- Reporting contacts and cleanup timing may not always be clear to users
+
+These observations are kept separate from project inference and proposed features. No unverified statistics are presented as facts.
+
+---
+
+## 💡 Proposed Solution
+
+WasteVoice AI converts an informal waste observation into a structured, reviewable workflow.
+
+### Core journey
 
 ```text
 Waste Observed
       ↓
-Report Created
+Reporter Creates Report
       ↓
-AI-Assisted Report Structuring
+AI-Assisted Structuring
       ↓
-User Confirmation
+Reporter Reviews / Corrects
       ↓
 Submitted
       ↓
@@ -46,193 +56,237 @@ After-Cleaning Evidence
       ↓
 Authority Verification
       ↓
-Resolved
+Resolved / Reopened
 ```
+
+AI assists with information understanding and structuring. Human users remain responsible for real-world action and final verification.
 
 ---
 
 ## 👥 User Roles
 
 ### 👤 Reporter
-
-The reporter can:
-
-* Create a waste report
-* Enter a location
-* Describe the waste issue
-* Upload before-cleaning evidence
-* Review AI-generated suggestions
-* Confirm or edit report information
-* Track report status
+- Create a waste report
+- Enter/select location
+- Describe the issue
+- Upload before-cleaning evidence
+- Review and correct AI suggestions
+- Submit the report
+- Track report status
 
 ### 🏛️ Authority
-
-The authority can:
-
-* Review submitted reports
-* View before-cleaning evidence
-* Update report status
-* Assign cleaning staff
-* Review after-cleaning evidence
-* Verify completion
-* Resolve or reopen reports
+- Review submitted reports
+- Review before evidence
+- Assign cleaning staff
+- Review after evidence
+- Verify completion
+- Resolve or reopen reports
 
 ### 🧹 Cleaning Staff
+- View assigned tasks
+- View location and issue details
+- Start work
+- Update work status
+- Upload after-cleaning evidence
+- Mark cleaning work as completed
 
-Cleaning staff can:
-
-* View assigned waste reports
-* View task details and location
-* Start cleaning work
-* Update work status
-* Upload after-cleaning evidence
-* Mark cleaning work as completed
-
-The final **Resolved** status is controlled by the authority after verification.
+**Cleaning Completed ≠ Resolved.** Final resolution remains an authority decision after evidence review.
 
 ---
 
-## 🤖 AI Component
+## 🤖 AI Boundary
 
-The AI component assists with understanding and structuring the reporter's natural-language description.
+The planned primary AI capability is natural-language report structuring.
 
-AI may suggest:
+Given a description such as:
 
-* Waste category
-* Location information when supported by the user's input
-* A concise structured report summary
+> "There is a pile of plastic waste near the entrance of the park."
 
-All AI-generated information is reviewed and can be corrected by the reporter before submission.
+AI should suggest structured fields such as:
 
-### Human-in-the-Loop
+- Waste category
+- Location, when supported by the input
+- Concise issue summary
 
-WasteVoice AI does not allow AI to independently:
+The reporter must be able to review and correct the suggestions before submission.
 
-* Dispatch cleaning staff
-* Mark cleaning work as complete
-* Mark reports as resolved
+The AI must not:
 
-Human users remain responsible for real-world actions and final verification.
+- Invent missing facts
+- Automatically dispatch staff
+- Decide that cleaning happened
+- Mark a report as resolved
+- Replace human authority decisions
 
----
-
-## 🖼️ Evidence-Based Verification
-
-WasteVoice AI supports a before-and-after evidence workflow.
-
-**Before Evidence**
-
-Uploaded by the reporter when the waste issue is reported.
-
-**After Evidence**
-
-Uploaded by cleaning staff after completing the cleaning work.
-
-**Authority Verification**
-
-The authority reviews the before and after evidence and decides whether to:
-
-* Resolve the report
-* Reopen the report
-* Request further action
+The exact AI provider/model will be documented only after the real server-side integration is implemented.
 
 ---
 
-## 🛠️ Planned Technology Stack
+## 🧱 Technology Stack
 
-### Frontend
+| Layer | Technology |
+|---|---|
+| Frontend | React 19 + TypeScript |
+| Build | Vite 8 |
+| Styling | Tailwind CSS 4 |
+| Routing | React Router 7 |
+| Backend services | Supabase |
+| Database | PostgreSQL via Supabase |
+| Authentication | Supabase Auth |
+| Evidence | Supabase Storage |
+| AI | Server-side language-processing integration (planned) |
 
-* React
-* TypeScript
-* Vite
-* Tailwind CSS
-
-### Backend and Database
-
-* Supabase
-* PostgreSQL
-* Supabase Authentication
-* Supabase Storage
-
-### AI
-
-An AI language-processing component will be integrated to structure natural-language waste reports.
-
-The exact AI provider and model will be documented after implementation.
+The repository currently contains the frontend foundation and Supabase client foundation. Production credentials are never committed to the repository.
 
 ---
 
-## 📊 Project Status
-
-🚧 **Currently in active development**
-
-Current phase:
-
-> **Phase 1 — Frontend Application Foundation**
-
----
-
-## 🗺️ Development Roadmap
-
-* [x] Define the problem and project workflow
-* [x] Define user roles
-* [x] Define the evidence-based resolution workflow
-* [x] Create public GitHub repository
-* [x] Initialize React + TypeScript + Vite application
-* [x] Replace the default Vite starter interface with the initial WasteVoice AI project foundation
-* [ ] Configure Tailwind CSS
-* [ ] Configure Supabase
-* [ ] Implement authentication and roles
-* [ ] Build reporter workflow
-* [ ] Implement before evidence upload
-* [ ] Implement AI-assisted report structuring
-* [ ] Build authority workflow
-* [ ] Implement cleaning staff workflow
-* [ ] Implement after evidence upload
-* [ ] Implement authority verification
-* [ ] Testing and validation
-* [ ] Complete Review 1 documentation
-
----
-
-## 📌 Current Workflow Status
+## 📁 Repository Structure
 
 ```text
-Repository Setup        ██████████  Complete
-Application Foundation  ██████████  Complete
-Database Setup          ░░░░░░░░░░  Not Started
-Authentication          ░░░░░░░░░░  Not Started
-Reporter Workflow       ░░░░░░░░░░  Not Started
-AI Integration          ░░░░░░░░░░  Not Started
-Authority Workflow      ░░░░░░░░░░  Not Started
-Staff Workflow          ░░░░░░░░░░  Not Started
-Verification Workflow   ░░░░░░░░░░  Not Started
-Testing                 ░░░░░░░░░░  Not Started
+wastevoice-ai/
+├── README.md
+├── docs/
+│   ├── architecture.md
+│   ├── database-schema.md
+│   ├── ai-integration.md
+│   ├── ai-usage-audit.md
+│   ├── testing.md
+│   └── review-1-report.md
+├── supabase/
+│   └── schema.sql
+├── public/
+└── src/
+    ├── components/
+    ├── data/
+    ├── lib/
+    ├── pages/
+    ├── types/
+    ├── App.tsx
+    └── main.tsx
 ```
 
 ---
 
-## 🔐 Project Principle
+## 🚧 Review 1 Status
 
-WasteVoice AI follows the principle:
+**Review window:** 8–17 September 2026  
+**Evaluation target:** approximately 35% of the overall project.
+
+### Implemented / committed
+
+- Public GitHub repository
+- React + TypeScript + Vite foundation
+- Tailwind CSS 4 configuration
+- Application routing
+- Shared application layout
+- Project types and workflow data model
+- Reporter waste-report form with validation
+- Before-cleaning image preview in the report form
+- Supabase JavaScript client foundation
+- Initial role and workflow architecture
+- Project specification and evidence documentation
+
+### In progress / next implementation
+
+- Supabase database schema deployment and verification
+- Supabase authentication and role enforcement
+- Persistent report submission
+- Server-side AI integration
+- AI review/confirmation screen
+- Reporter dashboard persistence
+- Authority review and assignment workflow
+- Cleaning staff workflow
+- After-cleaning evidence
+- Authority verification
+- End-to-end testing and user validation
+
+The repository deliberately does **not** describe these pending items as completed.
+
+---
+
+## 🔐 Evidence & Responsible AI Principle
+
+This project follows four evidence classes:
+
+1. **Verified Field Evidence** — directly observed during the field visit
+2. **Stakeholder Evidence** — obtained from stakeholder interaction
+3. **Implemented Functionality** — actually present and testable in code
+4. **Proposed Feature** — planned but not yet implemented
 
 > **AI assists humans; humans make the final decisions.**
 
-The project prioritizes a transparent and accountable workflow:
-
-**Report → Review → Assign → Clean → Evidence → Verify → Resolve**
+No AI-generated claim becomes project evidence unless it is verified.
 
 ---
 
-## 📚 Project
+## 🧪 Testing Philosophy
 
-**Project:** Better Tomorrow
-**Batch:** C29
-**Semester:** 3
-**Project Type:** AI-Assisted Software Project
+Testing will cover:
+
+- Application build and routing
+- Report form validation
+- Image upload/preview
+- Authentication and role restrictions
+- Report persistence
+- AI structured output
+- Human correction of AI output
+- Staff assignment
+- Status transitions
+- Before/after evidence
+- Authority verification
+
+AI reliability tests will include complete, incomplete, and vague descriptions to verify that the model does not confidently invent missing information.
 
 ---
 
-## 🚧 Development Note
+## 🗺️ Roadmap
 
-This repository is under active development. Features listed as planned or in progress should not be interpreted as completed functionality.
+- [x] Field problem and continuation pathway defined
+- [x] Eight AI ideation directions evaluated
+- [x] Integrated WasteVoice AI solution selected
+- [x] Public repository created
+- [x] React + TypeScript + Vite foundation
+- [x] Tailwind CSS configured
+- [x] Routing and shared layout
+- [x] Reporter form foundation
+- [x] Supabase client foundation
+- [ ] Supabase schema + RLS deployment
+- [ ] Authentication + roles
+- [ ] Persistent reporter workflow
+- [ ] Server-side AI integration
+- [ ] Authority workflow
+- [ ] Staff workflow
+- [ ] Before/after evidence persistence
+- [ ] Verification workflow
+- [ ] Automated / repeatable tests
+- [ ] Validation with at least three real testers
+- [ ] Final Project Better Tomorrow submission
+
+---
+
+## 📚 Project Documentation
+
+- [`docs/architecture.md`](docs/architecture.md) — system architecture and role boundaries
+- [`docs/database-schema.md`](docs/database-schema.md) — data model and status lifecycle
+- [`docs/ai-integration.md`](docs/ai-integration.md) — AI contract and safety rules
+- [`docs/ai-usage-audit.md`](docs/ai-usage-audit.md) — AI contribution and verification record
+- [`docs/testing.md`](docs/testing.md) — test plan and known limitations
+- [`docs/review-1-report.md`](docs/review-1-report.md) — Review 1 progress report
+- [`supabase/schema.sql`](supabase/schema.sql) — planned database schema
+
+---
+
+## 📌 Project Identity
+
+**Project:** Better Tomorrow  
+**Batch:** C29  
+**Semester:** 3  
+**Pathway:** A — Continuation Track  
+**Project:** WasteVoice AI  
+**Type:** AI-Assisted Software Project
+
+---
+
+## ⚠️ Development Note
+
+WasteVoice AI is an active student prototype. A feature is labelled **implemented** only when the corresponding functionality exists in code and can be tested. Planned AI, prediction, anomaly detection, image comparison, notifications, and institutional integrations are not presented as completed functionality.
