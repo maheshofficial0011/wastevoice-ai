@@ -101,7 +101,7 @@ function HomePage() {
                             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
                             <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
                         </span>
-                        AI-powered campus reporting
+                        AI-assisted campus reporting
                     </div>
 
                     <h1 className="max-w-4xl text-5xl font-black leading-[0.98] tracking-[-0.045em] sm:text-6xl lg:text-7xl">
@@ -151,38 +151,38 @@ function HomePage() {
                         <div className="overflow-hidden rounded-[25px] border border-white/[0.07] bg-slate-900/90">
                             <div className="flex items-center justify-between border-b border-white/[0.07] px-5 py-4">
                                 <div>
-                                    <p className="text-xs font-bold text-slate-400">LIVE CAMPUS OVERVIEW</p>
+                                    <p className="text-xs font-bold text-slate-400">PROTOTYPE WORKSPACE PREVIEW</p>
                                     <p className="mt-1 text-sm font-bold">WasteVoice command view</p>
                                 </div>
-                                <span className="flex items-center gap-2 rounded-full border border-emerald-400/15 bg-emerald-400/[0.07] px-2.5 py-1.5 text-[10px] font-bold uppercase tracking-wider text-emerald-300">
-                                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_10px_rgba(52,211,153,.8)]" />
-                                    Active
+                                <span className="flex items-center gap-2 rounded-full border border-cyan-400/15 bg-cyan-400/[0.07] px-2.5 py-1.5 text-[10px] font-bold uppercase tracking-wider text-cyan-300">
+                                    <span className="h-1.5 w-1.5 rounded-full bg-cyan-400" />
+                                    Preview
                                 </span>
                             </div>
 
                             <div className="grid grid-cols-2 gap-3 p-4">
                                 <div className="rounded-2xl border border-white/[0.06] bg-white/[0.025] p-4">
                                     <div className="flex items-center justify-between">
-                                        <span className="text-xs text-slate-500">Open reports</span>
+                                        <span className="text-xs text-slate-500">Report intake</span>
                                         <Icon name="activity" className="h-4 w-4 text-cyan-300" />
                                     </div>
-                                    <p className="mt-3 text-3xl font-black">12</p>
-                                    <p className="mt-1 text-[11px] text-amber-300">Needs attention</p>
+                                    <p className="mt-3 text-lg font-black">Structured</p>
+                                    <p className="mt-1 text-[11px] text-slate-500">Location + description + evidence</p>
                                 </div>
                                 <div className="rounded-2xl border border-white/[0.06] bg-white/[0.025] p-4">
                                     <div className="flex items-center justify-between">
-                                        <span className="text-xs text-slate-500">Resolved</span>
+                                        <span className="text-xs text-slate-500">Resolution</span>
                                         <Icon name="check" className="h-4 w-4 text-emerald-300" />
                                     </div>
-                                    <p className="mt-3 text-3xl font-black">38</p>
-                                    <p className="mt-1 text-[11px] text-emerald-300">Verified this week</p>
+                                    <p className="mt-3 text-lg font-black">Human verified</p>
+                                    <p className="mt-1 text-[11px] text-slate-500">Evidence-backed closure</p>
                                 </div>
                             </div>
 
                             <div className="mx-4 mb-4 rounded-2xl border border-white/[0.06] bg-gradient-to-br from-emerald-400/[0.08] to-cyan-400/[0.03] p-4">
                                 <div className="flex items-center justify-between">
                                     <div>
-                                        <p className="text-xs font-semibold text-emerald-300">AI WORKFLOW</p>
+                                        <p className="text-xs font-semibold text-emerald-300">CORE WORKFLOW</p>
                                         <p className="mt-1 text-sm font-bold">Report → Resolve → Verify</p>
                                     </div>
                                     <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-400/10 text-emerald-300">
@@ -207,8 +207,8 @@ function HomePage() {
                                         <Icon name="shield" className="h-4 w-4" />
                                     </span>
                                     <div className="min-w-0">
-                                        <p className="truncate text-xs font-bold">Role-based workflow protection</p>
-                                        <p className="mt-0.5 text-[11px] text-slate-500">Every issue reaches the right team.</p>
+                                        <p className="truncate text-xs font-bold">Human-in-the-loop workflow</p>
+                                        <p className="mt-0.5 text-[11px] text-slate-500">AI assistance does not replace final decisions.</p>
                                     </div>
                                 </div>
                             </div>
@@ -220,8 +220,8 @@ function HomePage() {
                             <Icon name="shield" className="h-4 w-4" />
                         </span>
                         <div>
-                            <p className="text-xs font-bold">Verified resolution</p>
-                            <p className="text-[10px] text-slate-500">Evidence-backed workflow</p>
+                            <p className="text-xs font-bold">Evidence-backed workflow</p>
+                            <p className="text-[10px] text-slate-500">Prototype status, not live statistics</p>
                         </div>
                     </div>
                 </div>
