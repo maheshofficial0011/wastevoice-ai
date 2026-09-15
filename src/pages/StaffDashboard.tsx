@@ -2025,10 +2025,10 @@ function StaffDashboard() {
 
                                                         <div className="absolute left-0 right-0 top-0 h-1 overflow-hidden rounded-t-2xl bg-slate-800">
                                                             <div className={`h-full transition-all duration-700 ${normalizedStatus === 'assigned' ? 'w-1/4 bg-purple-400' :
-                                                                    normalizedStatus === 'cleaning_in_progress' ? 'w-2/4 bg-orange-400' :
-                                                                        normalizedStatus === 'pending_verification' ? 'w-3/4 bg-blue-400' :
-                                                                            normalizedStatus === 'resolved' ? 'w-full bg-emerald-400' :
-                                                                                normalizedStatus === 'rejected' ? 'w-2/4 bg-red-400' : 'w-1/4 bg-slate-500'
+                                                                normalizedStatus === 'cleaning_in_progress' ? 'w-2/4 bg-orange-400' :
+                                                                    normalizedStatus === 'pending_verification' ? 'w-3/4 bg-blue-400' :
+                                                                        normalizedStatus === 'resolved' ? 'w-full bg-emerald-400' :
+                                                                            normalizedStatus === 'rejected' ? 'w-2/4 bg-red-400' : 'w-1/4 bg-slate-500'
                                                                 }`} />
                                                         </div>
 
