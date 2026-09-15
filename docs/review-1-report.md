@@ -41,15 +41,45 @@ The public repository currently contains:
 
 ## 4. What is currently verified
 
-A local production build has previously been completed successfully with:
+### Build
+
+A local production build was successfully completed on the current development machine with:
 
 ```bash
 npm run build
 ```
 
-The recorded build completed TypeScript compilation and the Vite production build, with a large JavaScript chunk warning noted as a performance optimization item. This repository should be re-installed and re-run locally before treating that result as a fresh verification on the current machine.
+The command completed TypeScript compilation and the Vite production build. Vite reported a large JavaScript chunk warning; this is a performance optimization item, not a build failure.
 
-The repository also contains the implementation of the role-based workflow described above. Runtime database/RLS verification should be retained as explicit test evidence rather than inferred from source code alone.
+### Controlled end-to-end prototype test
+
+On **15 September 2026**, the application was exercised with controlled test accounts/data across the three application roles:
+
+1. Reporter logged in and created a waste report.
+2. Reporter supplied before-cleaning evidence.
+3. Authority received the report and reviewed it.
+4. Authority assigned the report to Test Staff.
+5. Test Staff received the assigned task and progressed the cleaning workflow.
+6. Test Staff submitted after-cleaning evidence.
+7. Authority received both evidence files and opened the human verification workspace.
+8. Authority could compare before/after evidence and access the human verification decision controls.
+
+The retained screenshot set is organized as:
+
+```text
+01_homepage.png
+02_authority_login.png
+03_authority_dashboard.png
+04_authority_report_assignment.png
+05_authority_verification_workspace.png
+06_evidence_comparison.png
+07_staff_dashboard.png
+08_reporter_dashboard.png
+```
+
+**Test-data qualification:** the end-to-end test used controlled prototype data and test evidence images. The same image was used as the before/after fixture. Therefore the test demonstrates the application workflow and evidence-handling behavior; it does **not** prove that a real campus cleaning operation occurred or that the physical waste condition improved.
+
+Runtime database/RLS verification should still be retained as explicit evidence rather than inferred from source code alone.
 
 ## 5. AI status
 
@@ -83,15 +113,14 @@ The selected integrated solution was **WasteVoice AI — AI-Powered Campus Waste
 
 ## 9. Pending work and next steps
 
-1. Re-run dependency installation, lint and production build on the current machine and retain the terminal evidence.
-2. Validate the deployed Supabase tables, RLS and RPC signatures against the actual connected project.
-3. Run and record systematic Reporter/Authority/Staff end-to-end tests with real test accounts.
-4. Confirm that any three-user validation records are backed by corresponding tester interaction/evidence before treating them as completed validation evidence.
-5. Implement the server-side AI report-structuring integration.
-6. Test AI behavior on complete, incomplete and vague descriptions.
-7. Optimize the large frontend bundle where practical.
-8. Verify production deployment.
-9. Continue with later-stage enhancements such as voice/multilingual reporting, image comparison, prediction and anomaly detection only after the core workflow is validated.
+1. Validate the connected Supabase tables, RLS and RPC signatures against the actual project.
+2. Run systematic Reporter/Authority/Staff role and access tests and retain evidence.
+3. Confirm that any three-user validation records are backed by corresponding tester interaction/evidence before treating them as completed validation evidence.
+4. Implement the server-side AI report-structuring integration.
+5. Test AI behavior on complete, incomplete and vague descriptions.
+6. Optimize the large frontend bundle where practical.
+7. Verify production deployment.
+8. Continue with later-stage enhancements such as voice/multilingual reporting, image comparison, prediction and anomaly detection only after the core workflow is validated.
 
 ## 10. Repository
 
@@ -99,4 +128,4 @@ The selected integrated solution was **WasteVoice AI — AI-Powered Campus Waste
 
 ## 11. Integrity statement
 
-This report intentionally distinguishes implemented functionality from planned AI features and from test results that still need to be executed. No AI accuracy figure, cleanup improvement or production result is claimed before it has actually been measured. Validation records should be treated as completed evidence only when their underlying tester interaction/evidence is retained.
+This report intentionally distinguishes implemented functionality from planned AI features and from test results. No AI accuracy figure, cleanup improvement or production result is claimed before it has actually been measured. The controlled end-to-end test is explicitly described as a prototype workflow test using test data, not as evidence of real-world cleanup impact. Validation records should be treated as completed evidence only when their underlying tester interaction/evidence is retained.
