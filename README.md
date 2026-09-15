@@ -201,230 +201,132 @@ Authority Review
    ▼
 Cleaning Staff
    │
-   ├── Update cleaning progress
-   └── Submit after-cleaning evidence
+   ├── Update work status
+   └── Upload after-cleaning evidence
    ▼
 Authority Verification
    │
-   ├── Compare before / after evidence
-   ├── Human verification checklist
+   ├── Compare evidence
    └── Approve or request correction
    ▼
-Resolved / Correction Loop
+Resolved
 ```
 
-### Core design principle
-
-**Cleaning Completed ≠ Resolved.**
-
-Staff can report completed work and provide evidence, but the final resolution decision belongs to the authority.
+The workflow keeps the human role explicit at each important decision point.
 
 ---
 
 ## 7. Review 1 Implementation
 
-The current public repository contains a substantial working prototype, including:
+The current Review 1 prototype includes:
 
-### Application foundation
+- Role-aware authentication with Supabase Auth.
+- Protected reporter, authority and staff routes.
+- Reporter report creation with input validation.
+- Before-cleaning evidence upload to Supabase Storage.
+- Reporter dashboard with report state and review information.
+- Authority report review and staff assignment workflow.
+- Staff task dashboard and cleaning-status workflow.
+- After-cleaning evidence upload.
+- Authority evidence comparison and final verification controls.
+- Workflow refresh/realtime support.
+- Human-readable evidence and review history.
 
-- React 19 + TypeScript application.
-- Vite production build.
-- Tailwind CSS interface.
-- Shared layout and navigation.
-- React Router routing.
-- Protected application routes.
-- Logout flow.
+### Current verification status
 
-### Authentication and roles
+The application has been exercised with controlled test accounts/data across the three roles. The screenshots in [`docs/evidence/`](docs/evidence/) document the tested workflow states.
 
-- Supabase Authentication.
-- Profile-based role routing.
-- Reporter workspace.
-- Authority workspace.
-- Cleaning staff workspace.
-- Role-aware access control in the application.
+> **Evidence qualification:** these screenshots are controlled prototype-test evidence. The before/after evidence used the same image as a test fixture, so it demonstrates application workflow and evidence-handling behavior only. It must not be interpreted as proof of real-world cleaning or physical improvement.
 
-### Reporter workflow
+### Runtime evidence
 
-- Create waste report.
-- Location validation.
-- Description validation.
-- Additional information field.
-- Before-cleaning evidence requirement for new reports.
-- JPG/PNG/WebP evidence support.
-- Evidence size validation.
-- Drag-and-drop upload interface.
-- Supabase Storage upload.
-- Report submission.
-- Reporter dashboard.
-- Search/filter/status views.
-- Eligible report editing.
-
-### Authority workflow
-
-- View submitted reports.
-- Search/filter/sort.
-- Review report details.
-- View before evidence.
-- Assign cleaning staff.
-- Review staff-submitted after evidence.
-- Compare before/after evidence.
-- Human verification checklist.
-- Approve and resolve.
-- Request correction/reopen through the workflow.
-- Preserve authority review history.
-
-### Cleaning staff workflow
-
-- View assigned tasks.
-- Search/filter/sort tasks.
-- Start cleaning.
-- Update cleaning status.
-- View before evidence.
-- Upload after-cleaning evidence.
-- Submit work for authority review.
-- See authority feedback/correction state.
-
-### Evidence and workflow visibility
-
-- Evidence history.
-- Review history.
-- Status normalization for workflow aliases.
-- Periodic refresh.
-- Realtime/polling support in workflow dashboards.
-- Clear distinction between active and resolved reports.
+- [01 — Homepage](docs/evidence/01_homepage.png)
+- [02 — Authority Login](docs/evidence/02_authority_login.png)
+- [03 — Authority Dashboard](docs/evidence/03_authority_dashboard.png)
+- [04 — Authority Report Assignment](docs/evidence/04_authority_report_assignment.png)
+- [05 — Authority Verification Workspace](docs/evidence/05_authority_verification_workspace.png)
+- [06 — Evidence Comparison](docs/evidence/06_evidence_comparison.png)
+- [07 — Staff Dashboard](docs/evidence/07_staff_dashboard.png)
+- [08 — Reporter Dashboard](docs/evidence/08_reporter_dashboard.png)
 
 ---
 
 ## 8. End-to-End Prototype Workflow
 
-The Review 1 prototype was exercised with controlled test accounts and test data across the three application roles.
+### Reporter
 
-```text
-Reporter
-  ↓
-Create report
-  ↓
-Upload before evidence
-  ↓
-Authority receives report
-  ↓
-Authority assigns Test Staff
-  ↓
-Staff receives assigned task
-  ↓
-Staff updates cleaning workflow
-  ↓
-Staff submits after evidence
-  ↓
-Authority sees both evidence files
-  ↓
-Authority compares before / after
-  ↓
-Human verification checklist
-  ↓
-Approve & Resolve / Request Correction
-```
+1. Sign in.
+2. Enter waste location and description.
+3. Upload before-cleaning evidence.
+4. Submit the report.
 
-### Test-data qualification
+### Authority
 
-The end-to-end test used controlled prototype data and test evidence images. The same image was used for the before/after fixture in this functional test. Therefore this test demonstrates **workflow behavior**, not proof that a real campus cleaning operation occurred or that the physical waste condition improved.
+1. Review submitted report.
+2. Inspect the available evidence.
+3. Assign cleaning staff.
+4. Open the verification workspace after staff evidence is submitted.
+5. Approve or request correction.
 
-This distinction is intentional and is part of the project's evidence-integrity policy.
+### Cleaning Staff
+
+1. Open the assigned task.
+2. Update the cleaning status.
+3. Upload after-cleaning evidence.
+4. Mark the cleaning step as completed.
+
+### Final state
+
+The authority, not the application or AI, makes the final verification decision. **Cleaning Completed is not the same as Resolved.**
 
 ---
 
 ## 9. Human-in-the-Loop Design
 
-WasteVoice AI is designed to assist humans rather than replace them.
+WasteVoice AI does not delegate final responsibility to AI.
 
-| Role | Human responsibility |
-|---|---|
-| Reporter | Provides and corrects the report information. |
-| Cleaning staff | Performs the physical task and submits completion evidence. |
-| Authority | Reviews evidence and makes the final resolution decision. |
+- **Reporter:** confirms/corrects submitted report information.
+- **AI layer (planned):** assists with structuring information and identifying possible details; output remains advisory.
+- **Cleaning staff:** performs physical cleaning and supplies evidence.
+- **Authority:** reviews evidence and decides whether a report is resolved.
 
-### Planned AI safety behavior
-
-When AI inference is integrated, it should:
-
-- structure information from the user's description;
-- preserve unknown fields instead of inventing them;
-- return validated structured output;
-- allow reporter correction;
-- expose uncertainty where appropriate;
-- never decide final workflow status;
-- never autonomously declare a physical cleanup successful.
+The design intentionally keeps a human in control of workflow state changes and final resolution.
 
 ---
 
 ## 10. User Roles
 
-### Reporter
-
-- Create a report.
-- Enter location and description.
-- Upload before-cleaning evidence.
-- View submitted reports.
-- Track status.
-- Edit an eligible report.
-
-### Authority
-
-- Review reports.
-- View evidence.
-- Assign staff.
-- Review after-cleaning evidence.
-- Compare evidence.
-- Approve or request correction.
-- Resolve the report after human verification.
-
-### Cleaning Staff
-
-- View assigned tasks.
-- Start cleaning work.
-- Update task status.
-- Upload after-cleaning evidence.
-- Submit work for verification.
-- Respond to correction requests.
+| Role | Primary responsibility |
+|---|---|
+| Reporter | Create a waste report and provide before evidence |
+| Authority | Review reports, assign staff, verify evidence and resolve/reject |
+| Staff | Execute cleaning task, update status and upload after evidence |
 
 ---
 
 ## 11. Technical Architecture
 
-The current Review 1 application is a client application backed by Supabase services. The planned AI layer is intentionally separated from the current human-controlled workflow.
-
 ```text
-┌───────────────────────┐
-│ Reporter / Authority  │
-│ / Cleaning Staff      │
-└──────────┬────────────┘
-           │ Web UI
-           ▼
-┌───────────────────────┐
-│ React + TypeScript    │
-│ Vite + Tailwind       │
-│ Role-aware routing    │
-└──────────┬────────────┘
-           │ Supabase client
-           ▼
-┌─────────────────────────────────────┐
-│ Supabase                            │
-│ Auth │ PostgreSQL │ Storage │ RPCs │
-└──────────┬──────────────────────────┘
-           │
-           ▼
-┌───────────────────────┐
-│ Evidence + workflow  │
-│ state + review history│
-└───────────────────────┘
+Reporter / Authority / Staff
+            │
+            ▼
+     React + TypeScript + Vite
+            │
+            ├── Supabase Auth
+            ├── Supabase Data API
+            └── Supabase Storage
+            │
+            ▼
+ PostgreSQL tables + protected RPCs
+            │
+            ▼
+ Workflow dashboards and evidence views
 
-Future server-side AI layer:
-User description → validation/pre-processing → AI structuring →
-validated structured output → reporter confirmation → workflow
+Planned future path:
+User description → server-side AI → validated structured output → human correction → workflow
 ```
 
-The broader C29 AI architecture follows the required conceptual pattern of real-world source → data acquisition → pre-processing → AI/ML engine → decision logic → user interface, with a human feedback loop. The current Review 1 implementation does not claim that every future AI block is already deployed.
+The planned AI path is intentionally shown separately from the current implemented runtime so that the repository does not imply a completed LLM integration.
 
 ---
 
@@ -433,60 +335,66 @@ The broader C29 AI architecture follows the required conceptual pattern of real-
 | Layer | Technology |
 |---|---|
 | Frontend | React 19 + TypeScript |
-| Build tool | Vite 8 |
-| Styling | Tailwind CSS 4 |
-| Routing | React Router 7 |
-| Backend/data services | Supabase |
+| Build tool | Vite |
+| UI styling | Tailwind CSS |
+| Routing | React Router |
+| Backend/data platform | Supabase |
 | Database | PostgreSQL via Supabase |
 | Authentication | Supabase Auth |
-| Evidence storage | Supabase Storage |
-| AI | Planned server-side language-processing integration |
-| Quality checks | ESLint + TypeScript build + Vite production build |
-| CI | GitHub Actions lint/build workflow |
+| File storage | Supabase Storage |
+| Workflow/security | Supabase RLS + protected RPCs |
+| Realtime/refresh | Supabase realtime subscriptions and dashboard refresh logic |
+| AI | **Planned server-side integration; provider/model not claimed yet** |
+| Quality tooling | ESLint, TypeScript, Vite production build |
+| CI | GitHub Actions (`.github/workflows/quality.yml`) |
+| Version control | Git + GitHub |
 
 ---
 
 ## 13. Application Structure
 
 ```text
-wastevoice-ai/
-├── README.md
-├── package.json
-├── src/
-│   ├── components/
-│   │   ├── auth/
-│   │   └── layout/
-│   ├── data/
-│   ├── lib/
-│   ├── pages/
-│   │   ├── HomePage.tsx
-│   │   ├── LoginPage.tsx
-│   │   ├── CreateReportPage.tsx
-│   │   ├── ReporterDashboard.tsx
-│   │   ├── AuthorityDashboard.tsx
-│   │   └── StaffDashboard.tsx
-│   └── types/
-├── docs/
-│   ├── project-source-of-truth.md
-│   ├── architecture.md
-│   ├── database-schema.md
-│   ├── ai-integration.md
-│   ├── ai-usage-audit.md
-│   ├── testing.md
-│   ├── validation.md
-│   └── review-1-report.md
-├── supabase/
-│   └── README.md
-└── .github/
-    └── workflows/
-        └── ci.yml
+src/
+├── components/
+├── pages/
+│   ├── LoginPage.tsx
+│   ├── CreateReportPage.tsx
+│   ├── ReporterDashboard.tsx
+│   ├── AuthorityDashboard.tsx
+│   └── StaffDashboard.tsx
+├── lib/
+│   └── supabase.ts
+├── App.tsx
+└── main.tsx
+
+docs/
+├── review-1-report.md
+├── testing.md
+├── validation.md
+├── architecture.md
+├── database-schema.md
+├── ai-integration.md
+├── ai-usage-audit.md
+└── evidence/
+    ├── 01_homepage.png
+    ├── 02_authority_login.png
+    ├── 03_authority_dashboard.png
+    ├── 04_authority_report_assignment.png
+    ├── 05_authority_verification_workspace.png
+    ├── 06_evidence_comparison.png
+    ├── 07_staff_dashboard.png
+    └── 08_reporter_dashboard.png
+
+.github/
+└── workflows/
+    └── quality.yml
 ```
 
 ---
 
 ## 14. Data and Supabase Contract
 
-The frontend currently works against the following application-level data contract:
+The current frontend workflow expects application data centered on:
 
 - `profiles`
 - `reports`
@@ -494,257 +402,156 @@ The frontend currently works against the following application-level data contra
 - `report_assignments`
 - `authority_reviews`
 
-Key workflow mutations use protected database functions/RPCs rather than trusting arbitrary client-side state changes.
+Key workflow mutations are designed around protected RPCs rather than trusting client-side role fields alone.
 
-### Evidence storage
-
-Reporter before evidence uses a structured storage path similar to:
-
-```text
-reports/{user-id}/{report-id}/before_{safe-file-name}.{extension}
-```
-
-The frontend uses the Supabase publishable client key. Service-role credentials and database passwords must never be placed in frontend source or committed to Git.
-
-For the exact connected-project contract and setup notes, see [`supabase/README.md`](supabase/README.md) and [`docs/database-schema.md`](docs/database-schema.md).
+The repository's Supabase documentation is the current setup reference. Frontend configuration uses the Vite publishable key rather than a service-role secret.
 
 ---
 
 ## 15. Evidence Handling
 
-Evidence is a first-class part of the workflow.
+The prototype treats evidence as a first-class part of the workflow.
 
-### Before-cleaning evidence
+- Reporter supplies **before-cleaning evidence** when creating a new report.
+- Staff can supply **after-cleaning evidence** during task completion.
+- Authority can inspect evidence and use it during human verification.
+- The system retains review/evidence history in the workflow UI.
 
-The reporter supplies evidence when creating a new report.
-
-### After-cleaning evidence
-
-Cleaning staff supplies evidence after performing the physical task.
-
-### Authority verification
-
-Authority compares the available evidence before making the final decision.
-
-The interface includes explicit human verification checks such as:
-
-- same reported area;
-- issue addressed;
-- evidence clear enough for a responsible decision.
-
-This is designed to prevent an uploaded image from automatically becoming a resolution decision.
+Test evidence is clearly separated from real-world impact claims.
 
 ---
 
 ## 16. AI Status and Future Integration
 
-### Current status: AI inference layer pending
+### Current status
 
-The product name is **WasteVoice AI**, and the C29 ideation selected an AI-assisted direction, but the current public Review 1 implementation should **not** be interpreted as a completed server-side LLM integration.
+The AI inference layer is **not yet integrated into the public runtime**. It is therefore not presented as complete.
 
 ### Planned AI responsibilities
 
-The future server-side AI layer may assist with:
+1. Understand natural-language descriptions.
+2. Extract explicit structured fields.
+3. Preserve unknown or missing values rather than inventing them.
+4. Provide advisory suggestions that the reporter can correct.
+5. Support later image understanding only after the core workflow is validated.
 
-- natural-language report understanding;
-- structured field extraction;
-- guided reporting;
-- category assistance;
-- uncertainty-aware suggestions;
-- optional image understanding;
-- later-stage prioritisation or visibility features after sufficient data exists.
+### Safety constraints
 
-### Explicitly not claimed at Review 1
-
-- No completed server-side LLM integration is claimed.
-- No AI accuracy percentage is claimed.
-- No automatic waste-image detection accuracy is claimed.
-- No predictive cleanup model is claimed.
-- No anomaly-detection performance is claimed.
-- No autonomous staff assignment is claimed.
-- No automatic resolution decision is claimed.
-
-This boundary is intentional: the repository documents what exists rather than using the word “AI” as a substitute for implementation evidence.
+- Server-side AI only.
+- No API keys in client code.
+- No fabricated missing fields.
+- Human correction before workflow use.
+- AI never makes the final resolution decision.
 
 ---
 
 ## 17. Testing and Validation
 
-### Build verification
+### Verified locally
 
-A local production build was successfully executed on the current development machine:
+- `npm run lint` is configured as a quality check.
+- `npm run build` successfully completed TypeScript compilation and Vite production build on the development machine.
+- The build emitted a large JavaScript chunk warning; this remains an optimization item.
 
-```bash
-npm run build
-```
+### Controlled runtime test
 
-The build completed TypeScript compilation and the Vite production build. Vite reported a large JavaScript chunk warning; this is a performance optimization item, not a build failure.
+A three-role controlled workflow was exercised on **15 September 2026**:
 
-### End-to-end functional test
+**Reporter → Authority → Staff → After Evidence → Authority Verification**
 
-A controlled end-to-end prototype test was performed using test accounts for:
+The supporting screenshots are stored in [`docs/evidence/`](docs/evidence/).
 
-- Reporter
-- Authority
-- Cleaning Staff
+### Still pending
 
-The tested path included report creation, evidence upload, authority assignment, staff task handling, after-evidence submission, evidence comparison, and authority verification controls.
-
-### Test evidence
-
-The corresponding local evidence set is organized with the following filenames:
-
-```text
-01_homepage.png
-02_authority_login.png
-03_authority_dashboard.png
-04_authority_report_assignment.png
-05_authority_verification_workspace.png
-06_evidence_comparison.png
-07_staff_dashboard.png
-08_reporter_dashboard.png
-```
-
-These screenshots document prototype behavior. They do not constitute proof of real-world cleaning impact.
-
-### Tests still requiring systematic evidence
-
-- Role/RLS verification against the connected Supabase project.
-- More systematic edge-case testing.
-- Three-user validation using retained tester interaction evidence.
-- AI reliability testing after the AI layer is implemented.
-
-See [`docs/testing.md`](docs/testing.md) for the detailed test matrix.
+- Systematic role/RLS access tests.
+- Explicit validation of connected Supabase table/RPC signatures against the deployment.
+- Formal retained three-user validation evidence.
+- AI edge-case/reliability tests after AI integration.
+- Production deployment verification.
 
 ---
 
 ## 18. Security and Privacy
 
-The project follows these basic security boundaries:
-
-- Local environment files are ignored by Git.
-- Supabase publishable client configuration is kept in environment variables.
-- Service-role keys and database passwords are not placed in the frontend.
-- Role-aware application routing is used for user workspaces.
-- Sensitive workflow mutations use protected backend/database functions.
-- Evidence and account information should be handled only through the intended authenticated workflow.
-- Field recordings must respect consent and privacy requirements.
-
-The C29 guidance requires privacy-conscious handling of faces, ID cards, vehicle numbers and account details. Such information should be blurred or excluded where applicable.
+- Authentication is handled through Supabase Auth.
+- Protected application routes are role-aware.
+- Client-side configuration uses the publishable Supabase key.
+- Service-role/database credentials are not intended for frontend use.
+- RLS and protected RPCs remain part of the security verification work.
+- The project does not claim security completeness before the pending runtime access tests are executed.
 
 ---
 
 ## 19. Responsible AI and Academic Integrity
 
-WasteVoice AI follows the C29 principle that AI is a **co-pilot, not the author**.
+This project distinguishes between:
 
-### Project integrity rules
+- student-owned field evidence,
+- stakeholder evidence,
+- implemented software,
+- actual test results,
+- proposed AI behavior.
 
-- Field observations must come from the team's own investigation.
-- AI-generated claims must be verified before becoming project evidence.
-- External sources must be checked before citation.
-- Proposed functionality must not be described as completed functionality.
-- Test results must come from actual execution.
-- AI-generated output must remain subject to human review.
-- Personal or sensitive information should not be unnecessarily exposed.
-
-### AI use documentation
-
-The repository includes:
-
-- [`docs/ai-usage-audit.md`](docs/ai-usage-audit.md)
-- [`docs/ai-integration.md`](docs/ai-integration.md)
-
-These documents separate AI-assisted project work from implemented application functionality.
-
-For the original C29 AI Immersion deliverables, the guide requires declaration of AI tools, their purpose, and a sample prompt, alongside the required E1–E4 evidence recordings and final-deck/video declaration.
+AI assistance is treated as a co-pilot for development and documentation support, not as a substitute for field evidence or student judgment. Conclusions should remain defendable by the project team, and sources/claims should be verified before final submission.
 
 ---
 
 ## 20. Review 1 Completion Status
 
-| Review 1 requirement | Current status |
-|---|---|
-| Public GitHub repository | ✅ Complete |
-| Clear project README | ✅ Complete |
-| Problem and evidence documented | ✅ Complete |
-| Key modules/features documented | ✅ Complete |
-| Current implementation documented | ✅ Complete |
-| Build verified locally | ✅ Complete |
-| Reporter workflow tested | ✅ Complete as controlled prototype test |
-| Authority workflow tested | ✅ Complete as controlled prototype test |
-| Staff workflow tested | ✅ Complete as controlled prototype test |
-| Evidence workflow tested | ✅ Complete as controlled prototype test |
-| Human verification workflow tested | ✅ Complete as controlled prototype test |
-| Server-side AI inference | ⏳ Pending |
-| Systematic RLS/runtime security verification | ⏳ Pending |
-| Three-user validation evidence | ⏳ Retain/verify tester evidence before claiming complete |
-| Production deployment | ⏳ Pending |
+### Completed / demonstrated
 
-> **Important:** “Complete” here means the implementation/test scope described in this table was actually demonstrated. It does not mean the project has already achieved real-world impact.
+- Public GitHub repository.
+- Clear problem context and carried-forward field evidence.
+- C29 ideation directions and solution-selection rationale.
+- React/TypeScript/Vite prototype.
+- Supabase authentication and data/storage integration.
+- Reporter → Authority → Staff → Verification workflow.
+- Before/after evidence handling.
+- Role-aware dashboards.
+- Controlled runtime test with retained screenshots.
+- Review 1 report and testing documentation.
+
+### Not claimed as complete
+
+- Server-side AI inference.
+- Measured AI accuracy.
+- Real-world cleanup impact.
+- Production security verification.
+- Production deployment.
+- Formal three-user validation evidence until the underlying tester interaction is retained.
 
 ---
 
 ## 21. Pending Work and Next Steps
 
-### Immediate next steps
-
-1. Retain the Review 1 screenshots and test records.
-2. Verify the connected Supabase tables, RLS policies and RPC signatures.
-3. Keep systematic Reporter/Authority/Staff test evidence.
-4. Confirm any three-user validation records against retained tester evidence.
-
-### AI integration
-
-5. Implement the server-side AI report-structuring layer.
-6. Validate structured output against a schema.
-7. Test complete, incomplete and vague descriptions.
-8. Preserve uncertainty instead of inventing missing facts.
-9. Require reporter confirmation before AI-derived information becomes part of a report.
-
-### Later enhancements
-
-10. Optional image understanding.
-11. Voice and multilingual reporting.
-12. Better evidence comparison.
-13. Prediction after sufficient historical data exists.
-14. Anomaly detection after sufficient data exists.
-15. Practical bundle-size optimization.
-16. Production deployment and monitoring.
+1. Validate connected Supabase tables, RLS and RPC signatures against the actual deployment.
+2. Retain systematic Reporter/Authority/Staff role and access test evidence.
+3. Complete formal tester validation evidence.
+4. Implement server-side AI report structuring.
+5. Test AI on complete, incomplete and vague descriptions.
+6. Optimize the large frontend bundle where practical.
+7. Verify production deployment.
+8. Add later enhancements such as voice/multilingual reporting, image comparison, prediction and anomaly detection only after the core workflow is validated.
 
 ---
 
 ## 22. Local Setup
 
-### Prerequisites
-
-- Node.js
-- npm
-- A Supabase project
-- Git
-
-### Install
-
 ```bash
 npm install
-```
-
-### Development
-
-```bash
 npm run dev
 ```
 
-### Lint
-
-```bash
-npm run lint
-```
-
-### TypeScript/build verification
+For a production build:
 
 ```bash
 npm run build
+```
+
+For linting:
+
+```bash
+npm run lint
 ```
 
 The development server normally runs at the local Vite URL printed by the terminal.
@@ -781,6 +588,7 @@ The frontend client intentionally uses the Supabase publishable key. See [`supab
 - [`docs/database-schema.md`](docs/database-schema.md) — application data contract.
 - [`docs/ai-integration.md`](docs/ai-integration.md) — AI integration and safety specification.
 - [`docs/ai-usage-audit.md`](docs/ai-usage-audit.md) — AI usage and integrity record.
+- [`docs/evidence/`](docs/evidence/) — controlled runtime screenshots for Review 1.
 - [`supabase/README.md`](supabase/README.md) — Supabase setup notes.
 
 ---
@@ -788,7 +596,3 @@ The frontend client intentionally uses the Supabase publishable key. See [`supab
 ## Final Project Statement
 
 WasteVoice AI is not presented as a finished autonomous AI waste-management system. At Review 1, it is a working human-controlled prototype that makes the reporting, assignment, evidence and verification process more structured and visible.
-
-The next engineering step is to add and validate the server-side AI layer without weakening the project's evidence integrity, privacy boundaries, or human decision points.
-
-> **See the problem. Structure the report. Track the work. Verify the result.**
