@@ -2,19 +2,19 @@
 
 ## Current verified result
 
-The project was locally verified with:
+A local production build has previously been completed successfully with:
 
 ```bash
 npm run build
 ```
 
-The TypeScript compilation and Vite production build completed successfully. The build emitted a large-chunk performance warning; no build failure was reported.
+The recorded result completed TypeScript compilation and the Vite production build, with a large JavaScript chunk warning noted as a performance optimization item. Re-run the command after installing dependencies on the current machine before treating it as a fresh verification result.
 
 ## Functional test matrix
 
 | Area | Review 1 status | Evidence to retain |
 |---|---|---|
-| Application build | Passed locally | terminal output/screenshot |
+| Application build | Previously passed locally | terminal output/screenshot; re-run for fresh evidence |
 | Login and role routing | Implemented; runtime test evidence should be retained | browser screenshot + console if needed |
 | Protected routes | Implemented | role-access test |
 | Report creation | Implemented | reporter workflow screenshot |
@@ -27,7 +27,7 @@ The TypeScript compilation and Vite production build completed successfully. The
 | After evidence | Implemented in application | upload evidence |
 | Authority verification | Implemented in application | approve/reject evidence |
 | AI inference | Pending | do not claim as tested |
-| Three-user validation | Pending | collect after recruiting testers |
+| Three-user validation | See `docs/validation.md`; use only with retained tester evidence | tester interaction/evidence |
 
 ## Role-based tests to run
 
@@ -76,4 +76,4 @@ The expected safety behavior is to preserve uncertainty and avoid inventing miss
 
 ## Evidence rule
 
-A test should be marked **Passed** only after the test is actually executed. A planned test is not a test result.
+A test should be marked **Passed** only after the test is actually executed. A planned test is not a test result. Screenshots, terminal output, or other execution evidence should be retained for important Review 1 claims.
