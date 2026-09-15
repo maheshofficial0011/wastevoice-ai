@@ -41,19 +41,19 @@ The public repository currently contains:
 
 ## 4. What is currently verified
 
-The application has passed a local production build using:
+A local production build has previously been completed successfully with:
 
 ```bash
 npm run build
 ```
 
-TypeScript compilation and the Vite production build completed successfully. A large JavaScript chunk warning remains as a performance optimization item.
+The recorded build completed TypeScript compilation and the Vite production build, with a large JavaScript chunk warning noted as a performance optimization item. This repository should be re-installed and re-run locally before treating that result as a fresh verification on the current machine.
 
 The repository also contains the implementation of the role-based workflow described above. Runtime database/RLS verification should be retained as explicit test evidence rather than inferred from source code alone.
 
 ## 5. AI status
 
-The project specification selected natural-language report structuring as the primary AI direction. The current public repository does not provide sufficient implementation evidence to claim a completed server-side LLM integration. Therefore the AI inference layer is listed as pending rather than falsely marked complete.
+The C29 ideation work selected an integrated WasteVoice AI direction combining natural-language understanding, guided reporting, structured report generation, visibility, and optional image understanding. The current public repository does not provide sufficient implementation evidence to claim a completed server-side LLM integration. Therefore the AI inference layer is listed as pending rather than falsely marked complete.
 
 When implemented, AI should:
 
@@ -75,21 +75,28 @@ When implemented, AI should:
 
 The application uses React/TypeScript/Vite on the frontend and Supabase for authentication, PostgreSQL data and Storage. The current frontend contract references `profiles`, `reports`, `report_evidence`, `report_assignments` and `authority_reviews`, with protected RPCs for key workflow mutations.
 
-## 8. Pending work and next steps
+## 8. C29 ideation and solution selection
 
-1. Validate the deployed Supabase tables, RLS and RPC signatures against the actual connected project.
-2. Run and record systematic Reporter/Authority/Staff end-to-end tests with real test accounts.
-3. Implement the server-side AI report-structuring integration.
-4. Test AI behavior on complete, incomplete and vague descriptions.
-5. Conduct validation with at least three real testers, as required by the Pathway A continuation track.
-6. Optimize the large frontend bundle where practical.
-7. Verify production deployment.
-8. Continue with later-stage enhancements such as voice/multilingual reporting, image comparison, prediction and anomaly detection only after the core workflow is validated.
+The ideation stage used the required eight directions: Sense, Predict, Understand Language, Optimise, Detect Anomalies, Assist a User, Automate a Step, and Make an Invisible Problem Visible. The weighted evaluation used Impact 30%, Technical Feasibility 25%, Data Availability 15%, Cost & Sustainability 15%, and Ethics/Privacy/Risk 15%.
 
-## 9. Repository
+The selected integrated solution was **WasteVoice AI — AI-Powered Campus Waste Reporter**. It combines natural-language understanding, guided reporting, structured report generation, report visibility, and optional image understanding. The **AI Waste Image Detector** was the runner-up because image analysis alone does not directly address the broader reporting and information gap identified during the field and stakeholder investigation.
+
+## 9. Pending work and next steps
+
+1. Re-run dependency installation, lint and production build on the current machine and retain the terminal evidence.
+2. Validate the deployed Supabase tables, RLS and RPC signatures against the actual connected project.
+3. Run and record systematic Reporter/Authority/Staff end-to-end tests with real test accounts.
+4. Confirm that any three-user validation records are backed by corresponding tester interaction/evidence before treating them as completed validation evidence.
+5. Implement the server-side AI report-structuring integration.
+6. Test AI behavior on complete, incomplete and vague descriptions.
+7. Optimize the large frontend bundle where practical.
+8. Verify production deployment.
+9. Continue with later-stage enhancements such as voice/multilingual reporting, image comparison, prediction and anomaly detection only after the core workflow is validated.
+
+## 10. Repository
 
 **Public GitHub repository:** https://github.com/maheshofficial0011/wastevoice-ai
 
-## 10. Integrity statement
+## 11. Integrity statement
 
-This report intentionally distinguishes implemented functionality from planned AI features and from test results that still need to be executed. No user-validation outcome, AI accuracy figure, cleanup improvement or production result is claimed before it has been actually measured.
+This report intentionally distinguishes implemented functionality from planned AI features and from test results that still need to be executed. No AI accuracy figure, cleanup improvement or production result is claimed before it has actually been measured. Validation records should be treated as completed evidence only when their underlying tester interaction/evidence is retained.
