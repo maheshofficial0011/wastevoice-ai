@@ -152,3 +152,93 @@ Expected safety behavior:
 ## 8. Evidence rule
 
 A test should be marked **Passed** only after it is actually executed. A planned test is not a test result. Screenshots, terminal output, or other execution evidence should be retained for important Review 1 claims.
+
+
+
+## 9. Granular Technical Test Cases
+
+The following test cases define the expected behavior for important user, validation, workflow, and failure scenarios. A case is marked as passed only after runtime execution evidence is retained.
+
+| ID | Test case | Input / condition | Expected result | Current status |
+|---|---|---|---|---|
+| TC-01 | Valid reporter login | Valid Reporter credentials | Reporter dashboard opens | Functionally exercised |
+| TC-02 | Report with valid data | Valid description, location and before image | Report can be submitted | Functionally exercised |
+| TC-03 | Empty location | Location left empty | Submission is blocked with validation feedback | Implemented; runtime evidence pending |
+| TC-04 | Short description | Description below minimum length | Submission is blocked with validation feedback | Implemented; runtime evidence pending |
+| TC-05 | Missing before evidence | Valid text but no before image | Submission is blocked | Implemented; runtime evidence pending |
+| TC-06 | Unsupported image type | Unsupported file format | Upload is rejected | Implemented; runtime evidence pending |
+| TC-07 | Oversized image | Image exceeds configured limit | Upload is rejected with user feedback | Implemented; runtime evidence pending |
+| TC-08 | Reporter edits eligible report | Report still allows reporter edits | Changes can be made | Implemented; runtime evidence pending |
+| TC-09 | Reporter edits locked report | Report no longer allows reporter edits | Edit operation is prevented | Implemented; runtime evidence pending |
+| TC-10 | Authority assignment | Submitted report + available staff | Authority can assign staff | Functionally exercised |
+| TC-11 | Staff task access | Assigned staff account | Assigned task is visible | Functionally exercised |
+| TC-12 | Staff completion evidence | Assigned task + after-cleaning image | Staff can submit completion evidence | Functionally exercised |
+| TC-13 | Authority verification | Staff evidence available | Authority can review evidence and make final decision | Functionally exercised |
+| TC-14 | Staff attempts final resolution | Staff role | Final resolution remains unavailable to staff | Runtime security test pending |
+| TC-15 | Reporter attempts authority action | Reporter role | Authority-only action is unavailable | Runtime security test pending |
+| TC-16 | Invalid/missing session | No valid authenticated session | Protected operation is denied and user is redirected or shown an authentication error | Runtime test pending |
+| TC-17 | Backend/database failure | Supabase operation fails | User receives controlled error feedback; application does not silently report success | Failure-injection test pending |
+| TC-18 | Evidence upload failure | Storage/upload operation fails | Upload failure is shown and report is not falsely marked as successful | Failure-injection test pending |
+
+### Test result interpretation
+
+- **Functionally exercised** = the workflow was executed successfully using controlled prototype data.
+- **Implemented; runtime evidence pending** = validation exists in the application code, but the specific case has not yet been retained as a separate execution result.
+- **Runtime security test pending** = requires execution against the connected Supabase/RLS environment.
+- **Failure-injection test pending** = requires intentionally simulating a service/storage/database failure.
+- A planned test is never reported as a passed test.
+
+## 10. Error Handling and Failure Boundaries
+
+WasteVoice AI should fail safely rather than silently presenting an unsuccessful operation as successful.
+
+### Current application-level handling
+
+The application includes validation around important user inputs and evidence handling, including:
+
+- required/empty location validation;
+- minimum description validation;
+- additional-information length limits;
+- image type validation;
+- image size validation;
+- before-evidence requirements;
+- authentication/session checks;
+- restrictions on editing reports after workflow progression.
+
+### Failure cases to verify
+
+The following failure conditions require dedicated runtime verification:
+
+1. Supabase authentication failure.
+2. Database read/write failure.
+3. Evidence storage/upload failure.
+4. Network interruption during a submission.
+5. Expired or missing authenticated session.
+6. Unauthorized role attempting a protected operation.
+7. Failed report assignment.
+8. Failed status update.
+
+Expected behavior is to show a clear user-facing error, preserve data where possible, and avoid displaying a false success state.
+
+### Error boundary status
+
+A dedicated React error boundary should be added and tested in a subsequent implementation step so that an unexpected component-level exception does not result in an uncontrolled blank application state.
+
+**Current status: Planned / not yet claimed as implemented.**
+
+## 11. Expected vs Actual Result Recording
+
+For future runtime testing, each important test should record:
+
+| Field | Required information |
+|---|---|
+| Test ID | Example: TC-03 |
+| Preconditions | Account, role, data or system state |
+| Action | Exact user/system action |
+| Expected result | Behavior defined before execution |
+| Actual result | What actually happened |
+| Status | Passed / Failed / Blocked |
+| Evidence | Screenshot, terminal output or other retained proof |
+| Notes | Error message, limitation or follow-up |
+
+This prevents implementation status from being confused with execution status and provides traceable evidence for later project reviews.

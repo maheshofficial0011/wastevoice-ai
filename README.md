@@ -406,6 +406,47 @@ Key workflow mutations are designed around protected RPCs rather than trusting c
 
 The repository's Supabase documentation is the current setup reference. Frontend configuration uses the Vite publishable key rather than a service-role secret.
 
+
+
+### API and Workflow Operation Contract
+
+WasteVoice AI currently uses Supabase Auth, the Supabase Data API, Supabase Storage, and protected PostgreSQL RPC operations rather than a separate REST backend maintained in this repository.
+
+#### Authentication
+
+| Operation | Purpose |
+|---|---|
+| Supabase Auth sign-in/session | Authenticate Reporter, Authority and Staff users |
+| Supabase Auth user lookup | Identify the current authenticated user |
+
+#### Application data resources
+
+| Resource | Purpose |
+|---|---|
+| `profiles` | Stores the user's application profile and role |
+| `reports` | Stores canonical waste-report records |
+| `report_evidence` | Stores before/after evidence associated with reports |
+| `report_assignments` | Stores staff assignment records |
+| `authority_reviews` | Stores authority review and verification records |
+
+#### Protected workflow operations
+
+| RPC operation | Responsible role | Purpose |
+|---|---|---|
+| `reporter_update_report` | Reporter | Update an eligible report |
+| `assign_report_to_staff` | Authority | Assign a report to cleaning staff |
+| `staff_update_task_status` | Staff | Update cleaning task status |
+| `authority_review_report` | Authority | Record an authority review/verification decision |
+
+These RPC names represent the current frontend database contract. Their exact deployed SQL signatures should be verified against the connected Supabase project before publishing a migration or treating this README as a complete database specification.
+
+#### Evidence storage
+
+The current evidence storage bucket is:
+
+```text
+waste-evidence
+
 ---
 
 ## 15. Evidence Handling
