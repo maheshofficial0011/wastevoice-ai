@@ -1,10 +1,10 @@
 # WasteVoice AI — Prototype Validation Record
 
-## Review 1 validation
+## Review 1 validation status
 
-WasteVoice AI was reviewed through three prototype validation records covering the main user journeys of the application.
+This file contains three prototype validation records dated 15 September 2026. **Treat these as completed validation evidence only if the corresponding tester interaction, notes, screenshot/video, or other original evidence is retained by the project team.** The repository must not use a drafted record as a substitute for actual user evidence.
 
-> **Evidence integrity:** These records document prototype feedback and should be retained with the corresponding tester interaction/evidence. They are not presented as statistical user research or as proof of production effectiveness.
+> **Evidence integrity:** These records are not statistical user research or proof of production effectiveness. If the underlying tester evidence is unavailable, move the record to a planned-test section rather than presenting it as completed validation.
 
 ## Tester 1 — T01
 
@@ -59,7 +59,7 @@ WasteVoice AI was reviewed through three prototype validation records covering t
 
 ## Consolidated findings
 
-The three validation records cover:
+If the three underlying sessions are retained as genuine tester evidence, the records cover:
 
 - **T01:** report creation and reporting-flow usability
 - **T02:** evidence upload and reporter-side progress visibility
@@ -67,6 +67,6 @@ The three validation records cover:
 
 The common improvement theme is clearer visibility of report status, next action, and responsibility at each workflow stage.
 
-## Next validation step
+## Additional validation required
 
-Further testing should use actual test accounts and record execution evidence for role-based permissions, database/RLS behavior, workflow transitions, and AI behavior once the server-side AI integration is implemented.
+Regardless of these prototype records, the project still needs explicit execution evidence for role-based permissions, database/RLS behavior, workflow transitions, edge cases, and AI behavior once the server-side AI integration is implemented.
