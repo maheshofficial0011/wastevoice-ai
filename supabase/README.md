@@ -27,14 +27,14 @@ These names are the **application contract observed in the current frontend**, n
 
 ## Environment
 
-Create a local `.env` file containing:
+Create a local `.env.local` file containing:
 
 ```text
 VITE_SUPABASE_URL=your-project-url
-VITE_SUPABASE_ANON_KEY=your-anon-key
+VITE_SUPABASE_PUBLISHABLE_KEY=your-publishable-key
 ```
 
-Never commit `.env`, service-role keys, database passwords, or other secrets.
+These are the only client-side environment values expected by `src/lib/supabase.ts`. Never put a service-role key, database password, or other privileged secret in the frontend or repository.
 
 ## Evidence storage
 
