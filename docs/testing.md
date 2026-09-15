@@ -242,3 +242,44 @@ For future runtime testing, each important test should record:
 | Notes | Error message, limitation or follow-up |
 
 This prevents implementation status from being confused with execution status and provides traceable evidence for later project reviews.
+
+## 12. Error Boundary Runtime Test
+
+### Test ID: TC-19 — React Error Boundary
+
+**Purpose:**
+Verify that the application displays a controlled fallback interface when an unexpected React rendering error occurs.
+
+**Precondition:**
+- Development application running locally.
+- `ErrorBoundary` wraps the main application in `src/main.tsx`.
+- A temporary development-only error trigger was used for this test.
+- The temporary trigger was removed after verification.
+
+**Test action:**
+1. Start the development server.
+2. Trigger an intentional React rendering error using the temporary development-only test condition.
+3. Observe the application response.
+
+**Expected result:**
+- The application should not remain as a blank page.
+- The `ErrorBoundary` should catch the rendering error.
+- A user-facing fallback screen should be displayed.
+- The fallback should explain that an unexpected application error occurred.
+- A reload action should be available.
+
+**Actual result:**
+- The Error Boundary caught the intentional rendering error.
+- The application displayed the `Something went wrong` fallback interface.
+- The fallback message and `Reload application` button were visible.
+- The result was captured using a runtime screenshot during controlled testing.
+
+**Status:** PASS
+
+**Evidence:**
+- Controlled runtime screenshot captured during the test.
+- Production build subsequently passed with `npm run build`.
+
+**Important qualification:**
+- The intentional error trigger was used only for controlled testing and was removed afterward.
+- This test verifies the React rendering-error boundary only. It does not prove that every backend, database, authentication, network, or browser failure is handled by the boundary.
