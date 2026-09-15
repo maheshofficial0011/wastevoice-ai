@@ -89,19 +89,19 @@ The current public repository contains a React/Supabase application workflow, in
 
 ### Build verification
 
-The application has been verified locally with:
+A local production build has previously been completed successfully with:
 
 ```bash
 npm run build
 ```
 
-The TypeScript/Vite production build completed successfully. The build reported a bundle-size warning for a large JavaScript chunk; this is a performance optimization item, not a build failure.
+The recorded build completed TypeScript compilation and the Vite production build, with a large JavaScript chunk warning noted as a performance optimization item. Re-run the command after installing dependencies on the current machine before treating this as a fresh verification result.
 
 ---
 
 ## 4. AI Status — Important Accuracy Note
 
-The project specification defines **AI-assisted natural-language report structuring** as the primary AI direction. The current public implementation should **not** be interpreted as having a completed server-side LLM integration merely because the product is named WasteVoice AI.
+The C29 ideation work selected an integrated WasteVoice AI direction combining natural-language understanding, guided reporting, structured report generation, visibility, and optional image understanding. The current public implementation should **not** be interpreted as having a completed server-side LLM integration merely because the product is named WasteVoice AI.
 
 At Review 1:
 
@@ -160,7 +160,7 @@ When the AI layer is implemented, it should be server-side, structured, uncertai
 | Evidence storage | Supabase Storage |
 | AI | Planned server-side language-processing integration |
 
-Environment variables are used for Supabase client configuration. Secrets and service-role credentials must not be committed to the repository.
+Environment variables are used for Supabase client configuration. The public repository does not contain local environment files or service-role credentials.
 
 ---
 
@@ -191,6 +191,7 @@ wastevoice-ai/
 │   ├── ai-integration.md
 │   ├── ai-usage-audit.md
 │   ├── testing.md
+│   ├── validation.md
 │   └── review-1-report.md
 └── supabase/
     └── README.md
@@ -212,7 +213,31 @@ No assumption is presented as field evidence, and no planned feature is presente
 
 ---
 
-## 9. Documentation
+## 9. C29 Ideation and Solution Selection
+
+The AI Immersion ideation stage used the required eight directions: **Sense, Predict, Understand Language, Optimise, Detect Anomalies, Assist a User, Automate a Step, and Make an Invisible Problem Visible**.
+
+The comparative evaluation used the required weighted criteria: **Impact 30%, Technical Feasibility 25%, Data Availability 15%, Cost & Sustainability 15%, Ethics/Privacy/Risk 15%**. The documented scoring favored practical reporting/visibility concepts because they can be prototyped with user-provided data and do not require a large historical dataset. Prediction and anomaly concepts were intentionally kept lower in priority because sufficient verified historical data was not yet available.
+
+### Selected integrated solution
+
+**WasteVoice AI — AI-Powered Campus Waste Reporter** combines:
+
+- Understand Language — assist with natural-language waste descriptions
+- Assist a User — guided reporting workflow
+- Automate a Step — structure user-provided information
+- Make the Problem Visible — report/status dashboard
+- Sense — optional/supporting image analysis
+
+### Runner-up
+
+**AI Waste Image Detector** was the runner-up. It can help identify visible waste categories, but by itself it does not address the broader reporting and information gap identified during the field and stakeholder investigation. Image analysis is therefore retained as a supporting direction rather than the complete solution.
+
+The current Review 1 code implements the reporting, evidence, visibility and human-review workflow; the server-side AI inference layer remains pending.
+
+---
+
+## 10. Documentation
 
 - [`docs/project-source-of-truth.md`](docs/project-source-of-truth.md) — evidence, scope, decisions and implementation boundaries
 - [`docs/architecture.md`](docs/architecture.md) — application architecture and workflow
@@ -220,12 +245,13 @@ No assumption is presented as field evidence, and no planned feature is presente
 - [`docs/ai-integration.md`](docs/ai-integration.md) — AI design, safety boundary and current status
 - [`docs/ai-usage-audit.md`](docs/ai-usage-audit.md) — AI-assisted development/documentation record
 - [`docs/testing.md`](docs/testing.md) — testing matrix, current evidence and limitations
+- [`docs/validation.md`](docs/validation.md) — prototype validation record; only treat entries as completed evidence when corresponding tester evidence is retained
 - [`docs/review-1-report.md`](docs/review-1-report.md) — submission-ready Review 1 progress report
 - [`supabase/README.md`](supabase/README.md) — database deployment/verification notes
 
 ---
 
-## 10. Review 1 Status
+## 11. Review 1 Status
 
 The official Project Better Tomorrow Review 1 asks for approximately 35% project completion and requires a public GitHub repository plus a report covering completed work, key features/modules, what works, and pending work/next steps.
 
@@ -242,21 +268,21 @@ The official Project Better Tomorrow Review 1 asks for approximately 35% project
 - Staff assignment and status workflow
 - After-cleaning evidence workflow
 - Authority verification workflow
-- Production build verification
 
-### Pending / next
+### Verification / pending
 
+- Re-run local dependency installation, lint and production build on the current machine
 - Final validation of the deployed Supabase schema/RLS against the actual connected project
 - Systematic end-to-end role testing with real test accounts
+- Confirm and retain evidence for any three-user validation records used for the continuation track
 - Server-side AI natural-language structuring integration and reliability testing
-- User validation with at least three real testers as required for the continuation track
 - Performance optimization
 - Production deployment verification
 - Final evidence package and later-stage enhancements
 
 ---
 
-## 11. Roadmap
+## 12. Roadmap
 
 - [x] Field problem and Pathway A continuation established
 - [x] Eight AI ideation directions documented
@@ -273,17 +299,17 @@ The official Project Better Tomorrow Review 1 asks for approximately 35% project
 - [x] Staff workflow
 - [x] After evidence
 - [x] Authority verification workflow
-- [x] Local production build
+- [ ] Fresh local lint/build verification
 - [ ] Final Supabase/RLS verification against deployed project
 - [ ] Server-side AI integration
 - [ ] AI reliability tests
-- [ ] Three-user validation
+- [ ] Three-user validation evidence confirmation
 - [ ] Production deployment verification
 - [ ] Advanced AI features
 
 ---
 
-## 12. Review 1 Repository
+## 13. Review 1 Repository
 
 **GitHub:** https://github.com/maheshofficial0011/wastevoice-ai
 
