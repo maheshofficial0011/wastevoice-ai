@@ -88,6 +88,16 @@ export function extractOutputText(payload) {
     return payload.output_text
   }
 
+  const candidates = Array.isArray(payload.candidates) ? payload.candidates : []
+  const candidateParts = candidates[0]?.content?.parts
+  if (Array.isArray(candidateParts)) {
+    const candidateText = candidateParts
+      .filter((part) => part && typeof part === "object" && typeof part.text === "string")
+      .map((part) => part.text)
+      .join("")
+    if (candidateText) return candidateText
+  }
+
   const choices = Array.isArray(payload.choices) ? payload.choices : []
   for (const choice of choices) {
     const content = choice?.message?.content
