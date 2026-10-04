@@ -774,9 +774,7 @@ function AuthorityDashboard() {
             return item.file_path
         }
 
-        return supabase.storage
-            .from(EVIDENCE_BUCKET)
-            .getPublicUrl(item.file_path).data.publicUrl
+        return resolveEvidenceReference(item.file_path, evidenceUrls)
     }
 
     function getBeforeEvidenceUrl(report: WasteReport) {
