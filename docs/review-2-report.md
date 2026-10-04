@@ -17,7 +17,7 @@ For Review 2, the prototype has been extended with a narrow AI-assisted report-s
 
 The repository also includes a Review 2 security hardening pass: the evidence bucket is private, workflow RPCs are no longer executable by the anonymous role, redundant legacy RPCs were restricted, and legacy tables received restrictive policies.
 
-The remaining evidence gap is explicit: **three real-tester Review 2 validation sessions have not yet been retained in the repository, and the AI provider secret has not yet been configured for live model inference.** These are not being presented as completed.
+The remaining academic/evidence gap is explicit: **three genuine external Review 2 tester sessions have not been claimed or retained.** Live Gemini inference and internal/browser validation have been completed; no external-user evidence is fabricated.
 
 ## 2. Problem Context and Field Evidence
 
@@ -196,7 +196,7 @@ React + TypeScript form
 Input validation and text limits
 
 **AI / ML engine**  
-Supabase Edge Function with a configurable OpenAI model
+Supabase Edge Function using Gemini (`gemini-3.5-flash-lite`)
 
 **Named technique**  
 Natural-language understanding and schema-constrained structured information extraction
@@ -251,7 +251,7 @@ The four active workflow RPCs now have explicit execution access for authenticat
 
 ### Evidence security
 
-The `waste-evidence` bucket is configured as **private**. A legacy `report-evidence` bucket was also found during final audit and hardened to private because existing reports referenced objects there.
+The `waste-evidence` bucket is configured as **private**. The legacy `report-evidence` bucket was also hardened to private because existing reports referenced objects there.
 
 Access is controlled through authenticated Storage policies for:
 
@@ -329,7 +329,7 @@ Review 1 retained controlled screenshots cover:
 | Staff blocked from final resolution | **Verified in live SQL role probe** |
 | Invalid location/description | Implemented; runtime evidence should be retained |
 | Evidence upload validation | Implemented; runtime evidence should be retained |
-| Error boundary | **Code verified; retained runtime screenshot pending** |
+| Error boundary | **Verified by controlled local runtime test** |
 | AI complete description | Provider configuration + runtime capture required |
 | AI missing location | Provider configuration + runtime capture required |
 | AI missing category | Provider configuration + runtime capture required |
@@ -475,8 +475,9 @@ This project demonstrates:
 - [x] Technical block diagram created.
 - [x] AI technique named.
 - [x] Human decision point shown.
-- [ ] Three real Review 2 tester sessions retained.
-- [ ] Feedback -> change -> retest chain retained.
+- [ ] Three genuine external Review 2 tester sessions retained.
+- [ ] External feedback -> change -> retest chain retained.
+- [x] Internal project-owner feedback -> change -> retest recorded for the Staff evidence visibility issue.
 
 ### Prototype
 
