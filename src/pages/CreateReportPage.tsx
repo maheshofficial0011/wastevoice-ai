@@ -265,11 +265,6 @@ function CreateReportPage() {
 
             if (uploadError) throw uploadError
 
-            const publicUrl = supabase.storage
-                .from(EVIDENCE_BUCKET)
-                .getPublicUrl(storagePath)
-                .data.publicUrl
-
             const { error: reportError } = await supabase
                 .from('reports')
                 .insert({
@@ -278,7 +273,7 @@ function CreateReportPage() {
                     location: location.trim(),
                     description: description.trim(),
                     additional_info: additionalInfo.trim() || null,
-                    evidence_url: publicUrl,
+                    evidence_url: storagePath,
                     status: 'submitted',
                 })
 
