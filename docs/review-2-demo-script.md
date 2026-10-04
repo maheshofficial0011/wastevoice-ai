@@ -75,19 +75,24 @@ Show:
 - Staff-to-Authority denial;
 - Staff final-resolution denial;
 - Staff unassigned-report denial;
-- private evidence configuration;
-- protected RPC execution.
+- private `waste-evidence` configuration;
+- hardened legacy `report-evidence` configuration;
+- protected RPC execution;
+- live SQL role-denial evidence.
 
 ## 13. CI Evidence
 
 Show GitHub Actions:
 
+- `npm ci`;
 - lint;
-- 11 AI safety tests;
+- 19 automated tests (11 AI safety + 8 Reporter-form validation);
 - TypeScript;
 - production build.
 
 ## 14. User Validation
+
+Show only genuine Review 2 tester evidence. Do not substitute controlled prototype screenshots for user-validation evidence.
 
 Show only genuine Review 2 tester evidence:
 
