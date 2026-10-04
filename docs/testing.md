@@ -161,7 +161,7 @@ A test should be marked **Passed** only after it is actually executed. A planned
 
 ### Automated Review 2 test coverage
 
-The current CI suite contains **19 executable tests**: 11 AI safety tests in `tests/report-assistant.test.mjs` and 8 Reporter-form validation tests in `tests/report-validation.test.mjs`.
+The current repository suite contains **29 executable tests**: 11 AI safety tests, 8 Reporter-form validation tests, and 10 Review 2 regression/guard tests in `tests/review2-regression.test.mjs`. The expanded suite is configured in `package.json`; the post-expansion green CI result still requires final Actions confirmation.
 
 
 
