@@ -269,6 +269,7 @@ function ReporterDashboard() {
     }
 
     useEffect(() => {
+        /* eslint-disable react-hooks/set-state-in-effect */
         void fetchMyReports()
 
         const interval = window.setInterval(() => {
@@ -278,6 +279,7 @@ function ReporterDashboard() {
         }, 30000)
 
         return () => window.clearInterval(interval)
+        /* eslint-enable react-hooks/set-state-in-effect */
     }, [])
 
     async function copyReportId(reportId: string) {
