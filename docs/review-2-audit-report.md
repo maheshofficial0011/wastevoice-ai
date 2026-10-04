@@ -12,7 +12,7 @@ WasteVoice AI has moved from the Review 1 foundational prototype into a substant
 
 The project is **not yet Review Ready** because two important evidence gates remain external to the repository implementation: live AI provider configuration and genuine three-person Review 2 validation. The connected Supabase project now has all three demo accounts mapped to explicit Reporter, Authority and Staff profile rows; browser login still requires their passwords.
 
-The current conclusion is therefore: **Strong technical foundation, verified database/security controls, developing external validation evidence, externally blocked live AI inference.**
+The current conclusion is therefore: **Strong technical foundation, verified database/security controls and regression coverage, developing external validation evidence, externally blocked live AI inference.**
 
 ## Current Completion Assessment
 
@@ -141,7 +141,7 @@ OpenAI's current platform uses the Responses API for new integrations; the proje
 
 ### Testing
 
-The repository now has an automated native Node test suite covering both AI safety and Reporter-form validation. The suite contains 19 tests: 11 AI safety tests and 8 form-validation boundary tests.
+The repository now has an automated native Node test suite covering AI safety, Reporter-form validation, and Review 2 guard/regression behavior. The suite contains 29 tests: 11 AI safety, 8 form-validation, and 10 regression/guard tests.
 
 GitHub Actions now runs:
 ```text
@@ -151,7 +151,7 @@ npm test
 npm run build
 ```
 
-The previous red CI iterations were used to fix real lint and test issues. The quality gate was subsequently restored to a green state before the audit was continued.
+The previous red CI iterations were used to fix real lint and test issues. The last known green expanded quality gate is retained as historical evidence; the final post-hardening commit should be confirmed in GitHub Actions before submission.
 
 ### CI/CD
 
@@ -226,7 +226,7 @@ One important documentation risk was found and corrected during the audit: older
 | AI fallback | COMPLETE AND VERIFIED | Automated tests | Optional runtime capture | P1 |
 | AI output validation | COMPLETE AND VERIFIED | Automated tests | Live model adversarial capture | P1 |
 | Error Boundary | IMPLEMENTED BUT NOT VERIFIED | Source | Retained runtime screenshot | P2 |
-| CI quality gate | COMPLETE AND VERIFIED | GitHub Actions | Keep green | P1 |
+| CI quality gate | IMPLEMENTED — EVIDENCE PENDING | GitHub Actions | Confirm post-expansion run | P1 |
 | Review 2 documentation | COMPLETE AND VERIFIED | Repository docs | Fill real validation results | P1 |
 | Three-person validation | PLANNED | Validation plan/template | Actual sessions + iteration | P0 |
 | Production deployment | UNKNOWN | No final production evidence | Confirm target + runtime proof | P2 |
