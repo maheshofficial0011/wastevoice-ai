@@ -17,7 +17,7 @@ For Review 2, the prototype has been extended with a narrow AI-assisted report-s
 
 The repository also includes a Review 2 security hardening pass: the evidence bucket is private, workflow RPCs are no longer executable by the anonymous role, redundant legacy RPCs were restricted, and legacy tables received restrictive policies.
 
-The remaining academic/evidence gap is explicit: **three genuine external Review 2 tester sessions have not been claimed or retained.** Live Gemini inference and internal/browser validation have been completed; no external-user evidence is fabricated.
+The technical implementation and internal validation pass are complete: Reporter, Authority, Staff, authentication, role routing, report validation, evidence handling, workflow transitions, AI Assist, Error Boundary, accessibility/usability checks, database authorization and private evidence access were exercised and retested. The remaining academic evidence gap is explicit: **three genuine external Review 2 tester sessions have not been claimed or retained.** No external-user evidence is fabricated.
 
 ## 2. Problem Context and Field Evidence
 
@@ -327,14 +327,14 @@ Review 1 retained controlled screenshots cover:
 | Staff protected access | Existing functional evidence |
 | Reporter blocked from authority action | **Verified in live SQL role probe** |
 | Staff blocked from final resolution | **Verified in live SQL role probe** |
-| Invalid location/description | Implemented; runtime evidence should be retained |
-| Evidence upload validation | Implemented; runtime evidence should be retained |
+| Invalid location/description | **Verified in browser** — empty/short report states were exercised and correctly blocked |
+| Evidence upload validation | **Verified in end-to-end workflow**; unsupported/oversized cases remain covered by automated/source validation without separate retained captures |
 | Error boundary | **Verified by controlled local runtime test** |
-| AI complete description | Live Gemini inference verified for the documented live case; broader case-specific captures remain optional/evidence-pending |
+| AI complete description | **Verified** — live Gemini response returned structured fields and `needsConfirmation=true`; Reporter AI Assist and Copy Structured Summary were also exercised |
 | AI missing location | Individual live case not separately retained; automated safety coverage exists |
 | AI missing category | Individual live case not separately retained; automated safety coverage exists |
 | AI vague description | Individual live case not separately retained; automated safety coverage exists |
-| Three real testers | **Required and not yet retained** |
+| Three real testers | **External evidence required and not yet retained** — internal project-owner testing is complete but does not satisfy the C29 external-user requirement |
 
 ## 12. Validation
 
@@ -348,7 +348,9 @@ The project therefore uses:
 
 ### Current validation status
 
-**Not yet complete.**
+**Internal prototype validation: complete. External Review 2 validation: pending.**
+
+The full implemented workflow has been exercised internally across Reporter, Authority and Staff roles, including the AI-assisted report path, evidence handling, role boundaries, error fallback and the Staff evidence visibility correction. This is strong technical validation, but it is intentionally not relabelled as three external-user sessions.
 
 The repository deliberately does not convert earlier drafted Review 1 validation notes into new Review 2 user evidence.
 
@@ -476,6 +478,7 @@ This project demonstrates:
 - [x] AI technique named.
 - [x] Human decision point shown.
 - [ ] Three genuine external Review 2 tester sessions retained.
+- [x] Comprehensive internal Reporter/Authority/Staff prototype validation retained in the testing record.
 - [ ] External feedback -> change -> retest chain retained.
 - [x] Internal project-owner feedback -> change -> retest recorded for the Staff evidence visibility issue.
 
@@ -559,4 +562,4 @@ WasteVoice AI has progressed from a C29 problem-framing exercise into a reviewab
 
 The key engineering decision is to keep AI narrow and accountable: the model helps structure information, while people remain responsible for the observed facts, physical cleaning, assignment, and final resolution.
 
-The strongest path to final Review 2 completion is now evidence-driven rather than feature-driven: configure the AI provider, run the required AI matrix, use the mapped demo accounts in a real browser session, conduct the required three-person validation, show exactly what changed from their feedback, and retain the evidence for the final deck and video.
+The strongest path to final Review 2 completion is now evidence-driven rather than feature-driven: the AI provider, mapped demo accounts, core workflow, security controls and internal testing are already verified. The remaining C29-specific validation task is to conduct the required three-person external validation, show exactly what changed from their feedback, and retain the evidence for the final deck and video.
