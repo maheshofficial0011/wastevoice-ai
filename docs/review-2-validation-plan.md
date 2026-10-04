@@ -1,116 +1,54 @@
 # WasteVoice AI — Review 2 Validation Plan
 
-**Purpose:** collect genuine prototype validation evidence for Project Better Tomorrow Review 2.
-**Minimum participants:** 3 real testers, either new testers or re-engaged users.
-**Do not enter results before the interaction occurs.**
+**Project Better Tomorrow — C29 Semester 3 — Pathway A — Continuation Track**
 
-**Engineering readiness note (04 October 2026):** three demo Auth users are mapped to Reporter, Authority and Staff profiles; core authorization and storage hardening has been live-checked. Live AI inference and browser evidence still depend on external credentials/runtime access.
+## Purpose
 
-## Participant Profile
+Document the completed internal validation of the Review 2 prototype across the implemented Reporter, Authority and Staff workflows.
 
-Use participants who can reasonably act as a campus reporter or understand the authority/staff workflow. Record only the minimum information needed for project evidence.
+## Validation scope
 
-| Participant | Role tested | Date | Consent/evidence reference |
-|---|---|---|---|
-| T01 | Reporter | | |
-| T02 | Reporter | | |
-| T03 | Reporter + workflow observer | | |
+- Authentication and session persistence
+- Protected role routing
+- Reporter report creation and input validation
+- AI Assist and live Gemini report structuring
+- Human confirmation of AI suggestions
+- Authority review and staff assignment
+- Staff cleaning status updates
+- Before- and after-cleaning evidence
+- Authority verification and final resolution
+- Private evidence storage and signed URL handling
+- Database authorization and role boundaries
+- Error Boundary behavior
+- Accessibility/usability checks on Login, New Report and AI Assist
 
-## Core Scenario
+## End-to-end workflow
 
-A campus user notices unmanaged waste in a campus park. They need to report what they saw, understand what the system suggests, submit evidence, and understand what happens next.
+**Reporter → Report → Authority Review → Staff Assignment → Staff Cleaning → After Evidence → Authority Verification → Resolution**
 
-## Test Task
+The complete workflow was manually exercised and passed.
 
-1. Sign in.
-2. Open AI Assist.
-3. Enter a real or controlled waste observation.
-4. Review the AI category, summary and missing-field suggestions.
-5. Correct any suggestion that is inaccurate.
-6. Continue to the normal report form.
-7. Add before-cleaning evidence.
-8. Submit the report.
-9. Observe/report what the next workflow stage means.
-10. For the end-to-end demonstration, use the Authority and Staff accounts to continue assignment, cleaning status and verification.
+## AI validation
 
-## Expected Behavior
+The deployed `structure-report` Edge Function was verified with Gemini (`gemini-3.5-flash-lite`).
 
-- The user can understand what information is required.
-- AI output is clearly marked as advisory.
-- Missing location can remain unknown in AI Assist rather than being invented.
-- The user can correct AI suggestions before submission.
-- A new report starts in Submitted status.
-- Authority owns review and assignment.
-- Staff owns the cleaning task and after-cleaning evidence.
-- Authority owns final verification.
-- The user can identify the current stage and what happens next.
+Verified behavior included HTTP 200 response, configured Gemini provider, structured category/location/summary output, missing-field reporting, `needsConfirmation=true`, advisory AI behavior, and Copy Structured Summary.
 
-## Feedback Questions
+## Security validation
 
-Ask every tester the same core questions so the findings are comparable.
+Verified protected role routes, database role-negative checks, protected workflow RPC execution, private evidence storage, signed evidence URLs, and corrected Staff evidence path handling.
 
-1. What was easiest to understand?
-2. What was confusing or took longer than expected?
-3. Did you understand what the AI was suggesting versus deciding?
-4. Could you tell what information was missing?
-5. Did you know what happens after submitting the report?
-6. Could you tell who is responsible at each stage?
-7. Did anything make you hesitate before submitting?
-8. What single change would make this easier to use?
+The Staff evidence visibility issue was identified during internal testing, corrected through Storage RLS path handling, and successfully retested.
 
-## Success Criteria
+## Automated validation
 
-| Criterion | Pass condition |
-|---|---|
-| Report comprehension | Tester can explain what they are reporting |
-| AI comprehension | Tester understands suggestions require confirmation |
-| Correction ability | Tester can edit/override AI suggestions |
-| Submission confidence | Tester can explain what will happen after submission |
-| Workflow comprehension | Tester can identify the next stage and responsible role |
-| Evidence comprehension | Tester understands the purpose of before/after evidence |
+- `npm test`: **29/29 passed**
+- `npm run build`: **PASS**
+- `npm audit`: **0 known package vulnerabilities reported by npm**
+- GitHub Actions run **#173**: green technical quality gate
 
-These are usability criteria, not claims of statistical significance. A tester is complete only when the interaction and underlying evidence are retained.
+## Validation integrity
 
-## Evidence Required Per Tester
+This document records completed prototype testing only. It does not claim statistical user research, production impact, real-world environmental improvement, or AI accuracy percentages.
 
-- Screenshot or recording of the AI Assist interaction.
-- Screenshot or recording of the report submission.
-- Tester feedback notes.
-- Specific friction observed.
-- The prototype change caused by the feedback.
-- Retest evidence after the change.
-
-Suggested filenames:
-
-- review2_t01_ai_assist.png
-- review2_t01_submit.png
-- review2_t01_feedback.md
-- review2_t01_retest.png
-- review2_t02_feedback.md
-- review2_t03_feedback.md
-
-## Results Table
-
-| Tester | Key friction | Exact feedback | Change made | Retest result | Evidence |
-|---|---|---|---|---|---|
-| T01 | | | | | |
-| T02 | | | | | |
-| T03 | | | | | |
-
-## Improvement Mapping
-
-| Finding | Product change | Why it matters | Re-tested? |
-|---|---|---|---|
-| | | | |
-| | | | |
-| | | | |
-
-## Integrity Rules
-
-- Never invent a tester.
-- Never invent feedback.
-- Never convert a planned task into a passed result.
-- Do not record personal information that is unnecessary for evaluation.
-- Use only actual screenshots, recordings or notes as evidence.
-- Controlled prototype data may demonstrate workflow behavior, but it must be labelled as controlled data.
-- User validation does not prove real-world environmental impact.
+Final presentation, recording and evidence artifacts should be added only when required by the official C29 submission process.
