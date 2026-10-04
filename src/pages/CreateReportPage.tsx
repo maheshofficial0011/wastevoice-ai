@@ -65,6 +65,7 @@ function CreateReportPage() {
     const [error, setError] = useState<string | null>(null)
     const [submitting, setSubmitting] = useState(false)
     const [success, setSuccess] = useState(false)
+    const [aiDraft, setAiDraft] = useState<{ category: string; summary: string } | null>(null)
 
     const isEditMode = Boolean(editReportId)
     const canContinueDetails = location.trim().length >= 3 && description.trim().length >= 15
@@ -124,6 +125,37 @@ function CreateReportPage() {
             cancelled = true
         }
     }, [editReportId])
+
+    useEffect(() => {
+        if (editReportId || searchParams.get('ai') !== '1') return
+
+        const rawDraft = sessionStorage.getItem('wastevoice-ai-draft')
+        if (!rawDraft) return
+
+        try {
+            const draft = JSON.parse(rawDraft) as {
+                location?: string
+                description?: string
+                additionalInfo?: string
+                category?: string
+                summary?: string
+            }
+
+            if (draft.location) setLocation(draft.location)
+            if (draft.description) setDescription(draft.description)
+            if (draft.additionalInfo) setAdditionalInfo(draft.additionalInfo)
+            if (draft.category || draft.summary) {
+                setAiDraft({
+                    category: draft.category || 'unknown',
+                    summary: draft.summary || 'No AI summary available.',
+                })
+            }
+
+            sessionStorage.removeItem('wastevoice-ai-draft')
+        } catch (draftError) {
+            console.warn('Unable to load AI report draft:', draftError)
+        }
+    }, [editReportId, searchParams])
 
     function selectFile(nextFile: File | null) {
         setError(null)
@@ -363,6 +395,18 @@ function CreateReportPage() {
                             <div>
                                 <p className="text-sm font-bold text-blue-100">Reporter edit rule</p>
                                 <p className="mt-1 text-xs leading-5 text-slate-400">Editing is allowed only while this report is <span className="font-semibold text-blue-200">Submitted</span>. You can change location, description and additional information. The original before-cleaning evidence is kept unchanged.</p>
+                            </div>
+                        </div>
+                    </section>
+                )}
+
+                {aiDraft && (
+                    <section className="mb-6 rounded-2xl border border-cyan-500/20 bg-cyan-500/5 p-4 sm:p-5">
+                        <div className="flex items-start gap-3">
+                            <div className="rounded-xl bg-cyan-400/10 px-2.5 py-2 text-xs font-black text-cyan-300">AI</div>
+                            <div>
+                                <p className="text-sm font-bold text-cyan-100">AI suggestions loaded - please verify</p>
+                                <p className="mt-1 text-xs leading-5 text-slate-400">Suggested category: <span className="font-semibold text-cyan-200">{aiDraft.category}</span>. Summary: <span className="text-slate-300">{aiDraft.summary}</span></p>
                             </div>
                         </div>
                     </section>
