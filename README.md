@@ -596,7 +596,7 @@ AI assistance is treated as a co-pilot for development and documentation support
 2. Run and retain role/RLS access tests.
 3. Run and retain three real tester sessions.
 4. Record feedback → change → re-test evidence.
-5. Implement and test server-side AI report structuring.
+5. Run the live server-side AI report-structuring flow after provider configuration.
 6. Capture AI edge-case outputs and human corrections.
 7. Verify production deployment and final demo flow.
 8. Prepare the final Prototype & Validation Report and evidence package for Review 2.
