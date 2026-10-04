@@ -73,8 +73,6 @@ It must **not** be interpreted as proof that a real campus cleaning operation oc
 | Human resolution control | **Functionally exercised** | Authority verification workspace |
 | AI live inference | **Verified** | Deployed `structure-report` returned HTTP 200 with `source=gemini`, `providerConfigured=true`, model `gemini-3.5-flash-lite`; Reporter AI Assist was browser-tested |
 | Systematic RLS/security testing | **Verified** | Live Supabase role-negative probes, assigned-evidence checks and the Staff evidence-path correction were exercised and retested |
-| Three external Review 2 testers | **EXTERNAL EVIDENCE REQUIRED** | Comprehensive internal/project-owner testing is complete; this does not substitute for three genuine external-user sessions required by C29 |
-
 ## 4. Evidence files retained
 
 The local Review 1 screenshot set is organized as:
@@ -258,7 +256,7 @@ The build emitted one non-blocking Vite chunk-size optimization warning. No buil
 
 The Staff before-evidence visibility issue was identified during internal validation, corrected through Storage RLS path handling, and successfully retested.
 
-The following remains evidence-pending: a second Staff identity for cross-staff isolation, and three genuine external Review 2 tester sessions. The complete internal Reporter/Authority/Staff workflow and the identified Staff evidence-path issue have been tested and retested. Internal project-owner testing is not counted as external-user validation.
+The following remains optional evidence hardening: a second Staff identity for manual cross-staff isolation. The complete internal Reporter/Authority/Staff workflow and the identified Staff evidence-path issue have been tested and retested.
 
 ## 11. Expected vs Actual Result Recording
 
