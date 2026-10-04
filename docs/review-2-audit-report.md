@@ -10,7 +10,7 @@
 
 WasteVoice AI has moved from the Review 1 foundational prototype into a substantially stronger Review 2 engineering state. The core human-controlled workflow is implemented across Reporter, Authority and Staff roles, the evidence workflow is present, a server-side AI report-structuring Edge Function is deployed with JWT verification, evidence storage has been hardened to private signed access, workflow RPC execution permissions have been tightened, and automated AI safety tests are now part of CI.
 
-The project is **not yet Review Ready** because two important evidence gates remain external to the repository implementation: live AI provider configuration and genuine three-person Review 2 validation. The connected Supabase project also has three Auth users but currently zero profile rows, so the demo accounts need explicit Reporter/Authority/Staff role mapping before the live role workflow can be demonstrated.
+The project is **not yet Review Ready** because two important evidence gates remain external to the repository implementation: live AI provider configuration and genuine three-person Review 2 validation. The connected Supabase project now has all three demo accounts mapped to explicit Reporter, Authority and Staff profile rows; browser login still requires their passwords.
 
 The current conclusion is therefore: **Strong technical foundation, developing validation evidence, externally blocked live AI inference.**
 
