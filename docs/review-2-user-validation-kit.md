@@ -4,6 +4,8 @@
 
 > The project requires real human validation. This file is a prepared script, not a completed validation record.
 
+**Engineering readiness note (04 October 2026):** role profiles and live database authorization/storage controls are ready for browser sessions. Live AI provider configuration and account passwords remain external.
+
 ## Tester 1 — Reporter
 
 ### Task
@@ -85,4 +87,4 @@ Repeat for T02 and T03.
 
 ## Completion rule
 
-A tester counts as complete only when the interaction actually occurred and its evidence is retained.
+A tester counts as complete only when the interaction actually occurred and its evidence is retained. Database-only probes or controlled screenshots do not count.
