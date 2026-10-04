@@ -42,8 +42,9 @@ Do not guess role assignments.
 The deployed structure-report Edge Function reads these server-side secrets:
 
 ```bash
-supabase secrets set OPENAI_API_KEY="YOUR_KEY"
-supabase secrets set OPENAI_MODEL="gpt-5-mini"
+AI_PROVIDER=gemini
+AI_MODEL=gemini-3.5-flash-lite
+GEMINI_API_KEY=<Supabase secret>
 ```
 
 Do not place the provider key in React source or any committed environment file.
