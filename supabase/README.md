@@ -27,7 +27,7 @@ Until the provider secret is configured, the function uses a labelled conservati
 ## Review 2 live setup
 See docs/review-2-live-setup.md.
 Current live state: 3 Auth users exist and all 3 now have explicit Reporter, Authority and Staff profile rows.
-The Login page needs profile rows with the intended reporter, authority, and staff roles before the live role-based demo can run.
+The Login page is now backed by the intended Reporter, Authority and Staff profile mapping. Browser login still requires the account passwords.
 
 ## Remaining security notes
 Supabase security advisors still report SECURITY DEFINER helper functions exposed in the public schema and leaked-password protection disabled. These remain documented hardening items.
