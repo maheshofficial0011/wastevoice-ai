@@ -143,7 +143,7 @@ OpenAI's current platform uses the Responses API for new integrations; the proje
 
 ### Testing
 
-The repository now has an automated native Node test suite focused on the pure AI safety logic. The suite includes complete, missing-location, missing-category, vague, contradictory, prompt-injection, oversized-input, malformed-output, unsafe-field, missing-key and prompt-construction cases.
+The repository now has an automated native Node test suite covering both AI safety and Reporter-form validation. The suite contains 19 tests: 11 AI safety tests and 8 form-validation boundary tests.
 
 GitHub Actions now runs:
 ```text
