@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
+import { createEvidenceUrlMap, resolveEvidenceReference } from '../lib/evidence'
 
 interface WasteReport {
     id: string
@@ -102,12 +103,8 @@ function formatDate(value: string | null | undefined) {
     return Number.isNaN(date.getTime()) ? 'Unknown' : date.toLocaleString()
 }
 
-function getEvidenceUrl(item: ReportEvidence | null) {
-    if (!item?.file_path) return null
-    if (item.file_path.startsWith('http://') || item.file_path.startsWith('https://')) {
-        return item.file_path
-    }
-    return supabase.storage.from(EVIDENCE_BUCKET).getPublicUrl(item.file_path).data.publicUrl
+function getEvidenceUrl(item: ReportEvidence | null, signedUrls: Record<string, string>) {
+    return resolveEvidenceReference(item?.file_path, signedUrls)
 }
 
 function Icon({
@@ -150,6 +147,7 @@ type ResolvedOutcomeFilter = 'all' | 'approved' | 'legacy'
 function ReporterDashboard() {
     const [reports, setReports] = useState<WasteReport[]>([])
     const [evidence, setEvidence] = useState<ReportEvidence[]>([])
+    const [evidenceUrls, setEvidenceUrls] = useState<Record<string, string>>({})
     const [reviews, setReviews] = useState<AuthorityReview[]>([])
     const [loading, setLoading] = useState(true)
     const [refreshing, setRefreshing] = useState(false)
@@ -213,6 +211,9 @@ function ReporterDashboard() {
             if (reportError) throw reportError
 
             const loadedReports = (data ?? []) as WasteReport[]
+            const reportEvidencePaths = loadedReports
+                .map((report) => report.evidence_url)
+                .filter((value): value is string => Boolean(value))
             setReports(loadedReports)
 
             const ids = loadedReports.map((report) => report.id).filter(Boolean)
@@ -250,8 +251,22 @@ function ReporterDashboard() {
                 supportingDataWarnings.push('Authority feedback could not be loaded.')
             }
 
-            setEvidence((evidenceResponse.data ?? []) as ReportEvidence[])
+            const loadedEvidence = (evidenceResponse.data ?? []) as ReportEvidence[]
+            setEvidence(loadedEvidence)
             setReviews((reviewResponse.data ?? []) as AuthorityReview[])
+
+            try {
+                const signedUrls = await createEvidenceUrlMap([
+                    ...reportEvidencePaths,
+                    ...loadedEvidence.map((item) => item.file_path).filter((value): value is string => Boolean(value)),
+                ])
+                setEvidenceUrls(signedUrls)
+            } catch (signedUrlError) {
+                console.warn('Evidence signing:', signedUrlError)
+                supportingDataWarnings.push('Evidence previews could not be signed for this session.')
+                setEvidenceUrls({})
+            }
+
             setDataWarning(supportingDataWarnings.length ? supportingDataWarnings.join(' ') : null)
             setLastRefreshedAt(new Date().toISOString())
         } catch (err) {
@@ -1183,9 +1198,9 @@ function ReportSection({
                     {reports.map((report) => {
                         const normalized = normalizeStatus(report.status)
                         const before = getLatestBeforeEvidence(report.id)
-                        const beforeUrl = getEvidenceUrl(before) ?? report.evidence_url
+                        const beforeUrl = getEvidenceUrl(before, evidenceUrls) ?? resolveEvidenceReference(report.evidence_url, evidenceUrls)
                         const after = getLatestAfterEvidence(report.id)
-                        const afterUrl = getEvidenceUrl(after)
+                        const afterUrl = getEvidenceUrl(after, evidenceUrls)
                         const review = getLatestReview(report.id)
                         const approved = normalized === 'resolved' && review?.decision === 'approved'
 
