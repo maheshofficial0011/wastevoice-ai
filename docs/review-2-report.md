@@ -3,7 +3,7 @@
 **Project Better Tomorrow - C29 Semester 3 - Pathway A - Continuation Track**  
 **Review 2 status date: 04 October 2026**
 
-**Latest engineering quality gate:** the expanded GitHub Actions workflow is configured to cover `npm ci`, lint, 29 automated tests, TypeScript compilation and the production build; the last verified green gate preceded the 10-test regression-suite expansion, so final post-expansion Actions confirmation is still required before submission.
+**Latest engineering quality gate:** GitHub Actions run **#166** passed `npm ci`, lint, 29 automated tests, TypeScript compilation and the production build.
 
 > Core workflow: **Report -> Review -> Assign -> Clean -> Evidence -> Verify -> Resolve**
 
@@ -330,10 +330,10 @@ Review 1 retained controlled screenshots cover:
 | Invalid location/description | Implemented; runtime evidence should be retained |
 | Evidence upload validation | Implemented; runtime evidence should be retained |
 | Error boundary | **Verified by controlled local runtime test** |
-| AI complete description | Provider configuration + runtime capture required |
-| AI missing location | Provider configuration + runtime capture required |
-| AI missing category | Provider configuration + runtime capture required |
-| AI vague description | Provider configuration + runtime capture required |
+| AI complete description | Live Gemini inference verified for the documented live case; broader case-specific captures remain optional/evidence-pending |
+| AI missing location | Individual live case not separately retained; automated safety coverage exists |
+| AI missing category | Individual live case not separately retained; automated safety coverage exists |
+| AI vague description | Individual live case not separately retained; automated safety coverage exists |
 | Three real testers | **Required and not yet retained** |
 
 ## 12. Validation
@@ -498,8 +498,8 @@ This project demonstrates:
 - [x] Conservative fallback.
 - [x] Unknown/missing-field handling.
 - [x] Human confirmation boundary.
-- [ ] AI provider secret configured.
-- [ ] Live AI test captures retained for four reliability cases.
+- [x] Live Gemini provider configured and verified through `structure-report`.
+- [ ] Additional case-specific live AI captures retained; no statistical accuracy claim is made.
 
 ### Submission
 
@@ -514,7 +514,7 @@ According to the C29 guide, the final submission also requires:
 - final-slide AI declaration;
 - private-browser test of the YouTube link.
 
-The repository can support those deliverables, but it does not claim that the recordings, final deck, or YouTube submission have been completed unless they are actually retained.
+The repository does not claim that the final deck, video, evidence recordings or YouTube submission are complete unless those artifacts are actually retained.
 
 ## 18. Current Project Status
 
@@ -524,13 +524,13 @@ WasteVoice AI now has a working human-controlled reporting and resolution workfl
 
 ### Two remaining gates
 
-**Gate 1 - AI runtime**
+**Gate 1 - External tester evidence**
 
-Configure the server-side AI provider secret and capture the four required AI reliability cases.
+Conduct at least three genuine Review 2 tester sessions, retain exact feedback, implement the resulting improvement and retest.
 
-**Gate 2 - Human validation**
+**Gate 2 - Submission evidence**
 
-Run at least three real tester sessions, retain the evidence, record specific feedback, make the resulting prototype changes, and retest.
+Complete the official final evidence/recording requirements only where they are required by the C29 process.
 
 ### Integrity statement
 
