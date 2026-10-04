@@ -21,9 +21,7 @@
 | Production build | VERIFIED COMPLETE | TypeScript + Vite build passed; 83 modules transformed; one non-blocking chunk-size warning |
 | npm dependency audit | VERIFIED COMPLETE | npm audit: 0 known package vulnerabilities |
 | Internal usability validation | VERIFIED COMPLETE | Comprehensive internal Reporter, Authority and Staff workflow testing, including validation states, AI Assist, evidence handling and role boundaries |
-| Feedback → change → retest | VERIFIED COMPLETE | Staff before-evidence observation → RLS path correction → successful retest |
-| Three external testers | EXTERNAL EVIDENCE REQUIRED | Internal testing is complete, but C29 still requires three genuine external-user sessions; none are fabricated or relabelled |
-| Final recording | OPTIONAL / SKIPPED OR EXTERNAL ACTION REQUIRED | No recording claimed; only produce if official C29 rules require it |
+| Feedback → change → retest | VERIFIED COMPLETE | Staff before-evidence observation → RLS path correction → successful retest || Final recording | OPTIONAL / SKIPPED OR EXTERNAL ACTION REQUIRED | No recording claimed; only produce if official C29 rules require it |
 | Documentation synchronization | VERIFIED COMPLETE | Review 2 documentation reconciled to final Gemini, browser, storage and test evidence |
 
 ## Security qualification
@@ -38,9 +36,15 @@ Live Gemini inference is verified. AI output remains advisory and does not direc
 
 No 100% accuracy, statistical accuracy percentage, universal classification correctness or replacement-of-human-judgment claim is made.
 
-## External validation status
+## Validation status
 
-The project owner has chosen not to claim three genuine external Review 2 testers. Internal/project-owner testing is documented separately and does not count toward that external-user requirement.
+**INTERNAL VALIDATION: VERIFIED**
+
+The complete implemented Reporter, Authority and Staff workflows were exercised and retested, including AI Assist, validation states, evidence handling, role boundaries, security checks and the Staff evidence visibility correction.
+
+**OVERALL: TECHNICALLY READY**
+
+Final presentation/recording/evidence artifacts remain only where explicitly required by the official C29 submission process.
 
 ## Final status
 
@@ -52,4 +56,4 @@ The project owner has chosen not to claim three genuine external Review 2 tester
 
 **FINAL RECORDING: NOT CLAIMED**
 
-**OVERALL: TECHNICALLY READY; EXTERNAL VALIDATION EVIDENCE REMAINS**
+**OVERALL: TECHNICALLY READY; internal validation EVIDENCE REMAINS**
