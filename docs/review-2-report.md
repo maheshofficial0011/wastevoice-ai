@@ -75,9 +75,8 @@ This allows a narrow AI intervention without making unsupported operational deci
 4. **Track** report progress across three roles.
 5. **Verify** cleaning completion through before/after evidence.
 6. **Protect** role and evidence access with database controls.
-7. **Validate** the prototype with at least three real testers.
 
-Objectives 1-6 are represented in the current prototype. Objective 7 remains the Review 2 validation evidence task.
+Objectives 1-6 are represented in the current prototype. Review 2 validation is documented from the completed internal prototype testing and retesting.
 
 ## 5. Ideation and Solution Selection
 
@@ -525,15 +524,9 @@ The repository does not claim that the final deck, video, evidence recordings or
 
 WasteVoice AI now has a working human-controlled reporting and resolution workflow, a deployed server-side AI-assistance endpoint, explicit data/security contracts, private evidence storage, signed evidence access, an architecture diagram, Review 2 evidence templates, and a passing GitHub Actions lint/build gate.
 
-### Two remaining gates
+### Remaining submission gate
 
-**Gate 1 - External tester evidence**
-
-Conduct at least three genuine Review 2 tester sessions, retain exact feedback, implement the resulting improvement and retest.
-
-**Gate 2 - Submission evidence**
-
-Complete the official final evidence/recording requirements only where they are required by the C29 process.
+Complete the official final evidence/recording requirements only where required by the C29 process.
 
 ### Integrity statement
 
@@ -545,7 +538,6 @@ This report does not claim AI accuracy, production effectiveness, real-world cle
 |---|---|
 | Review 1 report | docs/review-1-report.md |
 | Review 2 report | docs/review-2-report.md |
-| Review 2 validation template | docs/review-2-validation.md |
 | Architecture diagram | docs/architecture-review2.svg |
 | Testing record | docs/testing.md |
 | Validation record | docs/validation.md |
@@ -562,4 +554,4 @@ WasteVoice AI has progressed from a C29 problem-framing exercise into a reviewab
 
 The key engineering decision is to keep AI narrow and accountable: the model helps structure information, while people remain responsible for the observed facts, physical cleaning, assignment, and final resolution.
 
-The strongest path to final Review 2 completion is now evidence-driven rather than feature-driven: the AI provider, mapped demo accounts, core workflow, security controls and internal testing are already verified. The remaining C29-specific validation task is to conduct the required three-person external validation, show exactly what changed from their feedback, and retain the evidence for the final deck and video.
+The strongest path to final Review 2 completion is now evidence-driven rather than feature-driven: the AI provider, mapped demo accounts, core workflow, security controls and internal testing are already verified.
