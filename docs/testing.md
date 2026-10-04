@@ -157,7 +157,11 @@ Expected safety behavior:
 
 ## 8. Evidence rule
 
-A test should be marked **Passed** only after it is actually executed. A planned test is not a test result. Screenshots, terminal output, or other execution evidence should be retained for important Review 1 claims.
+A test should be marked **Passed** only after it is actually executed. A planned test is not a test result. Screenshots, terminal output, or other execution evidence should be retained for important claims.
+
+### Automated Review 2 test coverage
+
+The current CI suite contains **19 executable tests**: 11 AI safety tests in `tests/report-assistant.test.mjs` and 8 Reporter-form validation tests in `tests/report-validation.test.mjs`.
 
 
 
