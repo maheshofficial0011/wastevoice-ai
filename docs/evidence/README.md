@@ -43,7 +43,7 @@ All evidence entries below must be genuine artifacts or explicit status records.
 
 | Status | Date | What was tested | Actual result | Evidence location |
 |---|---|---|---|---|
-| VERIFIED COMPLETE | 04 Oct 2026 | Manual accessibility/usability checks | Login, New Report and AI Assist browser checks passed; not formal WCAG certification | docs/final-review-2-execution-status.md |
+| VERIFIED COMPLETE | 04 Oct 2026 | Manual accessibility/usability checks | Login, New Report and AI Assist browser checks passed; not formal WCAG certification | docs/evidence/accessibility-source-audit.md + final-review-2-execution-status.md |
 
 ## 07 — Testing
 
