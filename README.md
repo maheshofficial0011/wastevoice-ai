@@ -523,7 +523,7 @@ Reporter can **copy the AI-generated structured summary for use in the reporting
 - `npm run build`: **PASS** — TypeScript compilation and Vite production build; 83 modules transformed.
 - Vite emitted one non-blocking chunk-size optimization warning (>500 kB).
 - `npm audit`: **0 known package vulnerabilities reported by npm**.
-- GitHub Actions run #135 is recorded as a green 29-test quality gate.
+- GitHub Actions run #166 is recorded as the green 29-test quality gate for this documentation audit.
 
 ### Manual browser validation
 
