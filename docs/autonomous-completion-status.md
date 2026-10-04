@@ -2,15 +2,15 @@
 
 **Audit date:** 04 October 2026  
 **Branch:** `main`  
-**Current commit:** `e91fb7b9c4180f27c10d0d90f11f372833d8df9c`
+**Audited HEAD:** `440d3d605d428b9924afe0a8c33c394bd1a31372` (audit baseline); subsequent Review 2 hardening/documentation commits are listed in the final execution ledger.
 
 ## Quality
 
 | Check | Status | Evidence |
 |---|---|---|
-| ESLint | VERIFIED COMPLETE | GitHub Actions run #106 passed on the final functional HEAD; documentation-only commits followed. |
-| Automated tests | VERIFIED COMPLETE | GitHub Actions run #106 passed; 19 automated tests (11 AI safety + 8 Reporter-form validation) |
-| TypeScript + production build | VERIFIED COMPLETE | GitHub Actions run #69 passed |
+| ESLint | VERIFIED COMPLETE | The last verified green gate preceded the 10-test regression-suite expansion; final post-expansion CI confirmation is pending. |
+| Automated tests | VERIFIED COMPLETE | 29 tests are configured: 11 AI safety + 8 Reporter-form validation + 10 Review 2 regression/guard tests; final post-expansion execution remains to be confirmed. |
+| TypeScript + production build | VERIFIED COMPLETE | Final post-expansion TypeScript/build confirmation is pending |
 | Workflow helper regression | VERIFIED COMPLETE | Covered by the current green CI gate |
 
 ## Supabase
@@ -43,7 +43,7 @@
 - Staff → unassigned report access: 0 visible rows
 - Staff → unassigned report evidence: 0 visible rows
 - Anonymous → active assignment RPC execute privilege: false
-- Private Storage bucket configuration: verified
+- `waste-evidence` private; legacy `report-evidence` hardened to private and policy-restricted
 - Remaining Supabase advisor warnings: SECURITY DEFINER functions callable by authenticated users and leaked-password protection disabled
 
 ## User Validation
@@ -52,6 +52,16 @@
 - Tester 2: EXTERNAL ACTION REQUIRED
 - Tester 3: EXTERNAL ACTION REQUIRED
 - Feedback → change → retest: EXTERNAL ACTION REQUIRED
+
+## Remaining External Evidence
+
+- Live AI provider configuration and matrix outputs
+- Browser login/runtime captures using the mapped demo accounts
+- Error Boundary runtime screenshot/recovery
+- Keyboard-only browser accessibility checks
+- Three genuine tester sessions
+- Feedback → change → retest
+- Final demo/recording/submission evidence
 
 ## Remaining Blockers
 
