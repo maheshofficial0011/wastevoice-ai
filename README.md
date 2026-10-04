@@ -9,7 +9,7 @@
 [![Build](https://img.shields.io/badge/build-Vite%20%2B%20TypeScript-646CFF)](https://vite.dev/)
 [![Frontend](https://img.shields.io/badge/frontend-React-61DAFB)](https://react.dev/)
 [![Data](https://img.shields.io/badge/data-Supabase-3ECF8E)](https://supabase.com/)
-[![Status](https://img.shields.io/badge/status-Review%201%20prototype-success)](https://github.com/maheshofficial0011/wastevoice-ai)
+[![Status](https://img.shields.io/badge/status-Review%202%20prototype-informational)](https://github.com/maheshofficial0011/wastevoice-ai)
 
 WasteVoice AI is a student-built web application prototype for turning an informal campus waste observation into a structured, evidence-backed workflow. It helps a reporter submit an issue, allows an authority to review and assign it, gives cleaning staff a task and evidence workflow, and keeps final resolution under human authority verification.
 
@@ -27,7 +27,7 @@ The project continues the problem investigated during the C29 AI Immersion activ
 - [4. Problem Definition](#4-problem-definition)
 - [5. C29 Ideation and Solution Selection](#5-c29-ideation-and-solution-selection)
 - [6. Selected Solution](#6-selected-solution)
-- [7. Review 1 Implementation](#7-review-1-implementation)
+- [7. Current Prototype](#7-current-prototype)
 - [8. End-to-End Prototype Workflow](#8-end-to-end-prototype-workflow)
 - [9. Human-in-the-Loop Design](#9-human-in-the-loop-design)
 - [10. User Roles](#10-user-roles)
@@ -56,7 +56,7 @@ The project continues the problem investigated during the C29 AI Immersion activ
 | Programme | Project Better Tomorrow · C29 Semester 3 |
 | Track | Pathway A — Continuation Track |
 | Problem domain | Campus waste reporting and resolution visibility |
-| Current stage | **Review 1 prototype** |
+| Current stage | **Review 2 prototype + validation** |
 | Core workflow | Report → Review → Assign → Clean → Evidence → Verify → Resolve |
 | Frontend | React + TypeScript + Vite |
 | Styling | Tailwind CSS |
@@ -64,7 +64,7 @@ The project continues the problem investigated during the C29 AI Immersion activ
 | Database | PostgreSQL via Supabase |
 | Authentication | Supabase Auth |
 | Storage | Supabase Storage |
-| AI layer | **Planned / pending server-side integration** |
+| AI layer | **Assisted report structuring with human confirmation** |
 | Repository | `maheshofficial0011/wastevoice-ai` |
 
 ---
@@ -216,7 +216,7 @@ The workflow keeps the human role explicit at each important decision point.
 
 ---
 
-## 7. Review 1 Implementation
+## 7. Current Prototype
 
 The current Review 1 prototype includes:
 
@@ -462,19 +462,19 @@ Test evidence is clearly separated from real-world impact claims.
 
 ---
 
-## 16. AI Status and Future Integration
+## 16. AI-Assisted Report Structuring
 
 ### Current status
 
-The AI inference layer is **not yet integrated into the public runtime**. It is therefore not presented as complete.
+The first AI milestone is a narrow, human-confirmed report-structuring capability. It should suggest structured information from the reporter's own description without inventing unsupported facts.
 
-### Planned AI responsibilities
+### AI responsibilities
 
 1. Understand natural-language descriptions.
 2. Extract explicit structured fields.
 3. Preserve unknown or missing values rather than inventing them.
 4. Provide advisory suggestions that the reporter can correct.
-5. Support later image understanding only after the core workflow is validated.
+5. Keep workflow decisions human controlled.
 
 ### Safety constraints
 
@@ -482,7 +482,21 @@ The AI inference layer is **not yet integrated into the public runtime**. It is 
 - No API keys in client code.
 - No fabricated missing fields.
 - Human correction before workflow use.
+- AI never changes workflow status.
 - AI never makes the final resolution decision.
+
+### Suggested structured output
+
+```json
+{
+  "category": "plastic | paper | food | mixed | unknown",
+  "location": "string | unknown",
+  "summary": "string",
+  "confidence": 0.0
+}
+```
+
+The structured-output pattern is appropriate for extracting typed data from natural-language input. citeturn297680search1turn297680search0
 
 ---
 
@@ -537,7 +551,7 @@ AI assistance is treated as a co-pilot for development and documentation support
 
 ---
 
-## 20. Review 1 Completion Status
+## 20. Review 2 Readiness
 
 ### Completed / demonstrated
 
@@ -552,27 +566,28 @@ AI assistance is treated as a co-pilot for development and documentation support
 - Controlled runtime test with retained screenshots.
 - Review 1 report and testing documentation.
 
-### Not claimed as complete
+### Remaining before final Review 2 submission
 
-- Server-side AI inference.
-- Measured AI accuracy.
-- Real-world cleanup impact.
-- Production security verification.
-- Production deployment.
-- Formal three-user validation evidence until the underlying tester interaction is retained.
+- Retain genuine three-user validation evidence.
+- Verify deployed Supabase tables, RLS and RPC signatures.
+- Capture explicit role-denial and edge-case runtime tests.
+- Implement and test the server-side AI report-structuring endpoint.
+- Capture AI reliability evidence for complete, incomplete and vague inputs.
+- Document prototype changes caused by tester feedback.
+- Verify production deployment before making production claims.
 
 ---
 
-## 21. Pending Work and Next Steps
+## 21. Next Review 2 Actions
 
-1. Validate connected Supabase tables, RLS and RPC signatures against the actual deployment.
-2. Retain systematic Reporter/Authority/Staff role and access test evidence.
-3. Complete formal tester validation evidence.
-4. Implement server-side AI report structuring.
-5. Test AI on complete, incomplete and vague descriptions.
-6. Optimize the large frontend bundle where practical.
-7. Verify production deployment.
-8. Add later enhancements such as voice/multilingual reporting, image comparison, prediction and anomaly detection only after the core workflow is validated.
+1. Connect the Supabase project and verify the deployed database/security contract.
+2. Run and retain role/RLS access tests.
+3. Run and retain three real tester sessions.
+4. Record feedback → change → re-test evidence.
+5. Implement and test server-side AI report structuring.
+6. Capture AI edge-case outputs and human corrections.
+7. Verify production deployment and final demo flow.
+8. Prepare the Prototype & Validation Report for Review 2.
 
 ---
 
