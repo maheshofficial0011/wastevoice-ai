@@ -1,27 +1,62 @@
 # WasteVoice AI — Final Review 2 Execution Status
 
-**Date:** 04 October 2026
-**Branch:** main
-**Known repository HEAD at audit start:** 440d3d605d428b9924afe0a8c33c394bd1a31372
+**Audit date:** 04 October 2026  
+**Functional-code anchor:** `abd247eb232e43da1e9ea19237327185f3b4df07`  
+**Latest verified CI:** GitHub Actions run **#135** — success  
+**Branch:** `main`
 
-This ledger follows the required Review 2 status vocabulary.
+This ledger follows the required Review 2 status vocabulary and does not treat missing external evidence as completed.
 
-| Gate | Status | Evidence location | Date / identifier | What remains | Exact next action |
-|---|---|---|---|---|---|
-| Current repository audit | VERIFIED COMPLETE | GitHub source audit + Review 2 docs | 04 Oct 2026 | None for source audit | Re-audit after any material code change |
-| Core workflow | VERIFIED COMPLETE | Existing controlled workflow evidence + live state | 04 Oct 2026 | Review 2 browser capture | Use mapped accounts in real browser |
-| Demo profiles | VERIFIED COMPLETE | Live Supabase query | 3 Auth users + 3 profiles | Passwords unavailable to agent | Use existing account passwords |
-| Live AI provider | EXTERNAL ACTION REQUIRED | Live function status | Function v2 ACTIVE, JWT=true | Provider secret/model | Configure OPENAI_API_KEY + allowed OPENAI_MODEL |
-| AI matrix | EXTERNAL ACTION REQUIRED | docs/evidence/live-ai-test-matrix.md | 04 Oct 2026 | Live provider outputs | Run AI-01..AI-11 |
-| AI safety boundary | VERIFIED COMPLETE | tests/report-assistant.test.mjs | 11 tests in CI | Live adversarial capture useful | Run live AI-06/09/10 after provider setup |
-| Backend authorization | VERIFIED COMPLETE | docs/evidence/runtime-security-tests.md | Live SQL role probes | Browser capture pending | Capture browser role-denial evidence |
-| Storage security | VERIFIED COMPLETE | docs/evidence/storage-security-runtime.md | Migration 20261004065105 + live probes | Direct/signed/expiry browser captures | Run browser storage checks |
-| Error Boundary | IMPLEMENTED — EVIDENCE PENDING | docs/evidence/error-boundary-runtime.md | Source verified | Runtime screenshot/recovery evidence | Trigger controlled test error in dev/test browser |
-| Accessibility | IMPLEMENTED — EVIDENCE PENDING | Source audit + role semantics in UI | 04 Oct 2026 | Keyboard-only browser checks | Run Login, Report, AI, dashboards, evidence, assignment and verification flows |
-| Automated tests | IMPLEMENTED — EVIDENCE PENDING | tests/report-assistant.test.mjs + tests/report-validation.test.mjs + tests/review2-regression.test.mjs | 29 tests defined | Final post-expansion execution still needs confirmation | Confirm final CI run |
-| CI | IMPLEMENTED — EVIDENCE PENDING | GitHub Actions quality workflow | Final main-head run not independently confirmed after 29-test expansion | Final lint/test/type/build run | Check Actions for latest main run |
-| Three real-user validation | EXTERNAL ACTION REQUIRED | docs/review-2-user-validation-kit.md | Not yet performed | 3 genuine testers | Run T01/T02/T03 and retain evidence |
-| Feedback/change/retest | EXTERNAL ACTION REQUIRED | docs/review-2-validation-plan.md | Not yet performed | Real feedback loop | Apply highest-value tester change and retest with tester |
-| Final demo | EXTERNAL ACTION REQUIRED | docs/review-2-demo-script.md | Script prepared | Real browser recording | Record actual end-to-end flow |
-| Final recording | EXTERNAL ACTION REQUIRED | Final submission evidence | Not captured | Required recording(s) | Record actual application behavior |
-| Documentation | VERIFIED COMPLETE | docs/ + evidence index/status ledgers | 04 Oct 2026 | Sync final commit identifier/CI run | Update ledgers once final CI is confirmed |
+| Gate | Status | Evidence | Remaining / exact next action |
+|---|---|---|---|
+| Core workflow | VERIFIED COMPLETE | Controlled workflow evidence + live database state | Capture final browser workflow for submission |
+| Demo profiles | VERIFIED COMPLETE | Live Supabase: 3 Auth users + 3 profiles with Reporter/Authority/Staff roles | Use real passwords for browser sessions |
+| Live AI provider | EXTERNAL ACTION REQUIRED | Live Edge Function is ACTIVE v2, JWT verified; no provider secret available to this agent | Configure server-side `OPENAI_API_KEY` and permitted `OPENAI_MODEL` |
+| AI matrix | EXTERNAL ACTION REQUIRED | `docs/evidence/live-ai-test-matrix.md` | Execute AI-01..AI-11 against real provider and retain actual outputs |
+| AI safety | VERIFIED COMPLETE | 11 AI tests + regression coverage; CI #135 | Keep green |
+| Backend authorization | VERIFIED COMPLETE | `docs/evidence/runtime-security-tests.md` + live SQL role probes | Browser negative-path capture remains optional/evidence-pending |
+| Storage security | IMPLEMENTED — EVIDENCE PENDING | `docs/evidence/storage-security-runtime.md` + live private bucket/policy checks | Run Tests A-D in browser/network: public, signed, wrong-role, expired |
+| Error Boundary | IMPLEMENTED — EVIDENCE PENDING | `docs/evidence/error-boundary-runtime.md` + mounted source component | Trigger controlled test error safely, capture fallback/recovery, remove trigger |
+| Accessibility | IMPLEMENTED — EVIDENCE PENDING | `docs/evidence/accessibility-source-audit.md` + current source | Run keyboard-only browser checks on listed flows |
+| Automated tests | VERIFIED COMPLETE | GitHub Actions run #135 | 29/29 passed |
+| CI | VERIFIED COMPLETE | GitHub Actions run #135 | None |
+| Tester 1 | EXTERNAL ACTION REQUIRED | `docs/review-2-user-validation-kit.md` | Real Reporter tester completes session |
+| Tester 2 | EXTERNAL ACTION REQUIRED | `docs/review-2-user-validation-kit.md` | Real Reporter tester completes session |
+| Tester 3 | EXTERNAL ACTION REQUIRED | `docs/review-2-user-validation-kit.md` | Real Authority/Staff tester completes session |
+| Feedback/change/retest | EXTERNAL ACTION REQUIRED | `docs/review-2-validation-plan.md` | Use genuine tester feedback, make one improvement, retest with affected tester |
+| Final demo | EXTERNAL ACTION REQUIRED | `docs/review-2-demo-script.md` | Execute and record actual end-to-end flow |
+| Final recording | EXTERNAL ACTION REQUIRED | No recording available to this agent | Record actual application behavior and evidence |
+| Documentation | VERIFIED COMPLETE | `docs/` + `docs/evidence/` | Keep synchronized after final external evidence |
+
+## Live Supabase snapshot
+
+- Auth users = 3
+- Profiles = 3
+- Reports = 16
+- Assignments = 12
+- Report evidence rows = 10
+- Storage objects = 26
+- All inspected evidence buckets are private.
+
+## Live backend authorization probes
+
+Actual results:
+- Reporter → `assign_report_to_staff`: DENIED.
+- Reporter → `authority_review_report`: DENIED.
+- Staff → `authority_review_report`: DENIED.
+- Staff → direct `resolved`: DENIED.
+- Authority → verify already-resolved report: DENIED.
+- Staff → unassigned evidence: 0 visible rows.
+- Active workflow RPCs for anonymous EXECUTE: disabled.
+
+## Live AI / runtime boundary
+
+The live OpenAI secret is not available to this agent, so no live AI output is claimed. The AI matrix remains external evidence rather than a simulated PASS.
+
+Direct storage HTTP/browser checks were attempted but the available container could not resolve the Supabase project hostname, so public/signed/expiry runtime outcomes are not claimed.
+
+Browser login and the three-user validation sessions require real credentials and real people.
+
+## Readiness
+
+**READY EXCEPT FOR EXTERNAL EVIDENCE**
