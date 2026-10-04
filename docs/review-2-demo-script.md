@@ -86,7 +86,7 @@ Show GitHub Actions:
 
 - `npm ci`;
 - lint;
-- 19 automated tests (11 AI safety + 8 Reporter-form validation);
+- 29 automated tests (11 AI safety + 8 Reporter-form validation + 10 Review 2 regression/guard tests);
 - TypeScript;
 - production build.
 
