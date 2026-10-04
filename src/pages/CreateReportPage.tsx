@@ -5,7 +5,7 @@ import { supabase } from '../lib/supabase'
 import {
     validateFile,
     validateReportDetails,
-} from '../lib/reportValidation.mjs'
+} from '../lib/reportValidation'
 
 const EVIDENCE_BUCKET = 'waste-evidence'
 
