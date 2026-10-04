@@ -1055,6 +1055,7 @@ function StaffDashboard() {
 
                 throw new Error(
                     'Evidence uploaded, but its secure preview could not be created. Please refresh and try again.',
+                    { cause: signedUrlError },
                 )
             }
 
