@@ -3,7 +3,7 @@
 **Project Better Tomorrow - C29 Semester 3 - Pathway A - Continuation Track**  
 **Review 2 status date: 04 October 2026**
 
-**Latest repository quality gate: GitHub Actions run #106 passed lint, 19 automated tests, TypeScript compilation and the production build.**
+**Latest engineering quality gate:** the expanded GitHub Actions workflow covers `npm ci`, lint, 19 automated tests, TypeScript compilation and the production build; the last verified green gate preceded the final documentation-only updates.
 
 > Core workflow: **Report -> Review -> Assign -> Clean -> Evidence -> Verify -> Resolve**
 
@@ -251,7 +251,7 @@ The four active workflow RPCs now have explicit execution access for authenticat
 
 ### Evidence security
 
-The waste-evidence bucket is now configured as **private**.
+The `waste-evidence` bucket is configured as **private**. A legacy `report-evidence` bucket was also found during final audit and hardened to private because existing reports referenced objects there.
 
 Access is controlled through authenticated Storage policies for:
 
@@ -260,7 +260,7 @@ Access is controlled through authenticated Storage policies for:
 - staff-assigned evidence;
 - reporter evidence upload in the reporter-owned path.
 
-The client now uses signed Storage URLs rather than public URLs for private evidence previews.
+The client resolves recognized Supabase evidence references through short-lived signed Storage URLs and no longer treats arbitrary HTTP evidence references as directly displayable.
 
 ### Legacy cleanup
 
@@ -325,11 +325,11 @@ Review 1 retained controlled screenshots cover:
 | Reporter protected access | Existing functional evidence |
 | Authority protected access | Existing functional evidence |
 | Staff protected access | Existing functional evidence |
-| Reporter blocked from authority action | Runtime test still required |
-| Staff blocked from final resolution | Runtime test still required |
+| Reporter blocked from authority action | **Verified in live SQL role probe** |
+| Staff blocked from final resolution | **Verified in live SQL role probe** |
 | Invalid location/description | Implemented; runtime evidence should be retained |
 | Evidence upload validation | Implemented; runtime evidence should be retained |
-| Error boundary | Existing controlled test evidence |
+| Error boundary | **Code verified; retained runtime screenshot pending** |
 | AI complete description | Provider configuration + runtime capture required |
 | AI missing location | Provider configuration + runtime capture required |
 | AI missing category | Provider configuration + runtime capture required |
@@ -558,4 +558,4 @@ WasteVoice AI has progressed from a C29 problem-framing exercise into a reviewab
 
 The key engineering decision is to keep AI narrow and accountable: the model helps structure information, while people remain responsible for the observed facts, physical cleaning, assignment, and final resolution.
 
-The strongest path to final Review 2 completion is now evidence-driven rather than feature-driven: configure the AI provider, run the four AI reliability cases, conduct the required three-person validation, show exactly what changed from their feedback, and retain the evidence for the final deck and video.
+The strongest path to final Review 2 completion is now evidence-driven rather than feature-driven: configure the AI provider, run the required AI matrix, use the mapped demo accounts in a real browser session, conduct the required three-person validation, show exactly what changed from their feedback, and retain the evidence for the final deck and video.
