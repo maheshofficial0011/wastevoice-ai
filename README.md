@@ -15,7 +15,7 @@ WasteVoice AI is a student-built web application prototype for turning an inform
 
 The project continues the problem investigated during the C29 AI Immersion activity. Field observation identified accumulated waste in a campus park, while stakeholder evidence indicated uncertainty around whom to contact, how to report an issue, and when cleanup would happen.
 
-> **Review 1 accuracy principle:** this repository deliberately distinguishes verified field evidence, stakeholder evidence, implemented software functionality, actual test results, and proposed AI features. Planned AI capability is not presented as completed functionality.
+> **Evidence integrity principle:** this repository deliberately distinguishes verified field evidence, stakeholder evidence, implemented software functionality, actual test results, and externally blocked or proposed capabilities.
 
 ---
 
@@ -438,7 +438,12 @@ WasteVoice AI currently uses Supabase Auth, the Supabase Data API, Supabase Stor
 | `staff_update_task_status` | Staff | Update cleaning task status |
 | `authority_review_report` | Authority | Record an authority review/verification decision |
 
-These RPC names represent the current frontend database contract. Their exact deployed SQL signatures should be verified against the connected Supabase project before publishing a migration or treating this README as a complete database specification.
+The following signatures were verified against the connected Supabase project on 04 October 2026:
+
+- reporter_update_report(p_report_id uuid, p_location text, p_description text, p_additional_info text)
+- assign_report_to_staff(p_report_id uuid, p_staff_id uuid)
+- staff_update_task_status(p_assignment_id uuid, p_status text)
+- authority_review_report(p_report_id uuid, p_decision text, p_reason text, p_notes text)
 
 #### Evidence storage
 
@@ -446,6 +451,9 @@ The current evidence storage bucket is:
 
 ```text
 waste-evidence
+```
+
+The bucket is private and the client resolves evidence references through short-lived signed URLs.
 
 ---
 
@@ -496,17 +504,17 @@ The first AI milestone is a narrow, human-confirmed report-structuring capabilit
 }
 ```
 
-The structured-output pattern is appropriate for extracting typed data from natural-language input. citeturn297680search1turn297680search0
+The server uses the current OpenAI Responses API pattern for model calls and structured output; the model name remains configurable server-side. citeturn596744search0
 
 ---
 
 ## 17. Testing and Validation
 
-### Verified locally
+### Verified through GitHub Actions
 
-- `npm run lint` is configured as a quality check.
-- `npm run build` successfully completed TypeScript compilation and Vite production build on the development machine.
-- The build emitted a large JavaScript chunk warning; this remains an optimization item.
+- The repository Quality Check workflow runs lint, automated tests and the production build.
+- Review 2 CI run #47 completed successfully before the final automated-test suite was added.
+- The latest commits are re-running the expanded quality gate; the final green result should be treated as the authoritative current check.
 
 ### Controlled runtime test
 
@@ -518,10 +526,9 @@ The supporting screenshots are stored in [`docs/evidence/`](docs/evidence/).
 
 ### Still pending
 
-- Systematic role/RLS access tests.
-- Explicit validation of connected Supabase table/RPC signatures against the deployment.
-- Formal retained three-user validation evidence.
-- AI edge-case/reliability tests after AI integration.
+- Role-negative runtime access tests.
+- Live AI provider configuration and live AI evidence.
+- Formal retained three-user Review 2 validation evidence.
 - Production deployment verification.
 
 ---
@@ -532,8 +539,9 @@ The supporting screenshots are stored in [`docs/evidence/`](docs/evidence/).
 - Protected application routes are role-aware.
 - Client-side configuration uses the publishable Supabase key.
 - Service-role/database credentials are not intended for frontend use.
-- RLS and protected RPCs remain part of the security verification work.
-- Security hardening has been applied and verified against the connected Supabase configuration, but role-negative runtime tests and remaining platform advisor warnings still need closure.
+- RLS and protected RPCs are enabled for the core workflow.
+- Security hardening has been applied and verified against the connected Supabase configuration.
+- Role-negative runtime tests and remaining platform advisor warnings still need closure.
 
 ---
 
@@ -572,13 +580,13 @@ AI assistance is treated as a co-pilot for development and documentation support
 
 ### Remaining before final Review 2 submission
 
-- Retain genuine three-user validation evidence.
-- Verify deployed Supabase tables, RLS and RPC signatures.
-- Capture explicit role-denial and edge-case runtime tests.
-- Implement and test the server-side AI report-structuring endpoint.
-- Capture AI reliability evidence for complete, incomplete and vague inputs.
-- Document prototype changes caused by tester feedback.
-- Verify production deployment before making production claims.
+- Configure the live AI provider secret.
+- Capture the AI reliability matrix, including contradiction and prompt-injection cases.
+- Map the three existing Auth users to intended Reporter, Authority and Staff profile rows.
+- Run explicit role-denial and evidence-access runtime tests.
+- Conduct three genuine Review 2 tester sessions.
+- Record feedback → product change → retest evidence.
+- Verify final deployment, presentation, video and evidence package.
 
 ---
 
