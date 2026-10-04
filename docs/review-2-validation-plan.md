@@ -4,6 +4,8 @@
 **Minimum participants:** 3 real testers, either new testers or re-engaged users.
 **Do not enter results before the interaction occurs.**
 
+**Engineering readiness note (04 October 2026):** three demo Auth users are mapped to Reporter, Authority and Staff profiles; core authorization and storage hardening has been live-checked. Live AI inference and browser evidence still depend on external credentials/runtime access.
+
 ## Participant Profile
 
 Use participants who can reasonably act as a campus reporter or understand the authority/staff workflow. Record only the minimum information needed for project evidence.
@@ -67,7 +69,7 @@ Ask every tester the same core questions so the findings are comparable.
 | Workflow comprehension | Tester can identify the next stage and responsible role |
 | Evidence comprehension | Tester understands the purpose of before/after evidence |
 
-These are usability criteria, not claims of statistical significance.
+These are usability criteria, not claims of statistical significance. A tester is complete only when the interaction and underlying evidence are retained.
 
 ## Evidence Required Per Tester
 
