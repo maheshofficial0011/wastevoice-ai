@@ -1,46 +1,120 @@
 # WasteVoice AI — AI Integration
 
-## Review 2 status
-The first AI milestone is implemented and deployed as Supabase Edge Function structure-report. Live deployment is ACTIVE version 2 with JWT verification enabled. Live provider inference remains EXTERNAL ACTION REQUIRED until the server-side provider secret is configured.
+## Current Review 2 status
+
+**VERIFIED COMPLETE — live Gemini inference**
+
+The deployed Supabase Edge Function `structure-report` was exercised with the live provider configuration.
+
+Verified live response:
+
+- HTTP 200
+- `source = gemini`
+- `providerConfigured = true`
+- model = `gemini-3.5-flash-lite`
+- category, location, summary and missing-field data returned
+- `needsConfirmation = true`
+
+The actual `GEMINI_API_KEY` value is never documented.
 
 ## AI purpose
-WasteVoice AI uses a narrow natural-language understanding task: convert a reporter's ordinary-language waste description into conservative structured suggestions that the reporter can review and correct.
-The AI is not an autonomous workflow agent.
 
-## Structured output
-- category: plastic, paper, food, mixed, other, or unknown
-- location: supplied location or unknown
-- summary: concise neutral summary
-- missingFields: fields that remain missing or vague
-- needsConfirmation: always true
+WasteVoice AI uses a narrow natural-language understanding task: structure the reporter's own description into conservative fields for human review.
 
-## Safety contract
-1. Use only facts supplied by the reporter.
-2. Preserve uncertainty.
-3. Use unknown instead of inventing missing fields.
-4. Keep the supplied location unchanged when present.
-5. Write a neutral summary.
-6. Never assign cleaning staff.
-7. Never change workflow status.
-8. Never declare cleaning complete.
-9. Never approve or resolve a report.
-10. Require reporter confirmation before structured information is used.
+**AI output is advisory and does not directly mutate workflow state.**
 
 ## Architecture
-Reporter -> React Reporter UI -> authenticated request -> Supabase Edge Function -> AI provider -> structured output -> server validation -> reporter review -> normal report workflow.
 
-## Provider and secret handling
-The provider API key is read only by the Edge Function.
-Required server-side secret: OPENAI_API_KEY
-Optional server-side model selection: OPENAI_MODEL
-The repository does not contain a provider secret.
+```text
+Reporter text
+   ↓
+Authenticated structure-report Edge Function
+   ↓
+Gemini / gemini-3.5-flash-lite
+   ↓
+Structured JSON
+   ↓
+Application validation / safety checks
+   ↓
+Reporter review and correction
+   ↓
+Normal workflow
+```
 
-## Safe fallback
-When the provider secret is absent, or when the provider response cannot be safely validated, the function returns a deterministic conservative fallback and labels the response as fallback mode.
-This prevents a fallback response from being presented as live model inference.
+## AI responsibilities
 
-## Reliability tests
-The repository contains 11 automated AI safety/boundary tests covering complete, missing, vague, contradictory, prompt-injection, oversized, malformed and unsafe-output cases plus fallback and prompt construction. These are deterministic/contract tests, not live-model accuracy measurements.
+- suggest a supported waste category;
+- preserve the supplied location;
+- create a neutral summary;
+- identify missing or vague information;
+- require reporter confirmation.
 
-## Current limitation
-The Edge Function is deployed, but live model inference remains pending until OPENAI_API_KEY and an allowed OPENAI_MODEL are configured in the Supabase project. No AI accuracy number is claimed. The live matrix is recorded in docs/evidence/live-ai-test-matrix.md.
+AI must not:
+
+- assign staff;
+- approve reports;
+- reject reports;
+- resolve reports;
+- change workflow state;
+- declare cleaning complete.
+
+## Safety controls
+
+- input type and length validation;
+- structured response validation;
+- conservative unknown handling;
+- malformed-output rejection;
+- unsafe control-language rejection;
+- bounded provider timeout;
+- safe provider-failure fallback;
+- mandatory confirmation.
+
+## Reporter AI Assist — manual browser validation
+
+Test input:
+
+**Location:** College Canteen
+
+**Description:** Several plastic bottles and food wrappers are lying near the entrance.
+
+**Additional information:** Observed during the afternoon.
+
+Observed results:
+
+| Check | Result |
+|---|---|
+| AI Assist opened | PASS |
+| AI analysis completed | PASS |
+| Category displayed | PASS |
+| Location displayed | PASS |
+| Summary displayed | PASS |
+| Missing fields displayed | PASS |
+| Confirmation requirement displayed | PASS |
+| Human control preserved | PASS |
+| Copy structured summary | PASS |
+
+The UI action is **“Copy structured summary”**. It copies the structured information and does not authorize a workflow transition.
+
+## Accuracy qualification
+
+Live inference was verified, but this does not establish a statistical accuracy percentage or universal correctness.
+
+No 100% accuracy claim is made.
+
+## Automated AI coverage
+
+The repository contains 11 AI safety/structuring tests plus 10 Review 2 regression/guard tests. These are contract/safety checks, not model-accuracy measurements.
+
+## Secret handling
+
+Provider configuration is server-side through Supabase Edge Function secrets:
+
+- `GEMINI_API_KEY`
+- `AI_PROVIDER=gemini`
+- `AI_MODEL=gemini-3.5-flash-lite`
+
+No secret value belongs in the repository or frontend bundle.
+
+## Known limitations
+
+Three genuine external Review 2 tester sessions have not been claimed. The AI remains human-controlled even though live inference is now verified.
