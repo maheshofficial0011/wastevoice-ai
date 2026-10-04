@@ -2,10 +2,14 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import type { ChangeEvent, DragEvent, FormEvent } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
+import {
+    MAX_FILE_SIZE,
+    ACCEPTED_TYPES,
+    validateFile,
+    validateReportDetails,
+} from '../lib/reportValidation.mjs'
 
 const EVIDENCE_BUCKET = 'waste-evidence'
-const MAX_FILE_SIZE = 10 * 1024 * 1024
-const ACCEPTED_TYPES = ['image/jpeg', 'image/png', 'image/webp']
 
 type Step = 1 | 2 | 3
 
@@ -36,17 +40,6 @@ function Icon({
     return <svg {...common}><rect x="4" y="5" width="16" height="14" rx="2" /><circle cx="9" cy="10" r="1.5" /><path d="m5 17 4.5-4 3 2.5 2-2 4.5 3.5" /></svg>
 }
 
-function validateFile(file: File) {
-    if (!ACCEPTED_TYPES.includes(file.type)) {
-        return 'Please upload a JPG, PNG or WebP image.'
-    }
-
-    if (file.size > MAX_FILE_SIZE) {
-        return 'Image must be smaller than 10 MB.'
-    }
-
-    return null
-}
 
 function CreateReportPage() {
     const navigate = useNavigate()
@@ -200,28 +193,14 @@ function CreateReportPage() {
     function goToEvidence() {
         setError(null)
 
-        if (!location.trim()) {
-            setError('Please enter the waste location.')
-            return
-        }
+        const validationError = validateReportDetails({
+            location,
+            description,
+            additionalInfo,
+        })
 
-        if (location.trim().length < 3) {
-            setError('Please provide a more specific location.')
-            return
-        }
-
-        if (!description.trim()) {
-            setError('Please describe what you observed.')
-            return
-        }
-
-        if (description.trim().length < 15) {
-            setError('Please provide a little more detail about the observed problem.')
-            return
-        }
-
-        if (additionalInfo.trim().length > 1000) {
-            setError('Additional information must be 1000 characters or fewer.')
+        if (validationError) {
+            setError(validationError)
             return
         }
 
@@ -243,13 +222,21 @@ function CreateReportPage() {
         event?.preventDefault()
         setError(null)
 
+        if (submitting) return
+
         if (!canSubmit) {
             setError(isEditMode ? 'Please complete the location and description before saving.' : 'Please complete the location, description and evidence before submitting.')
             return
         }
 
-        if (additionalInfo.trim().length > 1000) {
-            setError('Additional information must be 1000 characters or fewer.')
+        const validationError = validateReportDetails({
+            location,
+            description,
+            additionalInfo,
+        })
+
+        if (validationError) {
+            setError(validationError)
             return
         }
 
