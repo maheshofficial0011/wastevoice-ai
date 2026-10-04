@@ -1,15 +1,21 @@
-import type { ReportStatus } from '../types'
+export type RuntimeReportStatus =
+    | 'submitted'
+    | 'assigned'
+    | 'cleaning_in_progress'
+    | 'pending_verification'
+    | 'resolved'
+    | 'rejected'
 
 /**
  * Canonical application workflow.
  *
- * This helper is documentation/transition metadata only. The authoritative
- * workflow guards remain in the Supabase RPCs that mutate live reports.
+ * The authoritative guards remain in the Supabase RPCs that mutate live
+ * reports. This file mirrors the runtime states for UI/documentation helpers.
  *
  * Correction loop:
  * pending_verification -> rejected -> cleaning_in_progress
  */
-export const workflowTransitions: Partial<Record<ReportStatus | 'rejected', Array<ReportStatus | 'rejected'>>> = {
+export const workflowTransitions: Record<RuntimeReportStatus, RuntimeReportStatus[]> = {
     submitted: ['assigned'],
     assigned: ['cleaning_in_progress'],
     cleaning_in_progress: ['pending_verification'],
@@ -19,8 +25,8 @@ export const workflowTransitions: Partial<Record<ReportStatus | 'rejected', Arra
 }
 
 export function canTransition(
-    currentStatus: ReportStatus | 'rejected',
-    nextStatus: ReportStatus | 'rejected',
+    currentStatus: RuntimeReportStatus,
+    nextStatus: RuntimeReportStatus,
 ): boolean {
-    return workflowTransitions[currentStatus]?.includes(nextStatus) ?? false
+    return workflowTransitions[currentStatus].includes(nextStatus)
 }
