@@ -2,16 +2,16 @@
 
 **Audit date:** 04 October 2026  
 **Branch:** `main`  
-**Current commit:** `3273439d587bc8018e4efcd27c75b016e8f89cb3`
+**Current commit:** `8f672d9bf8120fd67f6b1f5fed9ea8458e91a75f`
 
 ## Quality
 
 | Check | Status | Evidence |
 |---|---|---|
-| ESLint | VERIFIED COMPLETE | GitHub Actions run #69 passed |
+| ESLint | VERIFIED COMPLETE | GitHub Actions run #102 passed |
 | Automated tests | VERIFIED COMPLETE | GitHub Actions run #69 passed; 11 AI safety tests |
 | TypeScript + production build | VERIFIED COMPLETE | GitHub Actions run #69 passed |
-| Workflow helper regression | FIXED | Commit `3273439d...`; final CI rerun required |
+| Workflow helper regression | VERIFIED COMPLETE | Covered by the current green CI gate |
 
 ## Supabase
 
