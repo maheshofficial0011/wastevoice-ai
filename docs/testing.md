@@ -13,7 +13,7 @@ npm test
 npm run build
 ```
 
-Final local validation recorded on 04 October 2026: npm test passed 29/29; npm run build passed; npm audit reported 0 known package vulnerabilities. GitHub Actions run #166 is the final verified PR quality gate for this documentation audit; lint, 29 tests and production build all passed.
+Final local validation recorded on 04 October 2026: npm test passed 29/29; npm run build passed; npm audit reported 0 known package vulnerabilities. GitHub Actions run #173 is the verified green repository quality gate for the final technical implementation checkpoint; lint, 29 tests, TypeScript compilation and the production build all passed.
 
 Production build passes. Vite reports a non-blocking chunk-size optimization warning (>500 kB). This is an optimization item, not a build failure.
 
@@ -62,8 +62,8 @@ It must **not** be interpreted as proof that a real campus cleaning operation oc
 | Login and role routing | **Functionally exercised** | Test-account screenshots |
 | Reporter protected workflow | **Functionally exercised** | Reporter test workflow |
 | Report creation | **Functionally exercised** | Reporter dashboard/report evidence |
-| Input validation | **Implemented** | Source-level implementation; edge-case execution should be retained separately |
-| Before evidence upload | **Functionally exercised** | Reporter test workflow |
+| Input validation | **Verified in browser** | Empty/short report states were exercised and correctly blocked; implementation and automated coverage retained |
+| Before evidence upload | **Verified** | Reporter workflow was exercised through evidence upload and submission |
 | Reporter dashboard | **Functionally exercised** | Screenshot evidence |
 | Authority review | **Functionally exercised** | Authority workflow screenshots |
 | Staff assignment | **Functionally exercised** | Assignment screenshot |
@@ -72,8 +72,8 @@ It must **not** be interpreted as proof that a real campus cleaning operation oc
 | Authority verification | **Functionally exercised** | Verification workspace screenshots |
 | Human resolution control | **Functionally exercised** | Authority verification workspace |
 | AI live inference | **Verified** | Deployed `structure-report` returned HTTP 200 with `source=gemini`, `providerConfigured=true`, model `gemini-3.5-flash-lite`; Reporter AI Assist was browser-tested |
-| Systematic RLS/security testing | **Verified** | Live Supabase role-negative probes and unassigned-evidence visibility checks completed |
-| Three external Review 2 testers | **EXTERNAL ACTION REQUIRED** | No external sessions are claimed; internal project-owner validation is documented separately |
+| Systematic RLS/security testing | **Verified** | Live Supabase role-negative probes, assigned-evidence checks and the Staff evidence-path correction were exercised and retested |
+| Three external Review 2 testers | **EXTERNAL EVIDENCE REQUIRED** | Comprehensive internal/project-owner testing is complete; this does not substitute for three genuine external-user sessions required by C29 |
 
 ## 4. Evidence files retained
 
@@ -92,7 +92,7 @@ The local Review 1 screenshot set is organized as:
 
 The screenshots document prototype behavior and UI state. They are not field-impact measurements.
 
-## 5. Role-based security tests still required
+## 5. Role-based security verification
 
 ### Reporter
 
@@ -115,7 +115,7 @@ The screenshots document prototype behavior and UI state. They are not field-imp
 - Can upload after-cleaning evidence.
 - Cannot make the final resolved decision.
 
-These should be tested against the connected Supabase project and retained as runtime evidence, not inferred only from frontend source code.
+These were exercised against the connected Supabase project where applicable, including live role-negative probes. Remaining second-identity isolation evidence is explicitly qualified below.
 
 ## 6. Input and edge-case tests
 
@@ -130,7 +130,7 @@ The application includes validation for cases such as:
 - editing a report after it is no longer eligible for reporter edits;
 - missing/invalid authenticated session.
 
-Where Review 1 claims a specific edge case as **passed**, retain execution evidence. Implementation alone is not a test result.
+The Review 2 validation pass distinguishes executed behavior from source-only coverage. Browser-tested validation states and live security probes are treated as verified; source-only or fault-injection cases are not promoted to passed without execution evidence.
 
 ## 7. AI reliability test matrix
 
@@ -161,7 +161,7 @@ A test should be marked **Passed** only after it is actually executed. A planned
 
 ### Automated Review 2 test coverage
 
-The current repository suite contains **29 executable tests**: 11 AI safety tests, 8 Reporter-form validation tests, and 10 Review 2 regression/guard tests in `tests/review2-regression.test.mjs`. The expanded suite is configured in `package.json`; the post-expansion green CI result still requires final Actions confirmation.
+The current repository suite contains **29 executable tests**: 11 AI safety tests, 8 Reporter-form validation tests, and 10 Review 2 regression/guard tests in `tests/review2-regression.test.mjs`. The final green CI checkpoint is GitHub Actions run **#173**.
 
 
 
@@ -173,11 +173,11 @@ The following test cases define the expected behavior for important user, valida
 |---|---|---|---|---|
 | TC-01 | Valid reporter login | Valid Reporter credentials | Reporter dashboard opens | Functionally exercised |
 | TC-02 | Report with valid data | Valid description, location and before image | Report can be submitted | Functionally exercised |
-| TC-03 | Empty location | Location left empty | Submission is blocked with validation feedback | Implemented; runtime evidence pending |
-| TC-04 | Short description | Description below minimum length | Submission is blocked with validation feedback | Implemented; runtime evidence pending |
-| TC-05 | Missing before evidence | Valid text but no before image | Submission is blocked | Implemented; runtime evidence pending |
-| TC-06 | Unsupported image type | Unsupported file format | Upload is rejected | Implemented; runtime evidence pending |
-| TC-07 | Oversized image | Image exceeds configured limit | Upload is rejected with user feedback | Implemented; runtime evidence pending |
+| TC-03 | Empty location | Location left empty | Submission is blocked with validation feedback | **Verified in browser** |
+| TC-04 | Short description | Description below minimum length | Submission is blocked with validation feedback | **Verified in browser** |
+| TC-05 | Missing before evidence | Valid text but no before image | Submission is blocked | **Implemented and covered by form validation** |
+| TC-06 | Unsupported image type | Unsupported file format | Upload is rejected | **Automated/source coverage; separate capture not retained** |
+| TC-07 | Oversized image | Image exceeds configured limit | Upload is rejected with user feedback | **Automated/source coverage; separate capture not retained** |
 | TC-08 | Reporter edits eligible report | Report still allows reporter edits | Changes can be made | Implemented; runtime evidence pending |
 | TC-09 | Reporter edits locked report | Report no longer allows reporter edits | Edit operation is prevented | Implemented; runtime evidence pending |
 | TC-10 | Authority assignment | Submitted report + available staff | Authority can assign staff | Functionally exercised |
@@ -186,9 +186,9 @@ The following test cases define the expected behavior for important user, valida
 | TC-13 | Authority verification | Staff evidence available | Authority can review evidence and make final decision | Functionally exercised |
 | TC-14 | Staff attempts final resolution | Staff role | Final resolution remains unavailable to staff | **Verified in live SQL role probe** |
 | TC-15 | Reporter attempts authority action | Reporter role | Authority-only action is unavailable | **Verified in live SQL role probe** |
-| TC-16 | Invalid/missing session | No valid authenticated session | Protected operation is denied and user is redirected or shown an authentication error | Runtime test pending |
-| TC-17 | Backend/database failure | Supabase operation fails | User receives controlled error feedback; application does not silently report success | Failure-injection test pending |
-| TC-18 | Evidence upload failure | Storage/upload operation fails | Upload failure is shown and report is not falsely marked as successful | Failure-injection test pending |
+| TC-16 | Invalid/missing session | No valid authenticated session | Protected operation is denied and user is redirected or shown an authentication error | **Verified through logout/direct-route protection and invalid-credential checks** |
+| TC-17 | Backend/database failure | Supabase operation fails | User receives controlled error feedback; application does not silently report success | **Not separately failure-injected** |
+| TC-18 | Evidence upload failure | Storage/upload operation fails | Upload failure is shown and report is not falsely marked as successful | **Not separately failure-injected** |
 
 ### Test result interpretation
 
@@ -258,7 +258,7 @@ The build emitted one non-blocking Vite chunk-size optimization warning. No buil
 
 The Staff before-evidence visibility issue was identified during internal validation, corrected through Storage RLS path handling, and successfully retested.
 
-The following remains external/evidence-pending: a second Staff identity for cross-staff isolation, and three genuine external Review 2 tester sessions. Internal project-owner testing is not counted as external-user validation.
+The following remains evidence-pending: a second Staff identity for cross-staff isolation, and three genuine external Review 2 tester sessions. The complete internal Reporter/Authority/Staff workflow and the identified Staff evidence-path issue have been tested and retested. Internal project-owner testing is not counted as external-user validation.
 
 ## 11. Expected vs Actual Result Recording
 
