@@ -497,41 +497,10 @@ function StaffDashboard() {
 
             let nextEvidenceUrls: Record<string, string> = {}
 
-            try {
-                nextEvidenceUrls = await createEvidenceUrlMap(assignmentEvidenceReferences)
-                setEvidenceUrls(nextEvidenceUrls)
-            } catch (signedUrlError) {
-                console.warn('Staff evidence signing:', signedUrlError)
-                setEvidenceUrls({})
-            }
-
-            const assignmentsWithSignedBeforeEvidence = loadedAssignments.map((assignment) => {
-                const report = getReport(assignment)
-                if (!report || !report.evidence_url) return assignment
-
-                const signedUrl = resolveEvidenceReference(
-                    report.evidence_url,
-                    nextEvidenceUrls,
-                )
-
-                if (!signedUrl) return assignment
-
-                const updatedReport = {
-                    ...report,
-                    evidence_url: signedUrl,
-                }
-
-                return {
-                    ...assignment,
-                    reports: Array.isArray(assignment.reports)
-                        ? [updatedReport]
-                        : updatedReport,
-                }
-            })
-
             const evidenceMap: Record<string, ReportEvidence> = {}
             const evidenceHistoryMap: Record<string, ReportEvidence[]> = {}
             const reviewHistoryMap: Record<string, AuthorityReview[]> = {}
+            let loadedAfterEvidence: ReportEvidence[] = []
 
             if (reportIds.length > 0) {
                 const {
@@ -557,8 +526,9 @@ function StaffDashboard() {
                         evidenceError
                     )
                 } else {
-                    for (const evidence of
-                        (evidenceData ?? []) as ReportEvidence[]) {
+                    loadedAfterEvidence = (evidenceData ?? []) as ReportEvidence[]
+
+                    for (const evidence of loadedAfterEvidence) {
 
                         if (!evidenceHistoryMap[evidence.report_id]) {
                             evidenceHistoryMap[evidence.report_id] = []
@@ -613,6 +583,50 @@ function StaffDashboard() {
                     }
                 }
             }
+
+            /*
+             * Sign both reporter before-cleaning evidence and staff
+             * after-cleaning evidence. The bucket is private, so raw storage
+             * paths cannot be rendered directly by the browser.
+             */
+            const allEvidenceReferences = [
+                ...assignmentEvidenceReferences,
+                ...loadedAfterEvidence
+                    .map((evidence) => evidence.file_path)
+                    .filter((value): value is string => Boolean(value)),
+            ]
+
+            try {
+                nextEvidenceUrls = await createEvidenceUrlMap(allEvidenceReferences)
+                setEvidenceUrls(nextEvidenceUrls)
+            } catch (signedUrlError) {
+                console.warn('Staff evidence signing:', signedUrlError)
+                setEvidenceUrls({})
+            }
+
+            const assignmentsWithSignedBeforeEvidence = loadedAssignments.map((assignment) => {
+                const report = getReport(assignment)
+                if (!report || !report.evidence_url) return assignment
+
+                const signedUrl = resolveEvidenceReference(
+                    report.evidence_url,
+                    nextEvidenceUrls,
+                )
+
+                if (!signedUrl) return assignment
+
+                const updatedReport = {
+                    ...report,
+                    evidence_url: signedUrl,
+                }
+
+                return {
+                    ...assignment,
+                    reports: Array.isArray(assignment.reports)
+                        ? [updatedReport]
+                        : updatedReport,
+                }
+            })
 
             /*
              * Ignore a stale response. This prevents an older request from
@@ -1084,7 +1098,7 @@ function StaffDashboard() {
         }
 
 
-        return resolveEvidenceReference(filePath, evidenceUrls) ?? filePath
+        return resolveEvidenceReference(filePath, evidenceUrls)
     }
 
 
