@@ -1005,6 +1005,7 @@ function ReportSection({
     getLatestReview,
     onPreview,
     onCopyReportId,
+    evidenceUrls,
     emptyTitle,
     emptyDescription,
     emptySearch,
