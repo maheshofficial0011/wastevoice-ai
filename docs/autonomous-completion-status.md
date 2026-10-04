@@ -2,13 +2,13 @@
 
 **Audit date:** 04 October 2026  
 **Branch:** `main`  
-**Current commit:** `8f672d9bf8120fd67f6b1f5fed9ea8458e91a75f`
+**Current commit:** `4f8a842a471991fa87c8fc1e49b1034a7c588690`
 
 ## Quality
 
 | Check | Status | Evidence |
 |---|---|---|
-| ESLint | VERIFIED COMPLETE | GitHub Actions run #102 passed |
+| ESLint | VERIFIED COMPLETE | GitHub Actions run #104 passed |
 | Automated tests | VERIFIED COMPLETE | GitHub Actions run #69 passed; 11 AI safety tests |
 | TypeScript + production build | VERIFIED COMPLETE | GitHub Actions run #69 passed |
 | Workflow helper regression | VERIFIED COMPLETE | Covered by the current green CI gate |
