@@ -1147,18 +1147,21 @@ function AuthorityDashboard() {
         }
 
         result.sort((a, b) => {
-            let comparison = 0
+            let comparison: number
 
             if (sortBy === 'workflow') {
-                const priorityA = WORKFLOW_PRIORITY[normalizeStatus(a.status)] ?? 999
-                const priorityB = WORKFLOW_PRIORITY[normalizeStatus(b.status)] ?? 999
-                comparison = priorityA - priorityB
+                const priorityDifference =
+                    (WORKFLOW_PRIORITY[normalizeStatus(a.status)] ?? 999) -
+                    (WORKFLOW_PRIORITY[normalizeStatus(b.status)] ?? 999)
 
-                if (comparison === 0) {
-                    return sortDirection === 'asc'
-                        ? new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
-                        : new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
+                if (priorityDifference === 0) {
+                    comparison =
+                        new Date(b.created_at).getTime() -
+                        new Date(a.created_at).getTime()
+                    return sortDirection === 'asc' ? comparison : -comparison
                 }
+
+                comparison = priorityDifference
             } else if (sortBy === 'oldest') {
                 comparison =
                     new Date(a.created_at).getTime() -
