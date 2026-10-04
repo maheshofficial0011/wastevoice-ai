@@ -10,6 +10,12 @@ export function isHttpUrl(value: string | null | undefined) {
     )
 }
 
+export function resolveEvidenceReference(reference: string | null | undefined, signedUrls: Record<string, string>) {
+    if (!reference) return null
+    if (isHttpUrl(reference)) return reference
+    return signedUrls[reference] ?? null
+}
+
 export async function createEvidenceUrlMap(paths: string[]) {
     const uniquePaths = [...new Set(paths.filter(Boolean).filter((path) => !isHttpUrl(path)))]
     if (uniquePaths.length === 0) return {}
