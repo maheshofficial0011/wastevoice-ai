@@ -92,7 +92,7 @@ Deno.serve(async (request) => {
     additionalInfo,
   } = validated
 
-  if (!API_KEY) {
+  if (!OPENAI_API_KEY) {
     return jsonResponse({
       source: "fallback",
       providerConfigured: false,
