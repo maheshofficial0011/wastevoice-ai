@@ -6,7 +6,7 @@ import {
   MAX_FILE_SIZE,
   validateFile,
   validateReportDetails,
-} from "../src/lib/reportValidation.mjs"
+} from "../src/lib/reportValidation.ts"
 
 const file = (type, size) => ({ type, size })
 
