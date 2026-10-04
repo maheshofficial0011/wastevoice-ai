@@ -20,33 +20,52 @@ type StorageReference = {
     path: string
 }
 
-function parseSupabasePublicStorageReference(reference: string): StorageReference | null {
+function parseSupabaseStorageReference(reference: string): StorageReference | null {
     if (!isHttpUrl(reference)) return null
 
     try {
         const url = new URL(reference)
-        const marker = '/storage/v1/object/public/'
+
+        /*
+         * Supabase storage URLs can be public, signed, or authenticated.
+         * For private evidence we only need to recover the bucket/path and
+         * then create our own short-lived signed URL.
+         */
+        const marker = '/storage/v1/object/'
         const markerIndex = url.pathname.indexOf(marker)
 
         if (markerIndex < 0) return null
 
-        const encodedReference = url.pathname.slice(
+        const remainder = url.pathname.slice(
             markerIndex + marker.length,
         )
+
+        const prefixes = [
+            'public/',
+            'sign/',
+            'authenticated/',
+        ]
+
+        const prefix = prefixes.find((value) => remainder.startsWith(value))
+        if (!prefix) return null
+
+        const encodedReference = remainder.slice(prefix.length)
         const separatorIndex = encodedReference.indexOf('/')
 
         if (separatorIndex <= 0 || separatorIndex === encodedReference.length - 1) {
             return null
         }
 
-        const bucket = encodedReference.slice(0, separatorIndex)
+        const bucket = decodeURIComponent(
+            encodedReference.slice(0, separatorIndex),
+        )
         const encodedPath = encodedReference.slice(separatorIndex + 1)
 
         if (!ALLOWED_EVIDENCE_BUCKETS.has(bucket)) return null
 
         return {
             bucket,
-            path: decodeURIComponent(encodedPath),
+            path: decodeURIComponent(encodedPath.split('?')[0]),
         }
     } catch {
         return null
@@ -72,7 +91,7 @@ export async function createEvidenceUrlMap(references: string[]) {
     >()
 
     for (const reference of uniqueReferences) {
-        const parsed = parseSupabasePublicStorageReference(reference)
+        const parsed = parseSupabaseStorageReference(reference)
         const bucket = parsed?.bucket ?? EVIDENCE_BUCKET
         const path = parsed?.path ?? reference
 
