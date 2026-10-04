@@ -52,7 +52,7 @@ test("AI-05 contradictory input remains uncertain", () => {
     "There is paper waste, plastic bottles, and food leftovers here.",
   )
 
-  assert.equal(result.category, "plastic")
+  assert.equal(result.category, "mixed")
   assert.equal(result.needsConfirmation, true)
 
   const safe = parseSafeResult(
