@@ -8,8 +8,15 @@ import {
   validateReportInput,
 } from "./logic.mjs"
 
-const MODEL = Deno.env.get("OPENAI_MODEL") ?? "gpt-5-mini"
-const OPENAI_API_KEY = Deno.env.get("OPENAI_API_KEY")
+const PROVIDER = (Deno.env.get("AI_PROVIDER") ?? "openai").toLowerCase()
+const MODEL = Deno.env.get("AI_MODEL") ?? (
+  PROVIDER === "gemini"
+    ? "gemini-3.8-flash"
+    : (Deno.env.get("OPENAI_MODEL") ?? "gpt-5-mini")
+)
+const API_KEY = PROVIDER === "gemini"
+  ? Deno.env.get("GEMINI_API_KEY")
+  : Deno.env.get("OPENAI_API_KEY")
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -92,7 +99,7 @@ Deno.serve(async (request) => {
     additionalInfo,
   } = validated
 
-  if (!OPENAI_API_KEY) {
+  if (!API_KEY) {
     return jsonResponse({
       source: "fallback",
       providerConfigured: false,
@@ -111,43 +118,82 @@ Deno.serve(async (request) => {
   const timeout = setTimeout(() => controller.abort(), 8000)
 
   try {
-    const response = await fetch("https://api.openai.com/v1/responses", {
+    const apiUrl = PROVIDER === "gemini"
+      ? "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions"
+      : "https://api.openai.com/v1/responses"
+
+    const response = await fetch(apiUrl, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${OPENAI_API_KEY}`,
+        Authorization: `Bearer ${API_KEY}`,
       },
-      body: JSON.stringify({
-        model: MODEL,
-        max_output_tokens: 300,
-        input: [
-          {
-            role: "system",
-            content: [{ type: "input_text", text: [
-              "You are the WasteVoice AI report-structuring assistant.",
-              "Use only facts supplied by the reporter.",
-              "Never invent locations, quantities, dates, causes, people, urgency, waste types, cleaning results, or outcomes.",
-              "Use unknown when a category is not supported.",
-              "Copy the supplied location exactly when provided; otherwise use unknown.",
-              "Write a neutral one-sentence summary using only supplied facts.",
-              "List genuinely missing or vague fields.",
-              "needsConfirmation must always be true.",
-              "Do not assign staff, change workflow status, approve reports, reject reports, or declare cleaning complete.",
-            ].join(" ") }],
-          },
-          {
-            role: "user",
-            content: [{ type: "input_text", text: userPrompt }],
-          },
-        ],
-        text: {
-          format: {
-            type: "json_schema",
-            name: "waste_report_structure",
-            strict: true,
-            schema,
-          },
-        },
+      body: JSON.stringify(
+        PROVIDER === "gemini"
+          ? {
+              model: MODEL,
+              max_tokens: 300,
+              messages: [
+                {
+                  role: "system",
+                  content: [
+                    "You are the WasteVoice AI report-structuring assistant.",
+                    "Use only facts supplied by the reporter.",
+                    "Never invent locations, quantities, dates, causes, people, urgency, waste types, cleaning results, or outcomes.",
+                    "Use unknown when a category is not supported.",
+                    "Copy the supplied location exactly when provided; otherwise use unknown.",
+                    "Write a neutral one-sentence summary using only supplied facts.",
+                    "List genuinely missing or vague fields.",
+                    "needsConfirmation must always be true.",
+                    "Do not assign staff, change workflow status, approve reports, reject reports, or declare cleaning complete.",
+                  ].join(" "),
+                },
+                { role: "user", content: userPrompt },
+              ],
+              response_format: {
+                type: "json_schema",
+                json_schema: {
+                  name: "waste_report_structure",
+                  strict: true,
+                  schema,
+                },
+              },
+            }
+          : {
+              model: MODEL,
+              max_output_tokens: 300,
+              input: [
+                {
+                  role: "system",
+                  content: [{
+                    type: "input_text",
+                    text: [
+                      "You are the WasteVoice AI report-structuring assistant.",
+                      "Use only facts supplied by the reporter.",
+                      "Never invent locations, quantities, dates, causes, people, urgency, waste types, cleaning results, or outcomes.",
+                      "Use unknown when a category is not supported.",
+                      "Copy the supplied location exactly when provided; otherwise use unknown.",
+                      "Write a neutral one-sentence summary using only supplied facts.",
+                      "List genuinely missing or vague fields.",
+                      "needsConfirmation must always be true.",
+                      "Do not assign staff, change workflow status, approve reports, reject reports, or declare cleaning complete.",
+                    ].join(" "),
+                  }],
+                },
+                {
+                  role: "user",
+                  content: [{ type: "input_text", text: userPrompt }],
+                },
+              ],
+              text: {
+                format: {
+                  type: "json_schema",
+                  name: "waste_report_structure",
+                  strict: true,
+                  schema,
+                },
+              },
+            },
       }),
       signal: controller.signal,
     })
@@ -168,8 +214,12 @@ Deno.serve(async (request) => {
       })
     }
 
+    const providerOutput = PROVIDER === "gemini"
+      ? payload?.choices?.[0]?.message?.content ?? ""
+      : extractOutputText(payload)
+
     const safeResult = parseSafeResult(
-      extractOutputText(payload),
+      providerOutput,
       location,
     )
 
@@ -183,7 +233,7 @@ Deno.serve(async (request) => {
     }
 
     return jsonResponse({
-      source: "openai",
+      source: PROVIDER,
       providerConfigured: true,
       model: MODEL,
       data: safeResult,
