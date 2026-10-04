@@ -168,10 +168,8 @@ Deno.serve(async (request) => {
       })
     }
 
-    const providerOutput = extractOutputText(payload)
-
     const safeResult = parseSafeResult(
-      providerOutput,
+      extractOutputText(payload),
       location,
     )
 
