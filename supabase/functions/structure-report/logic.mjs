@@ -56,7 +56,14 @@ export function localFallback(location, description) {
   const text = description.toLowerCase()
   let category = "unknown"
 
-  if (/(plastic|bottle|polythene|wrapper|packaging)/i.test(text)) category = "plastic"
+  const matchedCategories = [
+    /(plastic|bottle|polythene|wrapper|packaging)/i.test(text),
+    /(paper|cardboard|newspaper|carton)/i.test(text),
+    /(food|meal|leftover|organic|fruit|vegetable)/i.test(text),
+  ].filter(Boolean).length
+
+  if (matchedCategories > 1) category = "mixed"
+  else if (/(plastic|bottle|polythene|wrapper|packaging)/i.test(text)) category = "plastic"
   else if (/(paper|cardboard|newspaper|carton)/i.test(text)) category = "paper"
   else if (/(food|meal|leftover|organic|fruit|vegetable)/i.test(text)) category = "food"
 
