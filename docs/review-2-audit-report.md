@@ -246,7 +246,7 @@ This is an academic/evaluator requirement, so it cannot be replaced by source co
 ### P1 — High value
 
 **P1.1 Existing demo accounts have no profiles.**
-Create Reporter/Authority/Staff profile rows using the intended Auth user IDs.
+The Reporter/Authority/Staff profile rows are now created and verified in the live database. Browser login still requires the account passwords.
 
 **P1.2 Execute negative role/security tests.**
 Prove with runtime evidence that Reporter and Staff cannot perform Authority-only actions and that evidence cannot be read outside the permitted role boundary.
