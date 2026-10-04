@@ -1,79 +1,48 @@
-# WasteVoice AI — AI Integration Specification
+# WasteVoice AI — AI Integration
 
-## Intended AI capability
+## Review 2 status
+The first AI milestone is implemented and deployed as a Supabase Edge Function named structure-report with JWT verification enabled.
 
-The primary AI direction selected during ideation is **natural-language report understanding/structuring**.
+## AI purpose
+WasteVoice AI uses a narrow natural-language understanding task: convert a reporter's ordinary-language waste description into conservative structured suggestions that the reporter can review and correct.
+The AI is not an autonomous workflow agent.
 
-A reporter may describe an issue in ordinary language. The intended AI layer can suggest structured information such as:
+## Structured output
+- category: plastic, paper, food, mixed, other, or unknown
+- location: supplied location or unknown
+- summary: concise neutral summary
+- missingFields: fields that remain missing or vague
+- needsConfirmation: always true
 
-- waste category
-- location, only when supported by the input
-- concise issue summary
+## Safety contract
+1. Use only facts supplied by the reporter.
+2. Preserve uncertainty.
+3. Use unknown instead of inventing missing fields.
+4. Keep the supplied location unchanged when present.
+5. Write a neutral summary.
+6. Never assign cleaning staff.
+7. Never change workflow status.
+8. Never declare cleaning complete.
+9. Never approve or resolve a report.
+10. Require reporter confirmation before structured information is used.
 
-## Intended architecture
+## Architecture
+Reporter -> React Reporter UI -> authenticated request -> Supabase Edge Function -> AI provider -> structured output -> server validation -> reporter review -> normal report workflow.
 
-```text
-User description
-      ↓
-React application
-      ↓
-Protected server-side AI endpoint
-      ↓
-Language model/service
-      ↓
-Structured response
-      ↓
-Reporter review and correction
-      ↓
-Confirmed report
-```
+## Provider and secret handling
+The provider API key is read only by the Edge Function.
+Required server-side secret: OPENAI_API_KEY
+Optional server-side model selection: OPENAI_MODEL
+The repository does not contain a provider secret.
 
-Private AI credentials must remain server-side and must never be embedded in frontend source.
+## Safe fallback
+When the provider secret is absent, or when the provider response cannot be safely validated, the function returns a deterministic conservative fallback and labels the response as fallback mode.
+This prevents a fallback response from being presented as live model inference.
 
-## Current Review 1 status
+## Reliability tests
+Minimum Review 2 cases: complete description, missing location, missing category, and vague description.
+Expected behavior: conservative output, no invented details, mandatory human confirmation.
 
-The current public repository has the human reporting/resolution workflow implemented, but the repository does **not** contain evidence of a completed server-side LLM integration. Therefore this document intentionally describes the AI layer as **pending/future implementation** rather than claiming that the product already performs AI inference.
-
-## Safety contract for future implementation
-
-The AI should:
-
-1. Extract only information supported by the user's input.
-2. Use `unknown` when a field is not supported.
-3. Preserve uncertainty for vague descriptions.
-4. Return validated structured output.
-5. Keep summaries concise.
-6. Never decide report status.
-7. Never claim cleaning occurred.
-8. Never automatically resolve a report.
-9. Allow the reporter to correct the suggestions before submission.
-
-## Reliability test cases
-
-### Complete description
-
-Input: `Plastic waste near the park entrance.`
-
-Expected behavior: category/location may be suggested from the text.
-
-### Missing location
-
-Input: `There is a large amount of plastic waste.`
-
-Expected behavior: location remains unknown unless supplied separately.
-
-### Missing category
-
-Input: `There is a pile of waste near the entrance.`
-
-Expected behavior: category is not confidently invented.
-
-### Vague input
-
-Input: `The place is very dirty.`
-
-Expected behavior: output remains conservative and uncertain.
-
-## Future AI extensions
-
-Possible later work includes image analysis, multilingual/voice reporting, trend analysis, anomaly detection and AI-assisted evidence comparison. None should be presented as implemented until built and tested.
+## Current limitation
+The Edge Function is deployed, but live model inference remains pending until OPENAI_API_KEY is configured in the Supabase project.
+No AI accuracy number is claimed before the reliability tests are executed and captured.
