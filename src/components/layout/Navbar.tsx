@@ -72,6 +72,7 @@ function Navbar() {
             ? [
                 { label: 'Dashboard', to: '/reporter' },
                 { label: 'New Report', to: '/reporter/report' },
+                { label: 'AI Assist', to: '/reporter/ai-assist' },
             ]
             : profile?.role === 'authority'
                 ? [
