@@ -194,7 +194,20 @@ function AIReportPage() {
                                         <Icon name={copied ? 'check' : 'copy'} className="h-4 w-4" />
                                         {copied ? 'Copied' : 'Copy structured summary'}
                                     </button>
-                                    <button type="button" onClick={() => navigate('/reporter/report')} className="inline-flex items-center gap-2 rounded-xl bg-cyan-500 px-4 py-2.5 text-xs font-bold text-slate-950 hover:bg-cyan-400">
+                                    <button
+                                        type="button"
+                                        onClick={() => {
+                                            sessionStorage.setItem('wastevoice-ai-draft', JSON.stringify({
+                                                location,
+                                                description,
+                                                additionalInfo,
+                                                category: result.data.category,
+                                                summary: result.data.summary,
+                                            }))
+                                            navigate('/reporter/report?ai=1')
+                                        }}
+                                        className="inline-flex items-center gap-2 rounded-xl bg-cyan-500 px-4 py-2.5 text-xs font-bold text-slate-950 hover:bg-cyan-400"
+                                    >
                                         Continue to report
                                         <Icon name="arrow" className="h-4 w-4" />
                                     </button>
