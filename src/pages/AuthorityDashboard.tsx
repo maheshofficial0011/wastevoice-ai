@@ -1928,7 +1928,7 @@ function AuthorityDashboard() {
                                     Authority Verification Workspace
                                 </p>
 
-                                <h2 className="mt-2 truncate text-2xl font-bold md:text-3xl">
+                                <h2 id="authority-verification-title" className="mt-2 truncate text-2xl font-bold md:text-3xl">
                                     {selectedReport.location || 'Unknown location'}
                                 </h2>
 
