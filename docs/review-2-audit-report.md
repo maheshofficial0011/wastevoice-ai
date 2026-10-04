@@ -10,25 +10,25 @@
 
 WasteVoice AI has moved from the Review 1 foundational prototype into a substantially stronger Review 2 engineering state. The core human-controlled workflow is implemented across Reporter, Authority and Staff roles, the evidence workflow is present, a server-side AI report-structuring Edge Function is deployed with JWT verification, evidence storage has been hardened to private signed access, workflow RPC execution permissions have been tightened, and automated AI safety tests are now part of CI.
 
-The project is **not yet Review Ready** because two important evidence gates remain external to the repository implementation: live AI provider configuration and genuine three-person Review 2 validation. The connected Supabase project now has all three demo accounts mapped to explicit Reporter, Authority and Staff profile rows; browser login still requires their passwords.
+The project is **technically strong but still has an external validation gate**: three genuine Review 2 tester sessions have not been claimed. Live Gemini inference, Reporter AI Assist, the full Reporter → Authority → Staff workflow, Error Boundary runtime behavior, selected accessibility checks, and the Staff before-evidence fix have all been manually validated. No external-user evidence is fabricated.
 
-The current conclusion is therefore: **Strong technical foundation, verified database/security controls and regression coverage, developing external validation evidence, externally blocked live AI inference.**
+The current conclusion is therefore: **Strong technical foundation, verified live Gemini AI, verified workflow/security controls, strong internal validation, and incomplete external-user evidence.**
 
 ## Current Completion Assessment
 
-No artificial percentage is assigned. The C29 standard requires evidence-backed maturity rather than source-code volume. The project is materially implemented for Review 2, but final readiness depends on live AI evidence, role/security runtime evidence, and genuine user validation.
+No artificial percentage is assigned. The C29 standard requires evidence-backed maturity rather than source-code volume. The project is materially implemented and internally validated for Review 2. Final academic/evidence readiness still depends on genuine external tester sessions and any official submission artifacts required by C29.
 
 | Area | Readiness |
 |---|---|
 | Product completeness | Strong |
 | Technical implementation | Strong |
-| AI implementation | Developing |
+| AI implementation | Strong / verified live inference |
 | Security | Strong |
 | Testing | Strong |
 | UX | Strong |
-| Validation | Developing |
+| Validation | Internal validation complete; external validation pending |
 | Documentation | Strong |
-| Evidence quality | Developing |
+| Evidence quality | Strong technical evidence; external-user evidence pending |
 
 ## Review 1 Baseline
 
@@ -43,8 +43,8 @@ Since Review 1, the repository is ahead by approximately forty commits relative 
 | Feedback item | Closure state | Evidence status |
 |---|---|---|
 | More granular technical documentation | Fixed | ✅ database-schema, AI integration, architecture, testing and live-setup documentation exist |
-| Unit testing | Partially fixed | ✅ 11 automated AI safety tests added to CI; broader workflow/security unit coverage remains a future improvement |
-| Error boundaries | Fixed in code, evidence gap remains | 🟡 ErrorBoundary exists and wraps the app; separate retained runtime evidence is not currently stored in the repository |
+ | Unit testing | Fixed for current Review 2 scope | ✅ 29 automated tests: 11 AI, 8 form-validation, 10 Review 2 regression/guard tests |
+| Error boundaries | Verified | ✅ Controlled local runtime trigger displayed the fallback and recovery action; temporary trigger removed |
 | Expanded code comments | Fixed | ✅ dashboard/workflow code contains substantial explanatory comments |
 | API endpoint/database schema documentation | Fixed and externally checked | ✅ active RPC signatures and core Supabase tables were inspected on 04 October 2026 |
 
@@ -134,10 +134,10 @@ Safety implementation:
 - no provider secret in frontend code;
 - mandatory human confirmation in the UI.
 
-Current blocker:
-the Edge Function is deployed, but `OPENAI_API_KEY` is not yet configured. The live model path therefore cannot be claimed as tested.
+Live provider status:
+The deployed `structure-report` function uses the native Gemini REST API. The configured provider is Gemini with model `gemini-3.5-flash-lite`. A live request returned HTTP 200 with `source=gemini`, `providerConfigured=true`, the configured model, structured data and `needsConfirmation=true`.
 
-OpenAI's current platform uses the Responses API for new integrations; the project’s function calls that API and keeps the model configurable through a server-side environment variable. citeturn596744search0
+No model-accuracy percentage is claimed.
 
 ### Testing
 
@@ -219,44 +219,40 @@ One important documentation risk was found and corrected during the audit: older
 | Before evidence upload | COMPLETE AND VERIFIED | Controlled workflow | Private-storage runtime proof | P1 |
 | Authority assignment | VERIFIED COMPLETE | Code + live RPC + negative role probe | Browser capture optional | P1 |
 | Staff status workflow | VERIFIED COMPLETE | Code + live RPC + negative role probe | Browser capture optional | P1 |
-| After evidence upload | IMPLEMENTED BUT NOT VERIFIED | Code + storage policy | Signed-access runtime proof | P1 |
+| After evidence upload | VERIFIED COMPLETE | Browser Staff retest after Storage RLS path fix | Cross-staff second-identity test pending | P1 |
 | Authority verification | VERIFIED COMPLETE | Code + live RPC + negative role/state probes | Browser capture optional | P1 |
-| AI Assist UI | IMPLEMENTED BUT NOT VERIFIED | Source | Live provider test | P0 |
-| AI Edge Function | IMPLEMENTED BUT NOT VERIFIED | Deployed function + source | Provider secret + end-to-end test | P0 |
+| AI Assist UI | VERIFIED COMPLETE | Manual Reporter browser test | Provider-label helper inconsistency remains in source; behavior not changed in this documentation pass | P0 |
+| AI Edge Function | VERIFIED COMPLETE | Deployed function + live Gemini HTTP 200 result | No accuracy percentage claimed | P0 |
 | AI fallback | COMPLETE AND VERIFIED | Automated tests | Optional runtime capture | P1 |
 | AI output validation | COMPLETE AND VERIFIED | Automated tests | Live model adversarial capture | P1 |
-| Error Boundary | IMPLEMENTED BUT NOT VERIFIED | Source | Retained runtime screenshot | P2 |
-| CI quality gate | IMPLEMENTED — EVIDENCE PENDING | GitHub Actions | Confirm post-expansion run | P1 |
+| Error Boundary | VERIFIED COMPLETE | Controlled local runtime test | No permanent screenshot required | P2 |
+| CI quality gate | VERIFIED COMPLETE | Final local validation + recorded CI #135 | 29/29 automated tests and build pass | P1 |
 | Review 2 documentation | COMPLETE AND VERIFIED | Repository docs | Fill real validation results | P1 |
-| Three-person validation | PLANNED | Validation plan/template | Actual sessions + iteration | P0 |
+| Three-person validation | EXTERNAL ACTION REQUIRED | Validation plan/template | Genuine external sessions + iteration | P0 |
 | Production deployment | UNKNOWN | No final production evidence | Confirm target + runtime proof | P2 |
 
 ## Critical Problems Found
 
-### P0 — Must fix
+### P0 — External evidence gate
 
-**P0.1 Live AI is externally blocked.**
-The Edge Function exists and is deployed, but live model inference cannot be demonstrated until the server-side provider secret is configured.
-
-**P0.2 Three-person Review 2 validation is still missing.**
-This is an academic/evaluator requirement, so it cannot be replaced by source code or drafted records.
+**P0.1 Three-person Review 2 validation is still required.**
+This is an academic/evaluator evidence requirement and cannot be replaced by internal project-owner testing.
 
 ### P1 — High value
 
-**P1.1 Browser login still needs real passwords.**
-The three Auth users are mapped to Reporter/Authority/Staff profiles and verified in the live database. The passwords remain external to this agent.
+**P1.1 Cross-staff negative browser validation is still pending.**
+Only one Staff identity is available for manual testing, so a second-Staff isolation test is not claimed.
 
-**P1.2 Browser evidence remains.**
-The live database negative role/security probes are now complete. Direct browser evidence-access and signed-URL captures remain external/evidence-pending.
+**P1.2 Retain any required final submission artifacts.**
+The project owner has chosen not to record a final demo unless the official C29 process requires it.
 
-**P1.3 Capture AI reliability evidence.**
-Use the master test matrix, including contradiction and prompt-injection cases.
+**P1.3 Keep the provider-label inconsistency visible for future code cleanup.**
+The current `AIReportPage.tsx` helper treats only `source === 'openai'` as live. Because the current provider is Gemini, that helper should be revisited in a future source-maintenance pass; it is not changed here because this task is documentation-only.
 
 ### P2 — Useful
 
-**P2.1 Retain an Error Boundary runtime screenshot.**
-**P2.2 Improve bundle size through route splitting if time remains.**
-**P2.3 Add broader automated workflow transition tests.**
+**P2.1 Improve bundle size through route splitting if time remains.**
+**P2.2 Add broader automated workflow transition tests if they add value beyond the current 10 regression tests.**
 
 ### P3 — Optional
 
@@ -283,7 +279,7 @@ Voice/multilingual reporting, image-based classification, prediction and anomaly
 
 WasteVoice AI now has a dedicated Reporter AI Assist screen. The user supplies a location (optional for the AI-assist stage), observed description and optional additional information.
 
-The request reaches the authenticated `structure-report` Edge Function. When the provider is configured, the function calls the model with a strict JSON Schema contract. The response is validated before being shown. The reporter then reviews the output and can continue to the normal report form.
+The request reaches the authenticated `structure-report` Edge Function. The live provider is Gemini (`gemini-3.5-flash-lite`). The live function test returned HTTP 200 with `source=gemini`, `providerConfigured=true`, a structured category/location/summary/missing-fields response, and `needsConfirmation=true`. The reporter can review and correct the result before continuing to the normal report form.
 
 The AI layer has no workflow authority. It cannot assign staff, approve evidence or resolve reports.
 
@@ -291,11 +287,7 @@ The system also has a deterministic fallback so missing provider configuration d
 
 ## New Validation & Security Capability
 
-Validation capability has improved from documentation-only planning to executable automated AI safety tests in CI.
-
-Security capability has improved through private evidence storage, signed URLs, restricted workflow RPC execution and cleanup of obsolete API exposure.
-
-However, signed-access HTTP/browser tests, Error Boundary runtime capture, browser accessibility checks, and three genuine tester sessions still need retained evidence; live SQL role-negative probes are complete.
+Validation capability now includes 29 automated tests plus manual browser/internal validation. Security capability includes private evidence storage, signed URLs, restricted workflow RPC execution and cleanup of obsolete API exposure. The remaining external evidence gate is three genuine Review 2 tester sessions; cross-staff isolation also remains unverified because only one Staff identity is available.
 
 ## Review 2 Readiness
 
@@ -315,15 +307,11 @@ Do not convert these assessments into fabricated Qbee marks.
 
 ## Remaining Work
 
-1. Create three intended role profiles for the existing Auth users.
-2. Configure the live AI provider secret and permitted model.
-3. Run AI cases A-J and retain actual outputs.
-4. Run Storage-access HTTP/browser tests and retain evidence; role-negative SQL probes are already complete.
-5. Run three genuine Review 2 tester sessions.
-6. Record feedback → change → retest.
-7. Retain final screenshots and recordings.
-8. Finalize the 6-10 slide deck and required video/evidence files.
-9. Verify the final deployment target.
+1. Run three genuine Review 2 tester sessions.
+2. Record genuine feedback → change → retest evidence.
+3. If required by the official C29 process, capture the final submission recording/evidence package.
+4. Optionally add a second Staff test identity for cross-staff isolation validation.
+5. Optionally clean up the Gemini provider-label helper in source code in a separate implementation pass.
 
 ## Final Completion Roadmap
 
