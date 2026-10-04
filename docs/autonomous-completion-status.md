@@ -1,74 +1,70 @@
 # WasteVoice AI — Autonomous Completion Status
 
-**Audit date:** 04 October 2026  
-**Branch:** `main`  
-**Audited HEAD:** `440d3d605d428b9924afe0a8c33c394bd1a31372` (audit baseline); subsequent Review 2 hardening/documentation commits are listed in the final execution ledger.
+**Last audited:** 04 October 2026  
+**Functional-code anchor:** `abd247eb232e43da1e9ea19237327185f3b4df07`  
+**Latest verified CI:** GitHub Actions run **#135** — success  
+**Repository:** `maheshofficial0011/wastevoice-ai`
 
-## Quality
+## Current state
 
-| Check | Status | Evidence |
-|---|---|---|
-| ESLint | VERIFIED COMPLETE | The last verified green gate preceded the 10-test regression-suite expansion; final post-expansion CI confirmation is pending. |
-| Automated tests | VERIFIED COMPLETE | 29 tests are configured: 11 AI safety + 8 Reporter-form validation + 10 Review 2 regression/guard tests; final post-expansion execution remains to be confirmed. |
-| TypeScript + production build | VERIFIED COMPLETE | Final post-expansion TypeScript/build confirmation is pending |
-| Workflow helper regression | VERIFIED COMPLETE | Covered by the current green CI gate |
+The Review 2 engineering path is substantially complete. The remaining gates are external evidence gates or browser/human actions that this agent cannot legitimately fabricate.
 
-## Supabase
+### VERIFIED COMPLETE
+- Core Reporter → Review → Assign → Clean → Evidence → Verify → Resolve workflow is implemented and represented by controlled evidence.
+- Live demo role profiles exist: 3 Auth users and 3 profiles mapped to Reporter, Authority and Staff.
+- Backend authorization probes on the live Supabase project denied the unauthorized role actions tested.
+- Active workflow RPC anonymous execution is disabled.
+- Evidence buckets are private; the legacy `report-evidence` bucket was hardened to private and its unrestricted authenticated upload path removed.
+- `structure-report` is ACTIVE, version 2, with JWT verification enabled.
+- AI safety/parser/fallback tests are covered by CI.
+- 29 automated tests pass: 11 AI safety, 8 reporter-form validation, 10 Review 2 regression.
+- GitHub Actions run #135 passed Install dependencies, Lint, Automated tests, TypeScript and production build.
+- Global reduced-motion handling is present in `src/index.css`.
+- Review 2 regression helpers cover role/action responsibility, workflow transitions, evidence requirement, edit locking, duplicate submission, invalid AI categories, conservative fallback, and non-operational AI output.
 
-- Project: `wastevoice-ai`
-- Region: `ap-south-1`
-- Core tables: `profiles`, `reports`, `report_evidence`, `report_assignments`, `authority_reviews`
-- RLS: enabled on inspected core tables
-- Active workflow RPCs: authenticated execution plus server-side role/state checks
-- `waste-evidence`: private bucket
-- `structure-report`: ACTIVE, version 2, JWT verification enabled
-- Three existing Auth users mapped to Reporter, Authority and Staff profiles and verified in the database
+### IMPLEMENTED — EVIDENCE PENDING
+- Error Boundary runtime trigger/screenshot/recovery evidence.
+- Browser-only accessibility/keyboard verification.
+- Direct storage HTTP evidence for public URL, signed URL, wrong-role access, and expired signed URL.
+- Browser UI capture of negative role paths.
 
-## AI
+### EXTERNAL ACTION REQUIRED
+- Configure the real server-side AI provider credential and allowed model for live inference.
+- Use the existing demo accounts with their real passwords.
+- Conduct the three genuine tester sessions.
+- Apply one feedback-driven improvement and retest with the affected tester.
+- Record the final end-to-end demo and final submission evidence.
 
-- AI Assist UI: IMPLEMENTED — EVIDENCE PENDING
-- Edge Function: IMPLEMENTED — DEPLOYED
-- Structured output validation: VERIFIED COMPLETE through automated tests
-- Conservative fallback: VERIFIED COMPLETE through automated tests
-- Prompt-injection/control-language boundary: VERIFIED COMPLETE through automated tests
-- Live provider inference: EXTERNAL ACTION REQUIRED because `OPENAI_API_KEY` is not configured
+## Live Supabase snapshot
 
-## Security
+- Project: `uhrxchedzcsirglwicux`
+- Status: ACTIVE_HEALTHY
+- Region: ap-south-1
+- Auth users: 3
+- Profiles: 3
+- Reports: 16
+- Assignments: 12
+- Report evidence rows: 10
+- Storage objects: 26
+- Evidence buckets inspected: all private
 
-- Reporter → Authority assignment: runtime database denial verified
-- Reporter → Authority verification: runtime database denial verified
-- Staff → Authority verification: runtime database denial verified
-- Staff → final `resolved` state: runtime database denial verified
-- Authority → invalid resolved-state verification: runtime state denial verified
-- Staff → unassigned report access: 0 visible rows
-- Staff → unassigned report evidence: 0 visible rows
-- Anonymous → active assignment RPC execute privilege: false
-- `waste-evidence` private; legacy `report-evidence` hardened to private and policy-restricted
-- Remaining Supabase advisor warnings: SECURITY DEFINER functions callable by authenticated users and leaked-password protection disabled
+## Live authorization evidence
 
-## User Validation
+Verified denial results:
+- Reporter → `assign_report_to_staff`: **DENIED — Only an authority can assign reports**.
+- Reporter → `authority_review_report`: **DENIED — Only authority users can verify reports**.
+- Staff → `authority_review_report`: **DENIED — Only authority users can verify reports**.
+- Staff → direct `resolved` transition: **DENIED — Staff can only set cleaning_in_progress or pending_verification**.
+- Authority → verify already-resolved report: **DENIED — Report is not awaiting authority verification. Current status: resolved**.
+- Staff → unassigned evidence path: **0 visible rows**.
+- Active workflow RPC anonymous EXECUTE: **disabled**.
 
-- Tester 1: EXTERNAL ACTION REQUIRED
-- Tester 2: EXTERNAL ACTION REQUIRED
-- Tester 3: EXTERNAL ACTION REQUIRED
-- Feedback → change → retest: EXTERNAL ACTION REQUIRED
+## AI evidence boundary
 
-## Remaining External Evidence
+The live provider secret is not available to this agent. No live model output is claimed. The production Edge Function has conservative validation, timeout, fallback, malformed-output rejection, unsafe-field rejection and prompt-injection resistance in source/tests, but the AI-01..AI-11 live matrix remains an external-action gate.
 
-- Live AI provider configuration and matrix outputs
-- Browser login/runtime captures using the mapped demo accounts
-- Error Boundary runtime screenshot/recovery
-- Keyboard-only browser accessibility checks
-- Three genuine tester sessions
-- Feedback → change → retest
-- Final demo/recording/submission evidence
+## Review 2 readiness
 
-## Remaining Blockers
+**READY EXCEPT FOR EXTERNAL EVIDENCE**
 
-1. Configure the live `OPENAI_API_KEY` and permitted `OPENAI_MODEL`.
-2. Perform real browser login/runtime testing with the three mapped demo accounts; passwords are not available to this agent.
-3. Capture live AI reliability evidence.
-4. Capture the Error Boundary runtime screenshot.
-5. Perform the required three real-user validation sessions.
-6. Produce feedback-driven changes and retest evidence.
-7. Finalize presentation/video/evidence recordings.
+This is deliberately not marked fully Review 2 ready while live AI inference, browser/runtime evidence, three-person validation, feedback/retest, and the final recording are still missing.
