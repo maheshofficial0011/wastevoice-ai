@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { supabase } from '../lib/supabase'
+import { createEvidenceUrlMap, resolveEvidenceReference } from '../lib/evidence'
 
 /**
  * WasteVoice AI — Authority Dashboard
@@ -211,6 +212,7 @@ function AuthorityDashboard() {
     const [staffMembers, setStaffMembers] = useState<StaffMember[]>([])
     const [assignments, setAssignments] = useState<Assignment[]>([])
     const [evidence, setEvidence] = useState<Evidence[]>([])
+    const [evidenceUrls, setEvidenceUrls] = useState<Record<string, string>>({})
     const [reviews, setReviews] = useState<AuthorityReview[]>([])
     const [dataWarning, setDataWarning] = useState<string | null>(null)
 
@@ -384,7 +386,8 @@ function AuthorityDashboard() {
 
             if (requestId !== fetchRequestRef.current) return
 
-            setReports((reportsResponse.data ?? []) as WasteReport[])
+            const loadedReports = (reportsResponse.data ?? []) as WasteReport[]
+            setReports(loadedReports)
 
             if (staffResponse.error) {
                 console.warn('Authority dashboard staff query:', staffResponse.error)
@@ -421,6 +424,18 @@ function AuthorityDashboard() {
                 setReviews([])
             } else {
                 setReviews((reviewsResponse.data ?? []) as AuthorityReview[])
+            }
+
+            const loadedEvidence = (evidenceResponse.data ?? []) as Evidence[]
+            try {
+                const signedUrls = await createEvidenceUrlMap([
+                    ...loadedReports.map((report) => report.evidence_url).filter((value): value is string => Boolean(value)),
+                    ...loadedEvidence.map((item) => item.file_path).filter((value): value is string => Boolean(value)),
+                ])
+                setEvidenceUrls(signedUrls)
+            } catch (signedUrlError) {
+                console.warn('Authority evidence signing:', signedUrlError)
+                setEvidenceUrls({})
             }
 
             const supportingMessages: string[] = []
@@ -771,7 +786,7 @@ function AuthorityDashboard() {
             return getEvidenceUrl(structuredEvidence)
         }
 
-        return report.evidence_url
+        return resolveEvidenceReference(report.evidence_url, evidenceUrls)
     }
 
     function getAfterEvidenceUrl(reportId: string) {
