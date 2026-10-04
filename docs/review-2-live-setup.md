@@ -6,8 +6,11 @@
 - Region: ap-south-1
 - Application tables exist and RLS is enabled.
 - 3 Auth users exist.
-- 0 public profiles exist.
+- 3 explicit profiles exist: Reporter, Authority and Staff.
 - Edge Function structure-report is ACTIVE with JWT verification enabled.
+- Live provider: Gemini.
+- Live model: gemini-3.5-flash-lite.
+- Live function test: HTTP 200, source=gemini, providerConfigured=true.
 - waste-evidence Storage bucket is private.
 
 ## 1. Create Reporter / Authority / Staff profiles
@@ -106,6 +109,9 @@ For every tester retain the task, friction, exact feedback, prototype change, re
 Never invent tester feedback or completion statistics.
 
 ## 5. Final security verification
+
+Core role-based authorization and private-storage controls have been verified through live database probes and browser testing. Only the cross-staff negative browser test remains pending because a second Staff identity is unavailable.
+
 
 - Reporter reads only permitted reports.
 - Staff reads only assigned reports.
