@@ -36,12 +36,12 @@ The project continues the problem investigated during the C29 AI Immersion activ
 - [13. Application Structure](#13-application-structure)
 - [14. Data and Supabase Contract](#14-data-and-supabase-contract)
 - [15. Evidence Handling](#15-evidence-handling)
-- [16. AI Status and Future Integration](#16-ai-status-and-future-integration)
+- [16. AI-Assisted Report Structuring](#16-ai-assisted-report-structuring)
 - [17. Testing and Validation](#17-testing-and-validation)
 - [18. Security and Privacy](#18-security-and-privacy)
 - [19. Responsible AI and Academic Integrity](#19-responsible-ai-and-academic-integrity)
-- [20. Review 1 Completion Status](#20-review-1-completion-status)
-- [21. Pending Work and Next Steps](#21-pending-work-and-next-steps)
+- [20. Review 2 Readiness](#20-review-2-readiness)
+- [21. Next Review 2 Actions](#21-next-review-2-actions)
 - [22. Local Setup](#22-local-setup)
 - [23. Environment Configuration](#23-environment-configuration)
 - [24. Submission Links](#24-submission-links)
@@ -105,7 +105,7 @@ Project claims follow five categories:
 4. **Test Result** — supported by an actual execution/test record.
 5. **Proposed Feature** — future work only.
 
-No assumption is promoted to field evidence, and no planned feature is described as implemented.
+No assumption is promoted to field evidence, and no planned feature is described as implemented. AI functionality is described according to its actual deployed and verified state.
 
 ---
 
@@ -218,7 +218,7 @@ The workflow keeps the human role explicit at each important decision point.
 
 ## 7. Current Prototype
 
-The current Review 1 prototype includes:
+The current prototype includes:
 
 - Role-aware authentication with Supabase Auth.
 - Protected reporter, authority and staff routes.
@@ -286,7 +286,7 @@ The authority, not the application or AI, makes the final verification decision.
 WasteVoice AI does not delegate final responsibility to AI.
 
 - **Reporter:** confirms/corrects submitted report information.
-- **AI layer (planned):** assists with structuring information and identifying possible details; output remains advisory.
+- **AI layer:** assists with structuring reporter-supplied information; output remains advisory and requires human confirmation.
 - **Cleaning staff:** performs physical cleaning and supplies evidence.
 - **Authority:** reviews evidence and decides whether a report is resolved.
 
@@ -322,11 +322,11 @@ Reporter / Authority / Staff
             ▼
  Workflow dashboards and evidence views
 
-Planned future path:
-User description → server-side AI → validated structured output → human correction → workflow
+Implemented Review 2 AI path:
+User description → authenticated Edge Function → structured model output → server-side validation → human correction → workflow
 ```
 
-The planned AI path is intentionally shown separately from the current implemented runtime so that the repository does not imply a completed LLM integration.
+The AI path is implemented, but live model inference remains blocked until the server-side provider secret is configured.
 
 ---
 
@@ -344,7 +344,7 @@ The planned AI path is intentionally shown separately from the current implement
 | File storage | Supabase Storage |
 | Workflow/security | Supabase RLS + protected RPCs |
 | Realtime/refresh | Supabase realtime subscriptions and dashboard refresh logic |
-| AI | **Planned server-side integration; provider/model not claimed yet** |
+| AI | **Supabase Edge Function + configurable server-side model; live provider inference requires external secret** |
 | Quality tooling | ESLint, TypeScript, Vite production build |
 | CI | GitHub Actions (`.github/workflows/quality.yml`) |
 | Version control | Git + GitHub |
@@ -533,7 +533,7 @@ The supporting screenshots are stored in [`docs/evidence/`](docs/evidence/).
 - Client-side configuration uses the publishable Supabase key.
 - Service-role/database credentials are not intended for frontend use.
 - RLS and protected RPCs remain part of the security verification work.
-- The project does not claim security completeness before the pending runtime access tests are executed.
+- Security hardening has been applied and verified against the connected Supabase configuration, but role-negative runtime tests and remaining platform advisor warnings still need closure.
 
 ---
 
@@ -565,6 +565,10 @@ AI assistance is treated as a co-pilot for development and documentation support
 - Role-aware dashboards.
 - Controlled runtime test with retained screenshots.
 - Review 1 report and testing documentation.
+- Review 2 AI Assist implementation and Edge Function.
+- Private evidence storage and signed URL handling.
+- Automated AI safety tests in CI.
+- Review 2 status, validation plan and completion roadmap.
 
 ### Remaining before final Review 2 submission
 
@@ -587,7 +591,7 @@ AI assistance is treated as a co-pilot for development and documentation support
 5. Implement and test server-side AI report structuring.
 6. Capture AI edge-case outputs and human corrections.
 7. Verify production deployment and final demo flow.
-8. Prepare the Prototype & Validation Report for Review 2.
+8. Prepare the final Prototype & Validation Report and evidence package for Review 2.
 
 ---
 
