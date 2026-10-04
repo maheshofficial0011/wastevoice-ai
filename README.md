@@ -513,7 +513,7 @@ The server uses the current OpenAI Responses API pattern for model calls and str
 ### Verified through GitHub Actions
 
 - The repository Quality Check workflow runs lint, automated tests and the production build.
-- Historical note: Review 2 CI run #47 was green before the expanded test gate was added; the current authoritative green gate is the latest successful run after these changes.
+- Historical note: Review 2 CI run #135 was green before the expanded test gate was added; the current authoritative green gate is the latest successful run after these changes.
 - The latest commits are re-running the expanded quality gate; the final green result should be treated as the authoritative current check.
 
 ### Controlled runtime test
