@@ -495,12 +495,39 @@ function StaffDashboard() {
                 .map((assignment) => getReport(assignment)?.evidence_url)
                 .filter((value): value is string => Boolean(value))
 
+            let nextEvidenceUrls: Record<string, string> = {}
+
             try {
-                setEvidenceUrls(await createEvidenceUrlMap(assignmentEvidenceReferences))
+                nextEvidenceUrls = await createEvidenceUrlMap(assignmentEvidenceReferences)
+                setEvidenceUrls(nextEvidenceUrls)
             } catch (signedUrlError) {
                 console.warn('Staff evidence signing:', signedUrlError)
                 setEvidenceUrls({})
             }
+
+            const assignmentsWithSignedBeforeEvidence = loadedAssignments.map((assignment) => {
+                const report = getReport(assignment)
+                if (!report || !report.evidence_url) return assignment
+
+                const signedUrl = resolveEvidenceReference(
+                    report.evidence_url,
+                    nextEvidenceUrls,
+                )
+
+                if (!signedUrl) return assignment
+
+                const updatedReport = {
+                    ...report,
+                    evidence_url: signedUrl,
+                }
+
+                return {
+                    ...assignment,
+                    reports: Array.isArray(assignment.reports)
+                        ? [updatedReport]
+                        : updatedReport,
+                }
+            })
 
             let evidenceMap: Record<string, ReportEvidence> = {}
             let evidenceHistoryMap: Record<string, ReportEvidence[]> = {}
@@ -593,7 +620,7 @@ function StaffDashboard() {
              */
             if (requestId !== fetchRequestRef.current) return
 
-            setAssignments(loadedAssignments)
+            setAssignments(assignmentsWithSignedBeforeEvidence)
             setAfterEvidence(evidenceMap)
             setAfterEvidenceHistory(evidenceHistoryMap)
             setAuthorityReviews(reviewHistoryMap)
