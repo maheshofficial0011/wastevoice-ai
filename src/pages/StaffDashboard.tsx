@@ -6,6 +6,7 @@ import {
     useTransition,
 } from 'react'
 import { supabase } from '../lib/supabase'
+import { createEvidenceUrlMap, resolveEvidenceReference } from '../lib/evidence'
 
 /* =========================================================
    IMPORTANT
@@ -291,6 +292,9 @@ function StaffDashboard() {
     const [afterEvidence, setAfterEvidence] =
         useState<Record<string, ReportEvidence>>({})
 
+    const [evidenceUrls, setEvidenceUrls] =
+        useState<Record<string, string>>({})
+
     const [afterEvidenceHistory, setAfterEvidenceHistory] =
         useState<Record<string, ReportEvidence[]>>({})
 
@@ -486,6 +490,17 @@ function StaffDashboard() {
             const reportIds = loadedAssignments
                 .map((assignment) => assignment.report_id)
                 .filter(Boolean)
+
+            const assignmentEvidenceReferences = loadedAssignments
+                .map((assignment) => getReport(assignment)?.evidence_url)
+                .filter((value): value is string => Boolean(value))
+
+            try {
+                setEvidenceUrls(await createEvidenceUrlMap(assignmentEvidenceReferences))
+            } catch (signedUrlError) {
+                console.warn('Staff evidence signing:', signedUrlError)
+                setEvidenceUrls({})
+            }
 
             let evidenceMap: Record<string, ReportEvidence> = {}
             let evidenceHistoryMap: Record<string, ReportEvidence[]> = {}
@@ -1042,19 +1057,7 @@ function StaffDashboard() {
         }
 
 
-        const {
-            data,
-        } = supabase
-            .storage
-            .from(
-                EVIDENCE_BUCKET
-            )
-            .getPublicUrl(
-                filePath
-            )
-
-
-        return data.publicUrl
+        return resolveEvidenceReference(filePath, evidenceUrls) ?? filePath
     }
 
 
