@@ -88,6 +88,23 @@ export function extractOutputText(payload) {
     return payload.output_text
   }
 
+  const choices = Array.isArray(payload.choices) ? payload.choices : []
+  for (const choice of choices) {
+    const content = choice?.message?.content
+
+    if (typeof content === "string") {
+      return content
+    }
+
+    if (Array.isArray(content)) {
+      const text = content
+        .filter((part) => part && typeof part === "object" && typeof part.text === "string")
+        .map((part) => part.text)
+        .join("")
+      if (text) return text
+    }
+  }
+
   const output = Array.isArray(payload.output) ? payload.output : []
   const parts = []
 
