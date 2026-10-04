@@ -1021,6 +1021,43 @@ function StaffDashboard() {
             const newEvidence =
                 insertedEvidence as ReportEvidence
 
+            /*
+             * The evidence bucket is private. The database stores only the
+             * storage path, so sign the newly uploaded file immediately.
+             * This prevents the UI from showing a broken image until the
+             * next dashboard refresh.
+             */
+            try {
+                const signedEvidenceUrls = await createEvidenceUrlMap([
+                    newEvidence.file_path,
+                ])
+
+                const signedEvidenceUrl = resolveEvidenceReference(
+                    newEvidence.file_path,
+                    signedEvidenceUrls,
+                )
+
+                if (!signedEvidenceUrl) {
+                    throw new Error(
+                        'Evidence uploaded, but a signed preview URL could not be created.',
+                    )
+                }
+
+                setEvidenceUrls((currentUrls) => ({
+                    ...currentUrls,
+                    ...signedEvidenceUrls,
+                }))
+            } catch (signedUrlError) {
+                console.error(
+                    'Unable to sign newly uploaded evidence:',
+                    signedUrlError,
+                )
+
+                throw new Error(
+                    'Evidence uploaded, but its secure preview could not be created. Please refresh and try again.',
+                )
+            }
+
             setAfterEvidence(
                 (currentEvidence) => ({
                     ...currentEvidence,
