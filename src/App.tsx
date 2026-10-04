@@ -14,6 +14,7 @@ import ReporterDashboard from './pages/ReporterDashboard'
 import AuthorityDashboard from './pages/AuthorityDashboard'
 import StaffDashboard from './pages/StaffDashboard'
 import CreateReportPage from './pages/CreateReportPage'
+import AIReportPage from './pages/AIReportPage'
 
 function App() {
   return (
@@ -58,6 +59,17 @@ function App() {
                 allowedRoles={['reporter']}
               >
                 <CreateReportPage />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/reporter/ai-assist"
+            element={
+              <ProtectedRoute
+                allowedRoles={['reporter']}
+              >
+                <AIReportPage />
               </ProtectedRoute>
             }
           />
