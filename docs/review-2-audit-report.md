@@ -295,7 +295,7 @@ Validation capability has improved from documentation-only planning to executabl
 
 Security capability has improved through private evidence storage, signed URLs, restricted workflow RPC execution and cleanup of obsolete API exposure.
 
-However, runtime role-negative and signed-access tests still need human execution and retained evidence.
+However, signed-access HTTP/browser tests, Error Boundary runtime capture, browser accessibility checks, and three genuine tester sessions still need retained evidence; live SQL role-negative probes are complete.
 
 ## Review 2 Readiness
 
@@ -318,7 +318,7 @@ Do not convert these assessments into fabricated Qbee marks.
 1. Create three intended role profiles for the existing Auth users.
 2. Configure the live AI provider secret and permitted model.
 3. Run AI cases A-J and retain actual outputs.
-4. Run role-negative and Storage-access tests.
+4. Run Storage-access HTTP/browser tests and retain evidence; role-negative SQL probes are already complete.
 5. Run three genuine Review 2 tester sessions.
 6. Record feedback → change → retest.
 7. Retain final screenshots and recordings.
@@ -343,7 +343,7 @@ Do not convert these assessments into fabricated Qbee marks.
 - Green GitHub Actions quality run after the final code state.
 - AI Assist screenshot with live provider output.
 - Four minimum AI reliability captures; preferably all A-J cases.
-- Role-negative access test captures.
+- Browser role-negative access captures.
 - Signed private-evidence preview capture.
 - Error Boundary capture.
 
@@ -397,6 +397,6 @@ The C29 guide requires four evidence recordings, a 6-10 slide deck, an 8-12 minu
 
 **What is genuinely complete?** The core application workflow, AI Edge Function deployment, safe fallback/output validation, private evidence configuration, RPC permission hardening, automated AI safety tests, and Review 2 documentation are implemented and supported by code or live configuration checks.
 
-**What still needs evidence?** Live model inference, role-negative runtime security tests, signed evidence runtime behavior, a retained Error Boundary runtime test, and especially three genuine Review 2 tester sessions plus feedback-driven iteration.
+**What still needs evidence?** Live model inference, signed evidence runtime behavior, a retained Error Boundary runtime test, browser accessibility checks, and especially three genuine Review 2 tester sessions plus feedback-driven iteration.
 
 **What is the shortest credible path to final completion?** Create the three role profiles → configure live AI → run the AI matrix → execute security/access tests → validate with three real testers → implement the biggest feedback changes → retest → capture evidence → finalize deck/video → submit Review 2.
