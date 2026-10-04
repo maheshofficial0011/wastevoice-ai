@@ -529,9 +529,9 @@ function StaffDashboard() {
                 }
             })
 
-            let evidenceMap: Record<string, ReportEvidence> = {}
-            let evidenceHistoryMap: Record<string, ReportEvidence[]> = {}
-            let reviewHistoryMap: Record<string, AuthorityReview[]> = {}
+            const evidenceMap: Record<string, ReportEvidence> = {}
+            const evidenceHistoryMap: Record<string, ReportEvidence[]> = {}
+            const reviewHistoryMap: Record<string, AuthorityReview[]> = {}
 
             if (reportIds.length > 0) {
                 const {
