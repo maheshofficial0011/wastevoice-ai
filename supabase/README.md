@@ -21,13 +21,22 @@ The report record stores the Storage path rather than a public URL.
 ## AI Edge Function
 Deployed function: structure-report.
 JWT verification: enabled.
-Server-side secrets: OPENAI_API_KEY and optional OPENAI_MODEL.
-Until the provider secret is configured, the function uses a labelled conservative fallback.
+Server-side AI configuration:
+
+- `AI_PROVIDER=gemini`
+- `AI_MODEL=gemini-3.5-flash-lite`
+- `GEMINI_API_KEY` (secret value never documented)
+
+Live Gemini inference through `structure-report` has been verified with HTTP 200. The function retains a labelled conservative fallback for provider failure or unavailable configuration.
 
 ## Review 2 live setup
 See docs/review-2-live-setup.md.
 Current live state: 3 Auth users exist and all 3 now have explicit Reporter, Authority and Staff profile rows.
-The Login page is now backed by the intended Reporter, Authority and Staff profile mapping. Browser login still requires the account passwords.
+The Login page is backed by the intended Reporter, Authority and Staff profile mapping. Reporter, Authority and Staff authentication and role-routing behavior were manually tested.
+
+## Dependency/security notes
+
+`npm audit` reports 0 known package vulnerabilities for the current dependency tree. The previous HIGH transitive dependency issue was addressed in commit `5fac55f`.
 
 ## Remaining security notes
 Supabase security advisors still report SECURITY DEFINER helper functions exposed in the public schema and leaked-password protection disabled. These remain documented hardening items.
