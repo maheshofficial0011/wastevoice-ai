@@ -6,8 +6,11 @@
 - Region: ap-south-1
 - Application tables exist and RLS is enabled.
 - 3 Auth users exist.
-- 0 public profiles exist.
+- 3 explicit profiles exist: Reporter, Authority and Staff.
 - Edge Function structure-report is ACTIVE with JWT verification enabled.
+- Live provider: Gemini.
+- Live model: gemini-3.5-flash-lite.
+- Live function test: HTTP 200, source=gemini, providerConfigured=true.
 - waste-evidence Storage bucket is private.
 
 ## 1. Create Reporter / Authority / Staff profiles
@@ -39,8 +42,9 @@ Do not guess role assignments.
 The deployed structure-report Edge Function reads these server-side secrets:
 
 ```bash
-supabase secrets set OPENAI_API_KEY="YOUR_KEY"
-supabase secrets set OPENAI_MODEL="gpt-5-mini"
+AI_PROVIDER=gemini
+AI_MODEL=gemini-3.5-flash-lite
+GEMINI_API_KEY=<Supabase secret>
 ```
 
 Do not place the provider key in React source or any committed environment file.
@@ -106,6 +110,9 @@ For every tester retain the task, friction, exact feedback, prototype change, re
 Never invent tester feedback or completion statistics.
 
 ## 5. Final security verification
+
+Core role-based authorization and private-storage controls have been verified through live database probes and browser testing. Only the cross-staff negative browser test remains pending because a second Staff identity is unavailable.
+
 
 - Reporter reads only permitted reports.
 - Staff reads only assigned reports.

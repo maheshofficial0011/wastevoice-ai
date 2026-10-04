@@ -1,5 +1,9 @@
 # WasteVoice AI — Prototype Validation Record
 
+## Historical Review 1 validation records
+
+The records below are retained as historical Review 1 prototype-validation material. They must not be treated as the current three-person Review 2 external-user validation requirement. Current Review 2 internal/project-owner validation and external-user status are documented in the Review 2 execution ledger.
+
 ## Review 1 validation status
 
 This file contains three prototype validation records dated 15 September 2026. **Treat these as completed validation evidence only if the corresponding tester interaction, notes, screenshot/video, or other original evidence is retained by the project team.** The repository must not use a drafted record as a substitute for actual user evidence.

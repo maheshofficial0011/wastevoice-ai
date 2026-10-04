@@ -14,7 +14,7 @@ All evidence entries below must be genuine artifacts or explicit status records.
 | Status | Date | What was tested | Actual result | Evidence location |
 |---|---|---|---|---|
 | VERIFIED COMPLETE | 04 Oct 2026 | AI safety/validation boundary | 29 automated tests: 11 AI safety + 8 form-validation + 10 Review 2 regression covered fallback, schema, missing data, mixed content and control-language rejection | tests/report-assistant.test.mjs |
-| EXTERNAL ACTION REQUIRED | 04 Oct 2026 | Live AI provider inference | Provider secret is not configured; no live model output claimed | docs/evidence/live-ai-test-matrix.md |
+| VERIFIED COMPLETE | 04 Oct 2026 | Live Gemini provider inference | HTTP 200; source=gemini; providerConfigured=true; model=gemini-3.5-flash-lite; structured output returned | docs/evidence/live-ai-test-matrix.md |
 | IMPLEMENTED — EVIDENCE PENDING | 04 Oct 2026 | Human confirmation UI | Source enforces needsConfirmation=true; browser capture not available | src/pages/AIReportPage.tsx + docs/evidence/live-ai-test-matrix.md |
 
 ## 03 — Security
@@ -43,14 +43,14 @@ All evidence entries below must be genuine artifacts or explicit status records.
 
 | Status | Date | What was tested | Actual result | Evidence location |
 |---|---|---|---|---|
-| IMPLEMENTED — EVIDENCE PENDING | 04 Oct 2026 | Source accessibility audit | Labels, semantic controls, focus styles and authority dialog semantics present; browser keyboard audit remains pending | src/pages/LoginPage.tsx, src/pages/AIReportPage.tsx, src/pages/AuthorityDashboard.tsx, docs/final-review-2-execution-status.md |
+| VERIFIED COMPLETE | 04 Oct 2026 | Manual accessibility/usability checks | Login, New Report and AI Assist browser checks passed; not formal WCAG certification | docs/evidence/accessibility-source-audit.md + final-review-2-execution-status.md |
 
 ## 07 — Testing
 
 | Status | Date | What was tested | Actual result | Evidence location |
 |---|---|---|---|---|
 | VERIFIED COMPLETE | 04 Oct 2026 | Latest verified expanded CI gate | GitHub Actions run #135 passed install, lint, 29 tests, TypeScript and production build; later commits in this audit are documentation/source-sync changes | .github/workflows/quality.yml + GitHub Actions run #135 |
-| VERIFIED COMPLETE | 04 Oct 2026 | Local automated test coverage in repository | 11 AI safety + 8 form-validation + 10 Review 2 regression/guard tests defined for CI | tests/ |
+| VERIFIED COMPLETE | 04 Oct 2026 | Final local automated test run | 29/29 passed: 11 AI safety + 8 form-validation + 10 Review 2 regression/guard tests | tests/ |
 
 ## 08 — User Validation
 
