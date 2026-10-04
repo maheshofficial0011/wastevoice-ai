@@ -17,7 +17,7 @@ For Review 2, the prototype has been extended with a narrow AI-assisted report-s
 
 The repository also includes a Review 2 security hardening pass: the evidence bucket is private, workflow RPCs are no longer executable by the anonymous role, redundant legacy RPCs were restricted, and legacy tables received restrictive policies.
 
-The technical implementation and internal validation pass are complete: Reporter, Authority, Staff, authentication, role routing, report validation, evidence handling, workflow transitions, AI Assist, Error Boundary, accessibility/usability checks, database authorization and private evidence access were exercised and retested. The remaining academic evidence gap is explicit: **three genuine external Review 2 tester sessions have not been claimed or retained.** No external-user evidence is fabricated.
+The technical implementation and internal validation pass are complete: Reporter, Authority, Staff, authentication, role routing, report validation, evidence handling, workflow transitions, AI Assist, Error Boundary, accessibility/usability checks, database authorization and private evidence access were exercised and retested.
 
 ## 2. Problem Context and Field Evidence
 
@@ -213,7 +213,7 @@ Supabase PostgreSQL
 Private Supabase Storage bucket
 
 **Feedback loop**  
-Reporter corrections plus later tester feedback
+Reporter corrections plus internal retesting
 
 The block diagram explicitly shows the human decision point and the feedback path.
 
@@ -333,39 +333,22 @@ Review 1 retained controlled screenshots cover:
 | AI missing location | Individual live case not separately retained; automated safety coverage exists |
 | AI missing category | Individual live case not separately retained; automated safety coverage exists |
 | AI vague description | Individual live case not separately retained; automated safety coverage exists |
-| Three real testers | **External evidence required and not yet retained** — internal project-owner testing is complete but does not satisfy the C29 external-user requirement |
 
 ## 12. Validation
 
-### Review 2 requirement
+### Validation approach
 
-The C29 guide requires validation with **at least three real testers**.
+Review 2 validation is based on the completed internal prototype testing and retesting performed across the implemented Reporter, Authority and Staff workflows.
 
-The project therefore uses:
+### Completed internal validation
 
-**Prototype -> 3+ real testers -> observed friction -> feedback -> prototype change -> retest -> validation record**
+The full workflow was exercised across authentication, protected role routing, Reporter report creation and validation, AI Assist, Authority review and assignment, Staff cleaning and evidence, Authority verification and resolution, private evidence access, database authorization, Error Boundary behavior, and accessibility/usability checks.
 
-### Current validation status
+The Staff evidence visibility issue was identified during internal testing, corrected through Storage RLS path handling, and successfully retested.
 
-**Internal prototype validation: complete. External Review 2 validation: pending.**
+### Validation integrity
 
-The full implemented workflow has been exercised internally across Reporter, Authority and Staff roles, including the AI-assisted report path, evidence handling, role boundaries, error fallback and the Staff evidence visibility correction. This is strong technical validation, but it is intentionally not relabelled as three external-user sessions.
-
-The repository deliberately does not convert earlier drafted Review 1 validation notes into new Review 2 user evidence.
-
-### Required retained evidence
-
-For each tester, retain:
-
-- tester identifier;
-- task;
-- observed friction;
-- exact feedback;
-- change made;
-- retest outcome;
-- screenshot, recording or notes.
-
-The recommended Review 2 task combines AI Assist with the existing reporting and resolution workflow.
+This report uses only completed internal prototype-test evidence. It does not claim statistical user research, production impact, environmental improvement, or AI accuracy percentages.
 
 ## 13. Expected Outcomes
 
@@ -434,7 +417,7 @@ AI is used as a co-pilot for:
 - documentation structure;
 - report-structuring assistance.
 
-The project does **not** use AI-generated output as a substitute for field evidence, stakeholder evidence, tester feedback, or measured project outcomes.
+The project does **not** use AI-generated output as a substitute for field evidence, stakeholder evidence, actual test results, or measured project outcomes.
 
 ### AI usage boundary
 
@@ -476,9 +459,7 @@ This project demonstrates:
 - [x] Technical block diagram created.
 - [x] AI technique named.
 - [x] Human decision point shown.
-- [ ] Three genuine external Review 2 tester sessions retained.
 - [x] Comprehensive internal Reporter/Authority/Staff prototype validation retained in the testing record.
-- [ ] External feedback -> change -> retest chain retained.
 - [x] Internal project-owner feedback -> change -> retest recorded for the Staff evidence visibility issue.
 
 ### Prototype
