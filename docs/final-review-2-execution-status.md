@@ -18,8 +18,8 @@ This ledger follows the required Review 2 status vocabulary.
 | Storage security | VERIFIED COMPLETE | docs/evidence/storage-security-runtime.md | Migration 20261004065105 + live probes | Direct/signed/expiry browser captures | Run browser storage checks |
 | Error Boundary | IMPLEMENTED — EVIDENCE PENDING | docs/evidence/error-boundary-runtime.md | Source verified | Runtime screenshot/recovery evidence | Trigger controlled test error in dev/test browser |
 | Accessibility | IMPLEMENTED — EVIDENCE PENDING | Source audit + role semantics in UI | 04 Oct 2026 | Keyboard-only browser checks | Run Login, Report, AI, dashboards, evidence, assignment and verification flows |
-| Automated tests | VERIFIED COMPLETE | tests/report-assistant.test.mjs + tests/report-validation.test.mjs | 19 tests | Keep green after final changes | Run final quality gate |
-| CI | VERIFIED COMPLETE (last verified green gate) | GitHub Actions quality workflow | Prior green gate, expanded 19-test suite | Post-hardening green run still needs confirmation | Check Actions for latest main run |
+| Automated tests | IMPLEMENTED — EVIDENCE PENDING | tests/report-assistant.test.mjs + tests/report-validation.test.mjs + tests/review2-regression.test.mjs | 29 tests defined | Final post-expansion execution still needs confirmation | Confirm final CI run |
+| CI | IMPLEMENTED — EVIDENCE PENDING | GitHub Actions quality workflow | Final main-head run not independently confirmed after 29-test expansion | Final lint/test/type/build run | Check Actions for latest main run |
 | Three real-user validation | EXTERNAL ACTION REQUIRED | docs/review-2-user-validation-kit.md | Not yet performed | 3 genuine testers | Run T01/T02/T03 and retain evidence |
 | Feedback/change/retest | EXTERNAL ACTION REQUIRED | docs/review-2-validation-plan.md | Not yet performed | Real feedback loop | Apply highest-value tester change and retest with tester |
 | Final demo | EXTERNAL ACTION REQUIRED | docs/review-2-demo-script.md | Script prepared | Real browser recording | Record actual end-to-end flow |
