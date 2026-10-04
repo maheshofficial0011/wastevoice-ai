@@ -158,7 +158,6 @@ interface ReviewFormProps {
     onSubmit: () => void
 }
 
-const EVIDENCE_BUCKET = 'waste-evidence'
 
 const CORRECTION_REASONS = [
     'Cleaning is incomplete',
@@ -490,6 +489,7 @@ function AuthorityDashboard() {
         setPreviewTitle('Evidence Preview')
         setPreviewZoom(1)
         setShowEvidenceCompare(false)
+        setVerificationChecks({ sameArea: false, issueAddressed: false, evidenceClear: false })
     }
 
     function openReport(report: WasteReport) {
@@ -503,6 +503,7 @@ function AuthorityDashboard() {
         setPreviewTitle('Evidence Preview')
         setPreviewZoom(1)
         setShowEvidenceCompare(false)
+        setVerificationChecks({ sameArea: false, issueAddressed: false, evidenceClear: false })
         setError(null)
     }
 
@@ -1154,9 +1155,9 @@ function AuthorityDashboard() {
                 comparison = priorityA - priorityB
 
                 if (comparison === 0) {
-                    comparison =
-                        new Date(b.created_at).getTime() -
-                        new Date(a.created_at).getTime()
+                    return sortDirection === 'asc'
+                        ? new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+                        : new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
                 }
             } else if (sortBy === 'oldest') {
                 comparison =
@@ -1252,15 +1253,6 @@ function AuthorityDashboard() {
         verificationChecks.sameArea &&
         verificationChecks.issueAddressed &&
         verificationChecks.evidenceClear
-
-    useEffect(() => {
-        setShowEvidenceCompare(Boolean(selectedBeforeUrl && selectedAfterUrl))
-        setVerificationChecks({
-            sameArea: false,
-            issueAddressed: false,
-            evidenceClear: false,
-        })
-    }, [selectedReport?.id, selectedBeforeUrl, selectedAfterUrl])
 
     /* ============================================================
        RENDER
