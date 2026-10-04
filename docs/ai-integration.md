@@ -1,7 +1,7 @@
 # WasteVoice AI — AI Integration
 
 ## Review 2 status
-The first AI milestone is implemented and deployed as a Supabase Edge Function named structure-report with JWT verification enabled.
+The first AI milestone is implemented and deployed as Supabase Edge Function structure-report. Live deployment is ACTIVE version 2 with JWT verification enabled. Live provider inference remains EXTERNAL ACTION REQUIRED until the server-side provider secret is configured.
 
 ## AI purpose
 WasteVoice AI uses a narrow natural-language understanding task: convert a reporter's ordinary-language waste description into conservative structured suggestions that the reporter can review and correct.
@@ -40,9 +40,7 @@ When the provider secret is absent, or when the provider response cannot be safe
 This prevents a fallback response from being presented as live model inference.
 
 ## Reliability tests
-Minimum Review 2 cases: complete description, missing location, missing category, and vague description.
-Expected behavior: conservative output, no invented details, mandatory human confirmation.
+The repository contains 11 automated AI safety/boundary tests covering complete, missing, vague, contradictory, prompt-injection, oversized, malformed and unsafe-output cases plus fallback and prompt construction. These are deterministic/contract tests, not live-model accuracy measurements.
 
 ## Current limitation
-The Edge Function is deployed, but live model inference remains pending until OPENAI_API_KEY is configured in the Supabase project.
-No AI accuracy number is claimed before the reliability tests are executed and captured.
+The Edge Function is deployed, but live model inference remains pending until OPENAI_API_KEY and an allowed OPENAI_MODEL are configured in the Supabase project. No AI accuracy number is claimed. The live matrix is recorded in docs/evidence/live-ai-test-matrix.md.
