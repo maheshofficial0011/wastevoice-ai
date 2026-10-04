@@ -126,7 +126,9 @@ function CreateReportPage() {
         }
     }, [editReportId])
 
+    /* AI drafts are hydrated from sessionStorage once on route entry. */
     useEffect(() => {
+        /* eslint-disable react-hooks/set-state-in-effect */
         if (editReportId || searchParams.get('ai') !== '1') return
 
         const rawDraft = sessionStorage.getItem('wastevoice-ai-draft')
@@ -155,6 +157,7 @@ function CreateReportPage() {
         } catch (draftError) {
             console.warn('Unable to load AI report draft:', draftError)
         }
+        /* eslint-enable react-hooks/set-state-in-effect */
     }, [editReportId, searchParams])
 
     function selectFile(nextFile: File | null) {
