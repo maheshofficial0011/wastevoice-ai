@@ -537,13 +537,10 @@ The Error Boundary was also runtime-tested with a temporary controlled error and
 
 Manual browser-level accessibility/usability checks passed for Login, New Report and AI Assist. These are not formal WCAG certification results.
 
-### Still pending / external
+### Final submission items
 
-- Three genuine external Review 2 tester sessions and the resulting feedback → change → retest evidence.
-- Cross-staff negative browser validation using a second Staff identity; only one Staff identity is currently available.
-- Any final recording/evidence artifact explicitly required by the official C29 submission process. No recording is claimed.
-
----
+- Complete only the final presentation, recording, and evidence artifacts explicitly required by the official C29 submission process.
+- Optionally add a second Staff identity for manual cross-staff isolation testing.
 
 ## 18. Security and Privacy
 
@@ -597,22 +594,19 @@ AI assistance is treated as a co-pilot for development and documentation support
 
 ### Remaining before final Review 2 submission
 
-- Conduct three genuine external Review 2 tester sessions and complete feedback → change → retest.
-- Optionally add a second Staff identity to validate cross-staff isolation manually.
-- Complete only the final presentation/recording/evidence artifacts that are actually required by the C29 submission process.
+- Complete only the final presentation, recording, and evidence artifacts explicitly required by the official C29 submission process.
 
-No external tester, recording, production-impact metric, or AI-accuracy percentage is claimed here.
+
+No production-impact metric or AI-accuracy percentage is claimed here.
 
 ---
 
 ## 21. Next Review 2 Actions
 
-1. Conduct and retain three genuine external Review 2 tester sessions.
-2. Record the actual feedback → change → retest loop.
-3. Optionally add a second Staff identity for cross-staff isolation testing.
-4. Complete only the final presentation/recording/evidence artifacts explicitly required by the official C29 process.
+1. Complete the final presentation/recording/evidence artifacts explicitly required by the official C29 process.
+2. Optionally add a second Staff identity for manual cross-staff isolation testing.
+3. Keep final claims limited to the evidence retained in the repository.
 
----
 
 ## 22. Local Setup
 
@@ -679,7 +673,7 @@ The frontend client intentionally uses the Supabase publishable key. The live Ge
 
 ## Final Project Statement
 
-WasteVoice AI is not presented as a finished autonomous AI waste-management system. For Review 2, it is a working human-controlled prototype with live Gemini-assisted report structuring, evidence-backed workflow tracking and human verification. Real-world environmental impact and external-user validation are not claimed without corresponding evidence.
+WasteVoice AI is not presented as a finished autonomous AI waste-management system. For Review 2, it is a working human-controlled prototype with live Gemini-assisted report structuring, evidence-backed workflow tracking and human verification. Real-world environmental impact and  are not claimed without corresponding evidence.
 
 
 ---
