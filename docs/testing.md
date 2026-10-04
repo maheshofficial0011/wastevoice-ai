@@ -228,9 +228,9 @@ Expected behavior is to show a clear user-facing error, preserve data where poss
 
 ### Error boundary status
 
-A dedicated React error boundary should be added and tested in a subsequent implementation step so that an unexpected component-level exception does not result in an uncontrolled blank application state.
+A React ErrorBoundary is implemented in src/components/ErrorBoundary.tsx and wraps the application in src/main.tsx.
 
-**Current status: Planned / not yet claimed as implemented.**
+**Current status: IMPLEMENTED BUT NOT VERIFIED** — code is present, but a separate retained Review 2 runtime artifact is not currently stored in the repository.
 
 ## 11. Expected vs Actual Result Recording
 
@@ -275,17 +275,15 @@ Verify that the application displays a controlled fallback interface when an une
 - A reload action should be available.
 
 **Actual result:**
-- The Error Boundary caught the intentional rendering error.
-- The application displayed the `Something went wrong` fallback interface.
-- The fallback message and `Reload application` button were visible.
-- The result was captured using a runtime screenshot during controlled testing.
+- Not independently re-executed during the current Review 2 audit.
+- No separate Error Boundary screenshot is currently retained under docs/evidence/.
 
-**Status:** PASS
+**Status:** BLOCKED / EVIDENCE REQUIRED
 
 **Evidence:**
-- Controlled runtime screenshot captured during the test.
-- Production build subsequently passed with `npm run build`.
+- Source implementation exists in src/components/ErrorBoundary.tsx.
+- Application wrapper exists in src/main.tsx.
 
 **Important qualification:**
-- The intentional error trigger was used only for controlled testing and was removed afterward.
+- The Error Boundary code can support a controlled runtime test, but the repository should not call that test passed until the execution evidence is retained.
 - This test verifies the React rendering-error boundary only. It does not prove that every backend, database, authentication, network, or browser failure is handled by the boundary.
