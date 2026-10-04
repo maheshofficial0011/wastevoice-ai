@@ -79,7 +79,7 @@ function AIReportPage() {
         window.setTimeout(() => setCopied(false), 1600)
     }
 
-    const isRealAI = result?.source === 'openai'
+    const isRealAI = result?.source === 'gemini' || result?.source === 'openai'
 
     return (
         <main className="min-h-full bg-[#020817] px-4 pb-16 pt-6 text-white sm:px-6 lg:px-8">
