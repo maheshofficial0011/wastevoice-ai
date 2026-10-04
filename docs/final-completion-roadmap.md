@@ -32,7 +32,7 @@ Configure OPENAI_API_KEY and a permitted OPENAI_MODEL in the deployed Edge Funct
 Then execute the AI test matrix and retain evidence.
 
 ### 2. Demo role profiles
-Map the three existing Supabase Auth accounts to reporter, authority and staff profiles.
+The three existing Supabase Auth accounts are mapped to Reporter, Authority and Staff profiles. Browser login still requires their passwords.
 
 ### 3. Security runtime verification
 Execute negative tests for unauthorized report access, unauthorized RPC calls and evidence access.
