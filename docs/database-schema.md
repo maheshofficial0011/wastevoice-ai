@@ -83,7 +83,7 @@ A verification rejection can return the report to further cleaning action.
 ## Live configuration notes
 
 - RLS is enabled on the inspected core application tables.
-- The connected project currently has 3 Auth users and 0 `profiles` rows; those existing demo accounts must be mapped to intended roles before the role-based live demo.
+- The connected project currently has 3 Auth users and 3 `profiles` rows: one Reporter, one Authority and one Staff. The role mapping is verified in the live database; browser login still requires the account passwords.
 - Two legacy tables (`report_activity` and `waste_reports`) are retained but are not part of the current frontend runtime contract.
 
 ## RLS verification checklist
