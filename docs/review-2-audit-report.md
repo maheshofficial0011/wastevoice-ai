@@ -12,7 +12,7 @@ WasteVoice AI has moved from the Review 1 foundational prototype into a substant
 
 The project is **not yet Review Ready** because two important evidence gates remain external to the repository implementation: live AI provider configuration and genuine three-person Review 2 validation. The connected Supabase project now has all three demo accounts mapped to explicit Reporter, Authority and Staff profile rows; browser login still requires their passwords.
 
-The current conclusion is therefore: **Strong technical foundation, developing validation evidence, externally blocked live AI inference.**
+The current conclusion is therefore: **Strong technical foundation, verified database/security controls, developing external validation evidence, externally blocked live AI inference.**
 
 ## Current Completion Assessment
 
@@ -75,10 +75,8 @@ Supabase is the backend/data platform. The application uses Auth, PostgreSQL dat
 
 Supabase Auth is used for login and session state. ProtectedRoute checks session/profile role before rendering role-specific areas.
 
-Important live finding:
-The connected Auth database contains three users, but `profiles` currently contains zero rows. The login and protected-route code therefore cannot route those existing accounts to Reporter/Authority/Staff until profiles are created.
-
-A trigger named `on_auth_user_created` exists on `auth.users` and calls `handle_new_user()`, which creates a default Reporter profile for future accounts. The existing accounts were created without matching profiles and need one-time mapping.
+Live state:
+The connected Auth database contains three users and three explicit profile rows mapped to Reporter, Authority and Staff. The browser login flow still requires the existing account passwords; no password was created or assumed by this audit.
 
 ### Authorization
 
@@ -86,8 +84,8 @@ Frontend authorization exists and role-specific RPCs are used for important work
 
 Backend verification is stronger than frontend-only checks: core RLS is enabled, active workflow RPCs are restricted to authenticated execution, anonymous access was removed from active workflow RPCs, and obsolete legacy RPCs were restricted.
 
-Remaining gap:
-Role-negative runtime tests still need to be executed and retained. This means authorization is **implemented but not fully runtime-verified**.
+Runtime verification:
+Role-negative SQL probes were executed against the live database in isolated transaction context. Reporter and Staff authority-only actions were denied, Staff final resolution was denied, Authority invalid verification was denied, and unassigned Staff access returned zero rows.
 
 ### Database
 
@@ -103,14 +101,14 @@ RLS is enabled on the inspected core tables.
 
 ### Storage
 
-The `waste-evidence` bucket is private.
+The `waste-evidence` bucket is private. A newly discovered legacy `report-evidence` bucket was also hardened to private because existing report records still referenced objects there.
 
 The browser-side code no longer uses public Storage URLs for evidence. Stored paths are resolved to signed URLs with a one-hour TTL for the current session.
 
 Storage policies now distinguish Reporter-owned evidence, Authority review access, and Staff-assigned evidence upload/read access.
 
-Remaining gap:
-Signed URL behavior and negative unauthorized-access behavior still need explicit browser/runtime capture.
+Runtime qualification:
+Live policy/configuration and role-scoped object visibility were checked in the database. Direct public URL, signed URL download, expiry, and browser wrong-role captures remain evidence-pending because browser/network execution is unavailable.
 
 ### AI
 
@@ -219,10 +217,10 @@ One important documentation risk was found and corrected during the audit: older
 | Staff login | COMPLETE AND VERIFIED | Controlled Review 1 workflow | New live role mapping | P1 |
 | Reporter form | COMPLETE AND VERIFIED | Controlled workflow + source | Edge-case runtime captures | P1 |
 | Before evidence upload | COMPLETE AND VERIFIED | Controlled workflow | Private-storage runtime proof | P1 |
-| Authority assignment | IMPLEMENTED BUT NOT VERIFIED | Code + live RPC signature | Negative role test | P1 |
-| Staff status workflow | IMPLEMENTED BUT NOT VERIFIED | Code + live RPC signature | Negative role test | P1 |
+| Authority assignment | VERIFIED COMPLETE | Code + live RPC + negative role probe | Browser capture optional | P1 |
+| Staff status workflow | VERIFIED COMPLETE | Code + live RPC + negative role probe | Browser capture optional | P1 |
 | After evidence upload | IMPLEMENTED BUT NOT VERIFIED | Code + storage policy | Signed-access runtime proof | P1 |
-| Authority verification | IMPLEMENTED BUT NOT VERIFIED | Controlled UI evidence + live RPC signature | Negative role test | P1 |
+| Authority verification | VERIFIED COMPLETE | Code + live RPC + negative role/state probes | Browser capture optional | P1 |
 | AI Assist UI | IMPLEMENTED BUT NOT VERIFIED | Source | Live provider test | P0 |
 | AI Edge Function | IMPLEMENTED BUT NOT VERIFIED | Deployed function + source | Provider secret + end-to-end test | P0 |
 | AI fallback | COMPLETE AND VERIFIED | Automated tests | Optional runtime capture | P1 |
@@ -245,11 +243,11 @@ This is an academic/evaluator requirement, so it cannot be replaced by source co
 
 ### P1 — High value
 
-**P1.1 Existing demo accounts have no profiles.**
-The Reporter/Authority/Staff profile rows are now created and verified in the live database. Browser login still requires the account passwords.
+**P1.1 Browser login still needs real passwords.**
+The three Auth users are mapped to Reporter/Authority/Staff profiles and verified in the live database. The passwords remain external to this agent.
 
-**P1.2 Execute negative role/security tests.**
-Prove with runtime evidence that Reporter and Staff cannot perform Authority-only actions and that evidence cannot be read outside the permitted role boundary.
+**P1.2 Browser evidence remains.**
+The live database negative role/security probes are now complete. Direct browser evidence-access and signed-URL captures remain external/evidence-pending.
 
 **P1.3 Capture AI reliability evidence.**
 Use the master test matrix, including contradiction and prompt-injection cases.
