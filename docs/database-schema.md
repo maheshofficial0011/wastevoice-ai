@@ -1,6 +1,6 @@
 # WasteVoice AI — Database Contract
 
-This document describes the **frontend runtime contract** observed in the current repository. It is not a substitute for inspecting the connected Supabase project.
+This document describes the current application contract and the connected Supabase project as inspected on **04 October 2026**. It is still not a substitute for the final role-by-role runtime security test.
 
 ## Tables referenced by the application
 
@@ -39,7 +39,16 @@ The frontend invokes these database functions for protected workflow operations:
 - `staff_update_task_status`
 - `authority_review_report`
 
-The exact deployed signatures must be checked against the connected Supabase project before a SQL migration is published as authoritative.
+The following deployed signatures were verified against the connected Supabase project:
+
+## Verified workflow RPC signatures
+
+- `reporter_update_report(p_report_id uuid, p_location text, p_description text, p_additional_info text)`
+- `assign_report_to_staff(p_report_id uuid, p_staff_id uuid)`
+- `staff_update_task_status(p_assignment_id uuid, p_status text)`
+- `authority_review_report(p_report_id uuid, p_decision text, p_reason text, p_notes text)`
+
+Active application RPCs require the authenticated role; anonymous execute access was removed during Review 2 hardening.
 
 ## Storage
 
@@ -49,7 +58,7 @@ Evidence uploads use the Supabase Storage bucket:
 waste-evidence
 ```
 
-Reporter before-evidence uploads use a user/report-specific path. Staff after-evidence uploads are associated with the corresponding report.
+Reporter before-evidence uploads use a user/report-specific path. Staff after-evidence uploads are associated with the corresponding report. The `waste-evidence` bucket is private and the browser resolves stored paths through signed URLs.
 
 ## Expected workflow states
 
@@ -70,6 +79,12 @@ resolved
 ```
 
 A verification rejection can return the report to further cleaning action.
+
+## Live configuration notes
+
+- RLS is enabled on the inspected core application tables.
+- The connected project currently has 3 Auth users and 0 `profiles` rows; those existing demo accounts must be mapped to intended roles before the role-based live demo.
+- Two legacy tables (`report_activity` and `waste_reports`) are retained but are not part of the current frontend runtime contract.
 
 ## RLS verification checklist
 
