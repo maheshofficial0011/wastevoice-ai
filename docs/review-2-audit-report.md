@@ -151,7 +151,7 @@ npm test
 npm run build
 ```
 
-The previous red CI iterations were used to fix real lint and test issues. The last known green expanded quality gate is retained as historical evidence; the final post-hardening commit should be confirmed in GitHub Actions before submission.
+The previous red CI iterations were used to fix real lint and test issues. GitHub Actions run #166 passed the reviewed documentation state after the separate signed-URL error-cause lint fix. It is the final verified CI gate for this audit.
 
 ### CI/CD
 
