@@ -173,7 +173,7 @@ Each idea was considered on a 1–5 scale using the C29 definitions. The decisio
 
 **WasteVoice AI — AI-Powered Campus Waste Reporter**
 
-The selected direction integrates guided reporting, natural-language understanding, structured report generation, visibility, and optional image understanding around one human-controlled workflow.
+The selected direction integrates guided reporting, natural-language understanding, structured report generation, visibility, evidence and human verification around one human-controlled workflow.
 
 ### Runner-up
 
@@ -234,7 +234,7 @@ The current prototype includes:
 
 ### Current verification status
 
-The application has been exercised with controlled test data, and the connected Supabase project now contains three mapped role profiles. Live database role/security probes have been completed; browser login still requires the real test-account passwords.
+The application has been manually exercised end-to-end across Reporter, Authority and Staff. Live Gemini inference has been verified through the deployed `structure-report` Edge Function. The Staff before-evidence visibility issue was identified, fixed through Storage RLS path handling, and successfully retested. The connected Supabase project contains three mapped role profiles.
 
 > **Evidence qualification:** these screenshots are controlled prototype-test evidence. The before/after evidence used the same image as a test fixture, so it demonstrates application workflow and evidence-handling behavior only. It must not be interpreted as proof of real-world cleaning or physical improvement.
 
@@ -326,7 +326,7 @@ Implemented Review 2 AI path:
 User description → authenticated Edge Function → structured model output → server-side validation → human correction → workflow
 ```
 
-The AI path is implemented, but live model inference remains blocked until the server-side provider secret is configured.
+The AI path is live-verified with Gemini and remains human-controlled: AI output is advisory and does not directly mutate workflow state.
 
 ---
 
@@ -344,7 +344,7 @@ The AI path is implemented, but live model inference remains blocked until the s
 | File storage | Supabase Storage |
 | Workflow/security | Supabase RLS + protected RPCs |
 | Realtime/refresh | Supabase realtime subscriptions and dashboard refresh logic |
-| AI | **Supabase Edge Function + configurable server-side model; live provider inference requires external secret** |
+| AI | **Supabase Edge Function + Gemini (`gemini-3.5-flash-lite`) with server-side secrets** |
 | Quality tooling | ESLint, TypeScript, Vite production build |
 | CI | GitHub Actions (`.github/workflows/quality.yml`) |
 | Version control | Git + GitHub |
@@ -500,36 +500,48 @@ The first AI milestone is a narrow, human-confirmed report-structuring capabilit
   "category": "plastic | paper | food | mixed | unknown",
   "location": "string | unknown",
   "summary": "string",
-  "confidence": 0.0
+  "missingFields": ["string"],
+  "needsConfirmation": true
 }
 ```
 
-The server uses the current OpenAI Responses API pattern for model calls and structured output; the model name remains configurable server-side. citeturn596744search0
+The deployed server-side function uses the native Gemini REST API with `gemini-3.5-flash-lite`. The provider credential is kept in Supabase Edge Function secrets.
 
 ---
 
+### Live Gemini verification
+
+The deployed `structure-report` function returned HTTP 200 with `source=gemini`, `providerConfigured=true`, model `gemini-3.5-flash-lite`, a structured category/location/summary/missing-field result, and `needsConfirmation=true`.
+
+Reporter can **copy the AI-generated structured summary for use in the reporting workflow**. The action does not apply a workflow decision.
+
 ## 17. Testing and Validation
 
-### Verified through GitHub Actions
+### Automated quality
 
-- The repository Quality Check workflow runs lint, automated tests and the production build.
-- Historical note: Review 2 CI run #135 was green before the expanded test gate was added; the current authoritative green gate is the latest successful run after these changes.
-- The latest commits are re-running the expanded quality gate; the final green result should be treated as the authoritative current check.
+- `npm test`: **29/29 passed** (11 AI + 8 form-validation + 10 Review 2 regression/guard tests).
+- `npm run build`: **PASS** — TypeScript compilation and Vite production build; 83 modules transformed.
+- Vite emitted one non-blocking chunk-size optimization warning (>500 kB).
+- `npm audit`: **0 known package vulnerabilities reported by npm**.
+- GitHub Actions run #135 is recorded as a green 29-test quality gate.
 
-### Controlled runtime test
+### Manual browser validation
 
-A three-role controlled workflow was exercised on **15 September 2026**:
+The complete workflow was manually exercised:
 
-**Reporter → Authority → Staff → After Evidence → Authority Verification**
+**Reporter → Report → Authority Review → Staff Assignment → Staff Cleaning → After Evidence → Authority Verification → Resolution → Reporter resolved state**
 
-The supporting screenshots are stored in [`docs/evidence/`](docs/evidence/).
+Reporter, Authority and Staff login/workflow behavior passed. Reporter AI Assist was tested with the documented College Canteen input; the structured result displayed correctly and **Copy structured summary** worked.
 
-### Still pending
+The Error Boundary was also runtime-tested with a temporary controlled error and restored afterward.
 
-- Live AI provider configuration and live AI evidence.
-- Browser captures for signed/expired Storage access, role-denial behavior, accessibility and Error Boundary recovery.
-- Formal retained three-user Review 2 validation evidence and feedback-driven retest.
-- Final production/browser deployment evidence, presentation/video and submission action.
+Manual browser-level accessibility/usability checks passed for Login, New Report and AI Assist. These are not formal WCAG certification results.
+
+### Still pending / external
+
+- Three genuine external Review 2 tester sessions and the resulting feedback → change → retest evidence.
+- Cross-staff negative browser validation using a second Staff identity; only one Staff identity is currently available.
+- Any final recording/evidence artifact explicitly required by the official C29 submission process. No recording is claimed.
 
 ---
 
@@ -541,7 +553,10 @@ The supporting screenshots are stored in [`docs/evidence/`](docs/evidence/).
 - Service-role/database credentials are not intended for frontend use.
 - RLS and protected RPCs are enabled for the core workflow.
 - Security hardening has been applied and verified against the connected Supabase configuration.
-- Database role-negative runtime tests are verified. Remaining gaps are browser evidence and the documented Supabase advisor warnings.
+- Database role-negative runtime tests are verified.
+- Evidence buckets are private and evidence references are resolved through signed URLs.
+- `npm audit` reports 0 known package vulnerabilities. This is a package-vulnerability result, not a complete security certification.
+- Supabase advisor warnings remain documented for SECURITY DEFINER helpers and leaked-password protection.
 
 ---
 
@@ -573,21 +588,20 @@ AI assistance is treated as a co-pilot for development and documentation support
 - Role-aware dashboards.
 - Controlled runtime test with retained screenshots.
 - Review 1 report and testing documentation.
-- Review 2 AI Assist implementation and Edge Function.
+- Review 2 AI Assist implementation and live Gemini inference.
 - Private evidence storage and signed URL handling, including hardening of the legacy report-evidence bucket.
 - Live database authorization and storage role-boundary probes.
-- Automated AI safety tests in CI.
+- 29 automated tests, successful production build and npm dependency audit.
+- Manual end-to-end Reporter/Authority/Staff validation, Error Boundary runtime test and selected accessibility checks.
 - Review 2 status, validation plan and completion roadmap.
 
 ### Remaining before final Review 2 submission
 
-- Configure the live AI provider secret.
-- Capture the live AI matrix, including contradiction and prompt-injection cases.
-- Use the three mapped demo accounts in a real browser session; account passwords are required.
-- Capture direct/signed/expired Storage, accessibility and Error Boundary runtime evidence.
-- Conduct three genuine Review 2 tester sessions and complete feedback → change → retest.
-- Record feedback → product change → retest evidence.
-- Verify final deployment, presentation, video and evidence package.
+- Conduct three genuine external Review 2 tester sessions and complete feedback → change → retest.
+- Optionally add a second Staff identity to validate cross-staff isolation manually.
+- Complete only the final presentation/recording/evidence artifacts that are actually required by the C29 submission process.
+
+No external tester, recording, production-impact metric, or AI-accuracy percentage is claimed here.
 
 ---
 
@@ -668,3 +682,10 @@ The frontend client intentionally uses the Supabase publishable key. See [`supab
 ## Final Project Statement
 
 WasteVoice AI is not presented as a finished autonomous AI waste-management system. At Review 1, it is a working human-controlled prototype that makes the reporting, assignment, evidence and verification process more structured and visible.
+
+
+---
+
+## Documentation synchronization
+
+This documentation was audited and synchronized after final validation on **04 October 2026**. The validation baseline was repository HEAD `dd10705` (`dd10705601817d2c91ab83ab28d2ee930512e114`). A later documentation-only commit may update the branch tip; no secrets or passwords are included.
