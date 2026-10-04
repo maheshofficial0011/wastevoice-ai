@@ -31,7 +31,6 @@ interface AuthorityReview {
     created_at: string
 }
 
-const EVIDENCE_BUCKET = 'waste-evidence'
 
 
 function normalizeStatus(status: string) {
@@ -174,20 +173,6 @@ function ReporterDashboard() {
     const [resolvedTo, setResolvedTo] = useState('')
     const [resolvedSort, setResolvedSort] = useState<SortKey>('newest')
 
-    useEffect(() => {
-        void fetchMyReports()
-
-        // Keep the reporter view reasonably fresh without forcing the user
-        // to manually refresh after staff or authority actions.
-        const interval = window.setInterval(() => {
-            if (document.visibilityState === 'visible') {
-                void fetchMyReports(true)
-            }
-        }, 30000)
-
-        return () => window.clearInterval(interval)
-    }, [])
-
     async function fetchMyReports(silent = false) {
         if (!silent) setLoading(true)
         setError(null)
@@ -282,6 +267,18 @@ function ReporterDashboard() {
         setRefreshing(true)
         await fetchMyReports()
     }
+
+    useEffect(() => {
+        void fetchMyReports()
+
+        const interval = window.setInterval(() => {
+            if (document.visibilityState === 'visible') {
+                void fetchMyReports(true)
+            }
+        }, 30000)
+
+        return () => window.clearInterval(interval)
+    }, [])
 
     async function copyReportId(reportId: string) {
         try {
