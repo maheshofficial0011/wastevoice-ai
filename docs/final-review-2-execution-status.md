@@ -1,7 +1,8 @@
 # WasteVoice AI — Final Review 2 Execution Status
 
 **Audit date:** 04 October 2026  
-**Validation/documentation baseline:** `dd10705601817d2c91ab83ab28d2ee930512e114`
+**Validation/documentation baseline:** `dd10705601817d2c91ab83ab28d2ee930512e114`  
+**Note:** a separate one-line Staff Dashboard lint fix preserves the caught signed-URL error as the error `cause`; this is not a feature change.
 
 | Gate | Status | Evidence |
 |---|---|---|
