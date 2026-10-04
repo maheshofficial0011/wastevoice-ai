@@ -3,7 +3,7 @@
 **Project Better Tomorrow - C29 Semester 3 - Pathway A - Continuation Track**  
 **Review 2 status date: 04 October 2026**
 
-**Latest engineering quality gate:** the expanded GitHub Actions workflow covers `npm ci`, lint, 19 automated tests, TypeScript compilation and the production build; the last verified green gate preceded the final documentation-only updates.
+**Latest engineering quality gate:** the expanded GitHub Actions workflow covers `npm ci`, lint, 19 automated tests, TypeScript compilation and the production build; the last verified green gate preceded the 10-test regression-suite expansion; the final post-expansion Actions run must be confirmed before submission.
 
 > Core workflow: **Report -> Review -> Assign -> Clean -> Evidence -> Verify -> Resolve**
 
