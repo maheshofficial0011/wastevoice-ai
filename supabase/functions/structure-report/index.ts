@@ -1,8 +1,15 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts"
 
+import {
+  buildUserPrompt,
+  extractOutputText,
+  localFallback,
+  parseSafeResult,
+  validateReportInput,
+} from "./logic.mjs"
+
 const MODEL = Deno.env.get("OPENAI_MODEL") ?? "gpt-5-mini"
 const OPENAI_API_KEY = Deno.env.get("OPENAI_API_KEY")
-
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
@@ -143,22 +150,13 @@ Deno.serve(async (request) => {
     return jsonResponse({ error: "Request body must be valid JSON." }, 400)
   }
 
-  const location = typeof body.location === "string" ? body.location.trim() : ""
-  const description = typeof body.description === "string" ? body.description.trim() : ""
-  const additionalInfo =
-    typeof body.additionalInfo === "string" ? body.additionalInfo.trim() : ""
+  const validated = validateReportInput(body)
 
-  if (location.length > 120) {
-    return jsonResponse({ error: "Location is too long." }, 400)
+  if (!validated.ok) {
+    return jsonResponse({ error: validated.error }, 400)
   }
 
-  if (description.length < 15) {
-    return jsonResponse({ error: "Please provide at least 15 characters of observed detail." }, 400)
-  }
-
-  if (description.length > 1000 || additionalInfo.length > 1000) {
-    return jsonResponse({ error: "Report text is too long." }, 400)
-  }
+  const { location, description, additionalInfo } = validated
 
   if (!OPENAI_API_KEY) {
     return jsonResponse({
@@ -169,13 +167,12 @@ Deno.serve(async (request) => {
     })
   }
 
-  const userPrompt = [
-    `Supplied location: ${location || "unknown"}`,
-    `Reporter description: ${description}`,
-    `Additional information: ${additionalInfo || "unknown"}`,
-  ].join("\n")
+  const userPrompt = buildUserPrompt(location, description, additionalInfo)
 
   try {
+    const controller = new AbortController()
+    const timeout = setTimeout(() => controller.abort(), 8000)
+
     const response = await fetch("https://api.openai.com/v1/responses", {
       method: "POST",
       headers: {
@@ -184,6 +181,7 @@ Deno.serve(async (request) => {
       },
       body: JSON.stringify({
         model: MODEL,
+        max_output_tokens: 300,
         input: [
           { role: "system", content: [{ type: "input_text", text: systemPrompt }] },
           { role: "user", content: [{ type: "input_text", text: userPrompt }] },
@@ -202,7 +200,7 @@ Deno.serve(async (request) => {
     const payload = await response.json()
 
     if (!response.ok) {
-      console.error("AI provider request failed", response.status, payload)
+      console.error("AI provider request failed", response.status)
       return jsonResponse({
         source: "fallback",
         providerConfigured: true,
@@ -212,20 +210,9 @@ Deno.serve(async (request) => {
     }
 
     const outputText = extractOutputText(payload)
+    const safeResult = parseSafeResult(outputText, location)
 
-    let structured: unknown
-    try {
-      structured = JSON.parse(outputText)
-    } catch {
-      return jsonResponse({
-        source: "fallback",
-        providerConfigured: true,
-        data: localFallback(location, description),
-        notice: "AI returned an unexpected format. Conservative fallback structuring was returned.",
-      })
-    }
-
-    if (!isSafeResult(structured)) {
+    if (!safeResult) {
       return jsonResponse({
         source: "fallback",
         providerConfigured: true,
@@ -238,15 +225,14 @@ Deno.serve(async (request) => {
       source: "openai",
       providerConfigured: true,
       model: MODEL,
-      data: {
-        ...structured,
-        location: location || "unknown",
-        needsConfirmation: true,
-      },
+      data: safeResult,
       notice: "AI suggestions are advisory and require reporter confirmation.",
     })
   } catch (error) {
-    console.error("Structure report error", error)
+    console.error(
+      "Structure report error",
+      error instanceof Error ? error.name : "unknown",
+    )
     return jsonResponse({
       source: "fallback",
       providerConfigured: true,
