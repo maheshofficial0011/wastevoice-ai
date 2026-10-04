@@ -607,14 +607,10 @@ No external tester, recording, production-impact metric, or AI-accuracy percenta
 
 ## 21. Next Review 2 Actions
 
-1. Connect the Supabase project and verify the deployed database/security contract.
-2. Run and retain role/RLS access tests.
-3. Run and retain three real tester sessions.
-4. Record feedback → change → re-test evidence.
-5. Run the live server-side AI report-structuring flow after provider configuration.
-6. Capture AI edge-case outputs and human corrections.
-7. Verify production deployment and final demo flow.
-8. Prepare the final Prototype & Validation Report and evidence package for Review 2.
+1. Conduct and retain three genuine external Review 2 tester sessions.
+2. Record the actual feedback → change → retest loop.
+3. Optionally add a second Staff identity for cross-staff isolation testing.
+4. Complete only the final presentation/recording/evidence artifacts explicitly required by the official C29 process.
 
 ---
 
@@ -652,7 +648,7 @@ VITE_SUPABASE_PUBLISHABLE_KEY=your-supabase-publishable-key
 
 Do **not** commit `.env`, `.env.*`, or service-role/database credentials.
 
-The frontend client intentionally uses the Supabase publishable key. See [`supabase/README.md`](supabase/README.md) for the current setup contract.
+The frontend client intentionally uses the Supabase publishable key. The live Gemini configuration is server-side through Supabase Edge Function secrets (`AI_PROVIDER`, `AI_MODEL`, and `GEMINI_API_KEY`). See [`supabase/README.md`](supabase/README.md) for the current setup contract.
 
 ---
 
@@ -672,7 +668,9 @@ The frontend client intentionally uses the Supabase publishable key. See [`supab
 - [`docs/validation.md`](docs/validation.md) — validation evidence records and requirements.
 - [`docs/architecture.md`](docs/architecture.md) — technical architecture.
 - [`docs/database-schema.md`](docs/database-schema.md) — application data contract.
-- [`docs/ai-integration.md`](docs/ai-integration.md) — AI integration and safety specification.
+- [`docs/ai-integration.md`](docs/ai-integration.md) — AI integration, live Gemini validation and safety specification.
+- [`docs/final-review-2-execution-status.md`](docs/final-review-2-execution-status.md) — current Review 2 status ledger.
+- [`docs/evidence/`](docs/evidence/) — Review 2 technical evidence records and evidence index.
 - [`docs/ai-usage-audit.md`](docs/ai-usage-audit.md) — AI usage and integrity record.
 - [`docs/evidence/`](docs/evidence/) — controlled runtime screenshots for Review 1.
 - [`supabase/README.md`](supabase/README.md) — Supabase setup notes.
