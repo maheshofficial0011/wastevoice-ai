@@ -46,11 +46,6 @@ function AIReportPage() {
         setResult(null)
         setCopied(false)
 
-        if (location.trim().length < 3) {
-            setError('Please enter a specific location.')
-            return
-        }
-
         if (description.trim().length < 15) {
             setError('Please describe what you observed in at least 15 characters.')
             return
@@ -106,12 +101,13 @@ function AIReportPage() {
                         <h1 className="mt-3 text-3xl font-black tracking-tight sm:text-4xl">Describe the problem. Let AI structure it.</h1>
                         <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-400">
                             The assistant turns your own description into a few structured suggestions.
+                            You can leave the location blank to see how the assistant handles missing information.
                             It does not decide priority, assign staff, or resolve the report.
                         </p>
 
                         <div className="mt-7 space-y-5">
                             <div>
-                                <label className="mb-2 block text-sm font-semibold text-slate-200" htmlFor="ai-location">Observed location</label>
+                                <label className="mb-2 block text-sm font-semibold text-slate-200" htmlFor="ai-location">Observed location <span className="text-slate-600">(optional for AI Assist)</span></label>
                                 <input id="ai-location" value={location} onChange={(e) => setLocation(e.target.value)} maxLength={120} placeholder="Example: Campus Park near the walking path" className="w-full rounded-2xl border border-slate-700 bg-slate-950 px-4 py-3.5 text-sm text-white outline-none focus:border-emerald-400/70" />
                             </div>
                             <div>
