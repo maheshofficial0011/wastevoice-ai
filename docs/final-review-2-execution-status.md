@@ -1,7 +1,7 @@
 # WasteVoice AI — Final Review 2 Execution Status
 
 **Audit date:** 04 October 2026  
-**Validation/documentation baseline:** `dd10705601817d2c91ab83ab28d2ee930512e114`  
+**Validation/documentation baseline:** final main-branch documentation checkpoint after the 04 October 2026 validation updates  
 **Note:** a separate one-line Staff Dashboard lint fix preserves the caught signed-URL error as the error `cause`; this is not a feature change.
 
 | Gate | Status | Evidence |
@@ -20,9 +20,9 @@
 | Automated tests | VERIFIED COMPLETE | npm test: 29/29 passed |
 | Production build | VERIFIED COMPLETE | TypeScript + Vite build passed; 83 modules transformed; one non-blocking chunk-size warning |
 | npm dependency audit | VERIFIED COMPLETE | npm audit: 0 known package vulnerabilities |
-| Internal usability validation | VERIFIED COMPLETE | Project-owner/internal Reporter, Staff and Authority perspectives |
+| Internal usability validation | VERIFIED COMPLETE | Comprehensive internal Reporter, Authority and Staff workflow testing, including validation states, AI Assist, evidence handling and role boundaries |
 | Feedback → change → retest | VERIFIED COMPLETE | Staff before-evidence observation → RLS path correction → successful retest |
-| Three external testers | EXTERNAL ACTION REQUIRED | Not claimed or fabricated |
+| Three external testers | EXTERNAL EVIDENCE REQUIRED | Internal testing is complete, but C29 still requires three genuine external-user sessions; none are fabricated or relabelled |
 | Final recording | OPTIONAL / SKIPPED OR EXTERNAL ACTION REQUIRED | No recording claimed; only produce if official C29 rules require it |
 | Documentation synchronization | VERIFIED COMPLETE | Review 2 documentation reconciled to final Gemini, browser, storage and test evidence |
 
@@ -52,4 +52,4 @@ The project owner has chosen not to claim three genuine external Review 2 tester
 
 **FINAL RECORDING: NOT CLAIMED**
 
-**OVERALL: READY EXCEPT FOR EXTERNAL EVIDENCE**
+**OVERALL: TECHNICALLY READY; EXTERNAL VALIDATION EVIDENCE REMAINS**
