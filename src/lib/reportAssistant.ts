@@ -17,7 +17,7 @@ export interface ReportStructure {
 }
 
 export interface ReportAssistantResponse {
-    source: 'openai' | 'fallback'
+    source: 'openai' | 'gemini' | 'fallback'
     providerConfigured: boolean
     model?: string
     data: ReportStructure
