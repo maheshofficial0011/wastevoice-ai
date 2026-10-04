@@ -49,8 +49,8 @@ All evidence entries below must be genuine artifacts or explicit status records.
 
 | Status | Date | What was tested | Actual result | Evidence location |
 |---|---|---|---|---|
-| VERIFIED COMPLETE | Prior green CI gate on current functional HEAD | Lint, tests, TypeScript, build | Green; 19 automated tests | .github/workflows/quality.yml + GitHub Actions |
-| VERIFIED COMPLETE | 04 Oct 2026 | Local automated test coverage in repository | 11 AI safety + 8 form-validation tests defined for CI | tests/ |
+| IMPLEMENTED — EVIDENCE PENDING | 04 Oct 2026 | Final post-hardening CI | Must confirm lint, 29 tests, TypeScript and build on the final main HEAD | .github/workflows/quality.yml + GitHub Actions |
+| VERIFIED COMPLETE | 04 Oct 2026 | Local automated test coverage in repository | 11 AI safety + 8 form-validation + 10 Review 2 regression/guard tests defined for CI | tests/ |
 
 ## 08 — User Validation
 
