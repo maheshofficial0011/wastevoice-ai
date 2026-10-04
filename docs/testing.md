@@ -2,7 +2,7 @@
 
 ## 1. Current quality verification
 
-The repository uses GitHub Actions as the authoritative repeatable quality gate.
+The repository uses GitHub Actions as the repeatable quality gate, with final local validation additionally recorded below.
 
 Current workflow:
 
@@ -13,13 +13,13 @@ npm test
 npm run build
 ```
 
-The existing green Review 2 quality gate is recorded in GitHub Actions. Subsequent commits are re-running the expanded gate after automated AI safety tests were added.
+Final local validation recorded on 04 October 2026: npm test passed 29/29; npm run build passed; npm audit reported 0 known package vulnerabilities. GitHub Actions run #135 is also recorded as a green 29-test gate.
 
-A large JavaScript chunk warning has been observed historically; it is a performance optimization item, not a build failure.
+Production build passes. Vite reports a non-blocking chunk-size optimization warning (>500 kB). This is an optimization item, not a build failure.
 
 A test result should be treated as current only when the command has actually been executed and the execution evidence is retained.
 
-## 2. Controlled end-to-end Review 1 test
+## 2. Manual Review 2 browser validation
 
 A controlled prototype test was completed on **15 September 2026** using test accounts/data for the three application roles.
 
@@ -54,7 +54,7 @@ The end-to-end test used controlled prototype data and test evidence images. The
 
 It must **not** be interpreted as proof that a real campus cleaning operation occurred, that waste was physically removed, or that the proposed system improved cleanup outcomes.
 
-## 3. Review 1 functional test matrix
+## 3. Review 2 manual validation and automated coverage
 
 | Area | Status | Evidence / qualification |
 |---|---|---|
@@ -230,11 +230,35 @@ The following failure conditions require dedicated runtime verification:
 
 Expected behavior is to show a clear user-facing error, preserve data where possible, and avoid displaying a false success state.
 
-### Error boundary status
+### Error Boundary
 
-A React ErrorBoundary is implemented in src/components/ErrorBoundary.tsx and wraps the application in src/main.tsx.
+**VERIFIED COMPLETE.** A temporary controlled runtime error was introduced locally; the Error Boundary fallback appeared successfully with the user-facing failure message and reload action. The temporary trigger and backup were removed after the test.
 
-**Current status: IMPLEMENTED BUT NOT VERIFIED** — code is present, but a separate retained Review 2 runtime artifact is not currently stored in the repository.
+### Final automated validation
+
+| Command | Result |
+|---|---|
+| npm test | 29 tests, 29 passed, 0 failed, 0 cancelled, 0 skipped |
+| npm run build | PASS — TypeScript compilation + Vite production build; 83 modules transformed |
+| npm audit | 0 vulnerabilities reported by npm |
+
+The build emitted one non-blocking Vite chunk-size optimization warning. No build failure occurred.
+
+### Manual browser validation
+
+- Authentication and session behavior — PASS
+- Role routing — PASS
+- Reporter workflow — PASS
+- Authority workflow — PASS
+- Staff workflow — PASS
+- Reporter AI Assist — PASS
+- Evidence upload/preview — PASS
+- Error Boundary runtime fallback/recovery — PASS
+- Accessibility/usability checks for Login, New Report and AI Assist — PASS
+
+The Staff before-evidence visibility issue was identified during internal validation, corrected through Storage RLS path handling, and successfully retested.
+
+The following remains external/evidence-pending: a second Staff identity for cross-staff isolation, and three genuine external Review 2 tester sessions. Internal project-owner testing is not counted as external-user validation.
 
 ## 11. Expected vs Actual Result Recording
 
