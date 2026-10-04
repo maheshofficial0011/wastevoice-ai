@@ -53,7 +53,7 @@
 ## Current Risks
 
 1. Live AI inference is unavailable until OPENAI_API_KEY and an allowed model are configured in Supabase.
-2. The connected Supabase project currently has three Auth users but zero public profile rows; those accounts need explicit role profiles for the live role-based demo.
+2. The connected Supabase project now has three Auth users and three explicit profile rows: Reporter, Authority and Staff. Browser login still requires the account passwords.
 3. Supabase security advisors still report SECURITY DEFINER helper-function exposure warnings and leaked-password protection disabled.
 4. Review 2 validation cannot be considered complete without genuine tester evidence.
 5. Existing Review 1 controlled screenshots are workflow evidence, not field-impact evidence.
