@@ -108,6 +108,9 @@ Deno.serve(async (request) => {
     "Copy the supplied location exactly when provided; otherwise use unknown.",
     "Write a neutral one-sentence summary using only supplied facts.",
     "List genuinely missing or vague fields.",
+    "Return ONLY valid JSON with exactly these fields: category, location, summary, missingFields, needsConfirmation.",
+    "category must be one of: plastic, paper, food, mixed, other, unknown.",
+    "missingFields must be an array of strings.",
     "needsConfirmation must always be true.",
     "Do not assign staff, change workflow status, approve reports, reject reports, or declare cleaning complete.",
   ].join(" ")
@@ -135,7 +138,6 @@ Deno.serve(async (request) => {
           generationConfig: {
             maxOutputTokens: 300,
             responseMimeType: "application/json",
-            responseSchema: schema,
           },
         }
       : {
@@ -176,10 +178,21 @@ Deno.serve(async (request) => {
       signal: controller.signal,
     })
 
-    const payload = await response.json()
+    const responseText = await response.text()
+    let payload: Record<string, unknown> = {}
+
+    try {
+      payload = JSON.parse(responseText)
+    } catch {
+      payload = {}
+    }
 
     if (!response.ok) {
-      console.error("AI provider request failed", response.status)
+      const providerError = payload?.error
+      const errorSummary = providerError && typeof providerError === "object"
+        ? JSON.stringify(providerError).slice(0, 600)
+        : responseText.slice(0, 600)
+      console.error("AI provider request failed", response.status, errorSummary)
       return jsonResponse({
         source: "fallback",
         providerConfigured: true,
