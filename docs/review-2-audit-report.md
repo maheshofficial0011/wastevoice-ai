@@ -221,7 +221,7 @@ One important documentation risk was found and corrected during the audit: older
 | Staff status workflow | VERIFIED COMPLETE | Code + live RPC + negative role probe | Browser capture optional | P1 |
 | After evidence upload | VERIFIED COMPLETE | Browser Staff retest after Storage RLS path fix | Cross-staff second-identity test pending | P1 |
 | Authority verification | VERIFIED COMPLETE | Code + live RPC + negative role/state probes | Browser capture optional | P1 |
-| AI Assist UI | VERIFIED COMPLETE | Manual Reporter browser test | Provider-label helper inconsistency remains in source; behavior not changed in this documentation pass | P0 |
+| AI Assist UI | VERIFIED COMPLETE | Manual Reporter browser test | Gemini live-provider label mismatch was corrected in `AIReportPage.tsx` during the audit | P0 |
 | AI Edge Function | VERIFIED COMPLETE | Deployed function + live Gemini HTTP 200 result | No accuracy percentage claimed | P0 |
 | AI fallback | COMPLETE AND VERIFIED | Automated tests | Optional runtime capture | P1 |
 | AI output validation | COMPLETE AND VERIFIED | Automated tests | Live model adversarial capture | P1 |
