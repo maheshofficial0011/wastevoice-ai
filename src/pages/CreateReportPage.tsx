@@ -3,8 +3,6 @@ import type { ChangeEvent, DragEvent, FormEvent } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
 import {
-    MAX_FILE_SIZE,
-    ACCEPTED_TYPES,
     validateFile,
     validateReportDetails,
 } from '../lib/reportValidation.mjs'
