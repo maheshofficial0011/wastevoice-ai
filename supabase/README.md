@@ -1,60 +1,33 @@
-# Supabase integration
+# Supabase Integration — Review 2
 
-WasteVoice AI uses Supabase for authentication, PostgreSQL data, and evidence storage.
+Project: wastevoice-ai
+Region: ap-south-1
 
-## Current runtime contract
+## Current application contract
+Application tables: profiles, reports, report_evidence, report_assignments, authority_reviews.
+Legacy tables still present: report_activity, waste_reports.
+RLS is enabled on the inspected tables.
 
-The frontend is already implemented against these application objects:
-
-```text
-profiles
-reports
-report_evidence
-report_assignments
-authority_reviews
-```
-
-The frontend also invokes workflow RPCs for protected state changes, including:
-
-```text
-staff_update_task_status
-assign_report_to_staff
-authority_review_report
-reporter_update_report
-```
-
-These names are the **application contract observed in the current frontend**, not a claim that a particular SQL migration is already deployed in the connected Supabase project.
-
-## Environment
-
-Create a local `.env.local` file containing:
-
-```text
-VITE_SUPABASE_URL=your-project-url
-VITE_SUPABASE_PUBLISHABLE_KEY=your-publishable-key
-```
-
-These are the only client-side environment values expected by `src/lib/supabase.ts`. Never put a service-role key, database password, or other privileged secret in the frontend or repository.
+## Protected workflow operations
+Active frontend RPCs: reporter_update_report, assign_report_to_staff, staff_update_task_status, authority_review_report.
+Anonymous execution was removed from these active workflow RPCs.
+Legacy RPCs no longer used by the current frontend were restricted from API execution.
 
 ## Evidence storage
+Bucket: waste-evidence
+Current state: private bucket, authenticated role-specific policies, signed URL previews.
+The report record stores the Storage path rather than a public URL.
 
-The report form uses the Supabase Storage bucket:
+## AI Edge Function
+Deployed function: structure-report.
+JWT verification: enabled.
+Server-side secrets: OPENAI_API_KEY and optional OPENAI_MODEL.
+Until the provider secret is configured, the function uses a labelled conservative fallback.
 
-```text
-waste-evidence
-```
+## Review 2 live setup
+See docs/review-2-live-setup.md.
+Important current state: 3 Auth users exist and 0 profiles exist.
+The Login page needs profile rows with the intended reporter, authority, and staff roles before the live role-based demo can run.
 
-Before-cleaning uploads are stored under a report/user-specific path. Staff after-cleaning evidence is associated with the same report through `report_evidence`.
-
-## Verification before deployment
-
-Before treating the database as production-ready, verify the connected Supabase project directly:
-
-1. Confirm the tables above exist with the columns used by the frontend.
-2. Confirm the four workflow RPCs exist with the expected parameters and return behavior.
-3. Confirm authentication profiles and roles are present.
-4. Confirm Row Level Security prevents cross-role or cross-user access.
-5. Confirm Storage policies allow the intended evidence workflow without exposing unrelated files.
-6. Run the complete Reporter → Authority → Staff → Authority verification flow.
-
-A previous draft `schema.sql` was removed from the public repository because its table/RPC names did not match the application's actual runtime contract. This prevents evaluators from mistaking an unverified draft for the deployed database schema.
+## Remaining security notes
+Supabase security advisors still report SECURITY DEFINER helper functions exposed in the public schema and leaked-password protection disabled. These remain documented hardening items.
