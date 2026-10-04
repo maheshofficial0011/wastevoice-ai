@@ -14,7 +14,7 @@ All evidence entries below must be genuine artifacts or explicit status records.
 | Status | Date | What was tested | Actual result | Evidence location |
 |---|---|---|---|---|
 | VERIFIED COMPLETE | 04 Oct 2026 | AI safety/validation boundary | 29 automated tests: 11 AI safety + 8 form-validation + 10 Review 2 regression covered fallback, schema, missing data, mixed content and control-language rejection | tests/report-assistant.test.mjs |
-| EXTERNAL ACTION REQUIRED | 04 Oct 2026 | Live AI provider inference | Provider secret is not configured; no live model output claimed | docs/evidence/live-ai-test-matrix.md |
+| VERIFIED COMPLETE | 04 Oct 2026 | Live Gemini provider inference | HTTP 200; source=gemini; providerConfigured=true; model=gemini-3.5-flash-lite; structured output returned | docs/evidence/live-ai-test-matrix.md |
 | IMPLEMENTED — EVIDENCE PENDING | 04 Oct 2026 | Human confirmation UI | Source enforces needsConfirmation=true; browser capture not available | src/pages/AIReportPage.tsx + docs/evidence/live-ai-test-matrix.md |
 
 ## 03 — Security
