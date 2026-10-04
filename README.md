@@ -582,7 +582,7 @@ AI assistance is treated as a co-pilot for development and documentation support
 
 - Configure the live AI provider secret.
 - Capture the AI reliability matrix, including contradiction and prompt-injection cases.
-- Map the three existing Auth users to intended Reporter, Authority and Staff profile rows.
+- Demo account roles are now mapped in the live database; browser login tests still require the account passwords.
 - Run explicit role-denial and evidence-access runtime tests.
 - Conduct three genuine Review 2 tester sessions.
 - Record feedback → product change → retest evidence.
