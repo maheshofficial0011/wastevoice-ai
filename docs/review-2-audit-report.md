@@ -186,7 +186,7 @@ The Reporter already has a reusable local Progress component, while Authority ha
 
 ### Accessibility
 
-Basic form labels, button labels, focus styles and semantic sections exist. Additional keyboard/screen-reader testing should be retained before a stronger accessibility claim is made.
+Manual browser-level accessibility/usability checks passed for Login, New Report and AI Assist. This is not formal WCAG certification.
 
 ### Documentation
 
@@ -295,7 +295,7 @@ Validation capability now includes 29 automated tests plus manual browser/intern
 |---|---|
 | Product completeness | Strong |
 | Technical implementation | Strong |
-| AI implementation | Developing |
+| AI implementation | Strong / verified live inference |
 | Security | Strong |
 | Testing | Strong |
 | UX | Strong |
