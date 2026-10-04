@@ -118,24 +118,24 @@ Deno.serve(async (request) => {
   try {
     const isGemini = PROVIDER === "gemini"
     const endpoint = isGemini
-      ? "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions"
+      ? `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`
       : "https://api.openai.com/v1/responses"
 
     const requestBody = isGemini
       ? {
-          model: MODEL,
-          max_tokens: 300,
-          messages: [
-            { role: "system", content: systemPrompt },
-            { role: "user", content: userPrompt },
-          ],
-          response_format: {
-            type: "json_schema",
-            json_schema: {
-              name: "waste_report_structure",
-              strict: true,
-              schema,
+          systemInstruction: {
+            parts: [{ text: systemPrompt }],
+          },
+          contents: [
+            {
+              role: "user",
+              parts: [{ text: userPrompt }],
             },
+          ],
+          generationConfig: {
+            maxOutputTokens: 300,
+            responseMimeType: "application/json",
+            responseSchema: schema,
           },
         }
       : {
@@ -163,10 +163,15 @@ Deno.serve(async (request) => {
 
     const response = await fetch(endpoint, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${API_KEY}`,
-      },
+      headers: isGemini
+        ? {
+            "Content-Type": "application/json",
+            "x-goog-api-key": API_KEY,
+          }
+        : {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${API_KEY}`,
+          },
       body: JSON.stringify(requestBody),
       signal: controller.signal,
     })
