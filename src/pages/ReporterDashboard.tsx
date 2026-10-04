@@ -786,6 +786,7 @@ function ReporterDashboard() {
                                         setPreviewTitle(title)
                                     }}
                                     onCopyReportId={copyReportId}
+                                    evidenceUrls={evidenceUrls}
                                     emptyTitle="No active reports"
                                     emptyDescription="Resolved reports automatically leave this section. Clear the filters or create a new report if needed."
                                     emptySearch={activeSearch}
@@ -821,6 +822,7 @@ function ReporterDashboard() {
                                         setPreviewTitle(title)
                                     }}
                                     onCopyReportId={copyReportId}
+                                    evidenceUrls={evidenceUrls}
                                     emptyTitle="No resolved reports"
                                     emptyDescription="Once authority verifies a cleaning submission, the report automatically moves into this section."
                                     emptySearch={resolvedSearch}
@@ -1037,6 +1039,7 @@ function ReportSection({
     getLatestReview: (reportId: string) => AuthorityReview | null
     onPreview: (url: string | null, title: string) => void
     onCopyReportId: (reportId: string) => void
+    evidenceUrls: Record<string, string>
     emptyTitle: string
     emptyDescription: string
     emptySearch: string
