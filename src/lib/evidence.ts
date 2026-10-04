@@ -27,9 +27,8 @@ export async function createEvidenceUrlMap(paths: string[]) {
     if (error) throw error
 
     return Object.fromEntries(
-        (data ?? []).map((item, index) => [
-            uniquePaths[index],
-            item.signedUrl,
-        ]),
+        (data ?? [])
+            .map((item, index) => [uniquePaths[index], item.signedUrl] as const)
+            .filter((entry): entry is readonly [string, string] => typeof entry[1] === 'string'),
     )
 }
