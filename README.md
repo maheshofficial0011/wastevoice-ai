@@ -234,7 +234,7 @@ The current prototype includes:
 
 ### Current verification status
 
-The application has been exercised with controlled test accounts/data across the three roles. The screenshots in [`docs/evidence/`](docs/evidence/) document the tested workflow states.
+The application has been exercised with controlled test data, and the connected Supabase project now contains three mapped role profiles. Live database role/security probes have been completed; browser login still requires the real test-account passwords.
 
 > **Evidence qualification:** these screenshots are controlled prototype-test evidence. The before/after evidence used the same image as a test fixture, so it demonstrates application workflow and evidence-handling behavior only. It must not be interpreted as proof of real-world cleaning or physical improvement.
 
@@ -526,10 +526,10 @@ The supporting screenshots are stored in [`docs/evidence/`](docs/evidence/).
 
 ### Still pending
 
-- Role-negative runtime access tests.
 - Live AI provider configuration and live AI evidence.
-- Formal retained three-user Review 2 validation evidence.
-- Production deployment verification.
+- Browser captures for signed/expired Storage access, role-denial behavior, accessibility and Error Boundary recovery.
+- Formal retained three-user Review 2 validation evidence and feedback-driven retest.
+- Final production/browser deployment evidence, presentation/video and submission action.
 
 ---
 
@@ -541,7 +541,7 @@ The supporting screenshots are stored in [`docs/evidence/`](docs/evidence/).
 - Service-role/database credentials are not intended for frontend use.
 - RLS and protected RPCs are enabled for the core workflow.
 - Security hardening has been applied and verified against the connected Supabase configuration.
-- Role-negative runtime tests and remaining platform advisor warnings still need closure.
+- Database role-negative runtime tests are verified. Remaining gaps are browser evidence and the documented Supabase advisor warnings.
 
 ---
 
@@ -574,17 +574,18 @@ AI assistance is treated as a co-pilot for development and documentation support
 - Controlled runtime test with retained screenshots.
 - Review 1 report and testing documentation.
 - Review 2 AI Assist implementation and Edge Function.
-- Private evidence storage and signed URL handling.
+- Private evidence storage and signed URL handling, including hardening of the legacy report-evidence bucket.
+- Live database authorization and storage role-boundary probes.
 - Automated AI safety tests in CI.
 - Review 2 status, validation plan and completion roadmap.
 
 ### Remaining before final Review 2 submission
 
 - Configure the live AI provider secret.
-- Capture the AI reliability matrix, including contradiction and prompt-injection cases.
-- Demo account roles are now mapped in the live database; browser login tests still require the account passwords.
-- Run explicit role-denial and evidence-access runtime tests.
-- Conduct three genuine Review 2 tester sessions.
+- Capture the live AI matrix, including contradiction and prompt-injection cases.
+- Use the three mapped demo accounts in a real browser session; account passwords are required.
+- Capture direct/signed/expired Storage, accessibility and Error Boundary runtime evidence.
+- Conduct three genuine Review 2 tester sessions and complete feedback → change → retest.
 - Record feedback → product change → retest evidence.
 - Verify final deployment, presentation, video and evidence package.
 
