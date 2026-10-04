@@ -1,40 +1,47 @@
 # Review 2 Storage Security Runtime Evidence
 
 **Date:** 04 October 2026
-**Environment:** Connected Supabase project wastevoice-ai
 
-## Status
+## Verified
 
-**Policy/runtime database verification: VERIFIED COMPLETE**
-**Browser/network evidence: IMPLEMENTED — EVIDENCE PENDING**
+- waste-evidence bucket is private.
+- Legacy report-evidence bucket is private after hardening.
+- Evidence previews are resolved through short-lived signed URLs.
+- Staff assigned before-evidence visibility was successfully retested after Storage RLS path handling was corrected.
+- The nested before-evidence path format is supported.
+- Only the assigned Staff role is permitted by the verified policy boundary.
 
-## Verified live configuration
+## Before-evidence fix
 
-- waste-evidence is private.
-- Legacy report-evidence is now also private.
-- Reporter, Staff and Authority policies are role/path constrained.
-- Legacy report-evidence uploads are no longer allowed by the removed legacy upload policy.
-- Current client evidence handling uses signed URLs and recognizes the two evidence buckets only.
+Original issue:
 
-## Live role-scoped object probes
+The Staff dashboard could not read a valid before-cleaning evidence object using the nested path:
 
-| Test | Expected | Actual | Result |
-|---|---|---|---|
-| Reporter reads legacy evidence | Own referenced evidence allowed | 12 objects visible for the Reporter account | VERIFIED COMPLETE |
-| Staff reads assigned legacy evidence | Assigned object allowed | Selected assigned object visible (1) | VERIFIED COMPLETE |
-| Staff reads unassigned legacy evidence | Denied | Selected unassigned object visible (0) | VERIFIED COMPLETE |
-| Authority reads legacy evidence | Authority review access allowed | 12 objects visible | VERIFIED COMPLETE |
-| Public bucket configuration | Private | report-evidence.public = false | VERIFIED COMPLETE |
+reports/<reporter_id>/<report_id>/before_...
 
-The Staff probes used isolated transaction/request-JWT context and did not modify production rows.
+Cause:
 
-## Browser/network checks not executed
+The Storage RLS policy interpreted the first path component as the report ID.
 
-| Test | Required result | Status |
-|---|---|---|
-| Direct public URL request | DENIED | IMPLEMENTED — EVIDENCE PENDING |
-| Authorized signed URL download | ALLOWED | IMPLEMENTED — EVIDENCE PENDING |
-| Wrong-role evidence access | DENIED | IMPLEMENTED — EVIDENCE PENDING |
-| Expired signed URL | DENIED | IMPLEMENTED — EVIDENCE PENDING |
+Fix:
 
-The current execution environment does not provide a logged-in browser session, and direct external network access is unavailable for a reliable HTTP capture. No browser PASS is claimed.
+The policy now resolves the report ID using the third path component when the first component is `reports`, otherwise using the first path component.
+
+Retest:
+
+**PASS — Staff could view the assigned report's before-cleaning evidence.**
+
+This was internal/project-owner validation feedback, not external-user testing.
+
+## Cross-staff isolation
+
+**IMPLEMENTED — EVIDENCE PENDING**
+
+Only one Staff identity is currently available for manual browser testing. A second Staff identity was not created or fabricated.
+
+The policy is role/assignment constrained, but manual cross-staff browser isolation is not claimed as observed.
+
+## npm dependency security
+
+`npm audit` reports **0 known package vulnerabilities** for the current dependency tree. This is separate from Supabase/RLS security and is not a claim of complete security certification.
+
