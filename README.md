@@ -636,6 +636,9 @@ The frontend client intentionally uses the Supabase publishable key. See [`supab
 **https://github.com/maheshofficial0011/wastevoice-ai**
 
 ### Important documentation
+- [`docs/review-2-report.md`](docs/review-2-report.md) — Review 2 project report.
+- [`docs/review-2-live-setup.md`](docs/review-2-live-setup.md) — live AI/database setup and validation checklist.
+- [`docs/architecture-review2.svg`](docs/architecture-review2.svg) — Review 2 technical block diagram.
 
 - [`docs/review-1-report.md`](docs/review-1-report.md) — Review 1 progress report.
 - [`docs/testing.md`](docs/testing.md) — testing matrix and evidence rules.
