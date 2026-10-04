@@ -13,7 +13,7 @@
 - Core workflow: ✅ Reporter → Review → Assign → Clean → Evidence → Verify → Resolve.
 - AI status: 🟡 Edge Function deployed and safety-bounded; automated AI safety coverage is green, but live provider inference is blocked until the provider secret is configured.
 - Security status: ✅ Core workflow authorization, `waste-evidence`, and legacy `report-evidence` access hardening were live-checked; some Supabase advisor warnings remain.
-- Testing status: ✅ GitHub Actions quality gate is green; new AI safety tests are now part of CI.
+- Testing status: ✅ GitHub Actions quality gate is green; 29 automated tests are now part of CI (11 AI safety + 8 form validation + 10 Review 2 regression). Latest verified run: #135.
 - Documentation status: ✅ Review 2 report, validation template, live setup guide, architecture diagram and status/roadmap documents are present.
 - Validation status: ❌ Three genuine Review 2 tester sessions with retained evidence are still required.
 - Deployment status: 🟡 Supabase Edge Function is deployed; the complete browser-to-AI workflow is not yet claimed as production verified.
