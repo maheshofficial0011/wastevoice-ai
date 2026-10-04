@@ -6,6 +6,11 @@ import {
     validateFile,
     validateReportDetails,
 } from '../lib/reportValidation'
+import {
+    canEditReportStatus,
+    requiresBeforeEvidence,
+    shouldBlockDuplicateSubmission,
+} from '../lib/review2Guards'
 
 const EVIDENCE_BUCKET = 'waste-evidence'
 
@@ -91,7 +96,7 @@ function CreateReportPage() {
                 if (reportError) throw reportError
                 if (!data) throw new Error('Report not found or you do not have permission to edit it.')
 
-                if (data.status !== 'submitted') {
+                if (!canEditReportStatus(data.status)) {
                     throw new Error('This report can no longer be edited. Reporter edits are allowed only while the status is Submitted.')
                 }
 
@@ -208,7 +213,7 @@ function CreateReportPage() {
     function goToReview() {
         setError(null)
 
-        if (!isEditMode && !file) {
+        if (!requiresBeforeEvidence(isEditMode, Boolean(file))) {
             setError('Before-cleaning evidence is required before submission.')
             return
         }
@@ -220,7 +225,7 @@ function CreateReportPage() {
         event?.preventDefault()
         setError(null)
 
-        if (submitting) return
+        if (shouldBlockDuplicateSubmission(submitting)) return
 
         if (!canSubmit) {
             setError(isEditMode ? 'Please complete the location and description before saving.' : 'Please complete the location, description and evidence before submitting.')
