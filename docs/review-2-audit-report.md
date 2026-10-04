@@ -221,12 +221,12 @@ One important documentation risk was found and corrected during the audit: older
 | Staff status workflow | VERIFIED COMPLETE | Code + live RPC + negative role probe | Browser capture optional | P1 |
 | After evidence upload | VERIFIED COMPLETE | Browser Staff retest after Storage RLS path fix | Cross-staff second-identity test pending | P1 |
 | Authority verification | VERIFIED COMPLETE | Code + live RPC + negative role/state probes | Browser capture optional | P1 |
-| AI Assist UI | VERIFIED COMPLETE | Manual Reporter browser test | Provider-label helper inconsistency remains in source; behavior not changed in this documentation pass | P0 |
+| AI Assist UI | VERIFIED COMPLETE | Manual Reporter browser test | Gemini live-provider label mismatch was corrected in `AIReportPage.tsx` during the audit | P0 |
 | AI Edge Function | VERIFIED COMPLETE | Deployed function + live Gemini HTTP 200 result | No accuracy percentage claimed | P0 |
 | AI fallback | COMPLETE AND VERIFIED | Automated tests | Optional runtime capture | P1 |
 | AI output validation | COMPLETE AND VERIFIED | Automated tests | Live model adversarial capture | P1 |
 | Error Boundary | VERIFIED COMPLETE | Controlled local runtime test | No permanent screenshot required | P2 |
-| CI quality gate | VERIFIED COMPLETE | Final local validation + recorded CI #135 | 29/29 automated tests and build pass | P1 |
+| CI quality gate | VERIFIED COMPLETE | Final local validation + GitHub Actions #166 | 29/29 automated tests and build pass | P1 |
 | Review 2 documentation | COMPLETE AND VERIFIED | Repository docs | Fill real validation results | P1 |
 | Three-person validation | EXTERNAL ACTION REQUIRED | Validation plan/template | Genuine external sessions + iteration | P0 |
 | Production deployment | UNKNOWN | No final production evidence | Confirm target + runtime proof | P2 |
@@ -246,8 +246,8 @@ Only one Staff identity is available for manual testing, so a second-Staff isola
 **P1.2 Retain any required final submission artifacts.**
 The project owner has chosen not to record a final demo unless the official C29 process requires it.
 
-**P1.3 Keep the provider-label inconsistency visible for future code cleanup.**
-The current `AIReportPage.tsx` helper treats only `source === 'openai'` as live. Because the current provider is Gemini, that helper should be revisited in a future source-maintenance pass; it is not changed here because this task is documentation-only.
+**P1.3 Provider-label inconsistency fixed during audit.**
+The Reporter AI Assist helper was updated to recognize the live Gemini provider so the UI does not mislabel a verified live result as fallback mode.
 
 ### P2 — Useful
 
@@ -373,7 +373,7 @@ The C29 guide requires four evidence recordings, a 6-10 slide deck, an 8-12 minu
 
 **Human-in-the-loop:** reporter confirms AI suggestions; authority controls assignment and final resolution.
 
-**Current limitation:** live AI inference, three-person Review 2 validation, and some runtime security evidence remain outstanding.
+**Current limitation:** three-person genuine external Review 2 validation remains outstanding; cross-staff isolation using a second Staff identity also remains unobserved.
 
 **Success criterion:** a credible, evidence-backed prototype rather than an inflated completion percentage.
 
@@ -385,6 +385,6 @@ The C29 guide requires four evidence recordings, a 6-10 slide deck, an 8-12 minu
 
 **What is genuinely complete?** The core application workflow, AI Edge Function deployment, safe fallback/output validation, private evidence configuration, RPC permission hardening, automated AI safety tests, and Review 2 documentation are implemented and supported by code or live configuration checks.
 
-**What still needs evidence?** Live model inference, signed evidence runtime behavior, a retained Error Boundary runtime test, browser accessibility checks, and especially three genuine Review 2 tester sessions plus feedback-driven iteration.
+**What still needs evidence?** Genuine external Review 2 tester sessions plus feedback-driven iteration; optional additional storage/browser isolation captures may strengthen the submission.
 
 **What is the shortest credible path to final completion?** Create the three role profiles → configure live AI → run the AI matrix → execute security/access tests → validate with three real testers → implement the biggest feedback changes → retest → capture evidence → finalize deck/video → submit Review 2.

@@ -71,9 +71,9 @@ It must **not** be interpreted as proof that a real campus cleaning operation oc
 | After-cleaning evidence | **Functionally exercised** | Staff/authority workflow evidence |
 | Authority verification | **Functionally exercised** | Verification workspace screenshots |
 | Human resolution control | **Functionally exercised** | Authority verification workspace |
-| AI live inference | **Blocked by external configuration** | Edge Function is deployed; provider secret and live execution evidence are still required |
-| Systematic RLS/security testing | **Implemented but not verified** | Supabase policy/RPC configuration inspected; negative runtime tests still required |
-| Three-user validation | **Pending verification of evidence** | Only claim complete when retained tester interaction/evidence supports it |
+| AI live inference | **Verified** | Deployed `structure-report` returned HTTP 200 with `source=gemini`, `providerConfigured=true`, model `gemini-3.5-flash-lite`; Reporter AI Assist was browser-tested |
+| Systematic RLS/security testing | **Verified** | Live Supabase role-negative probes and unassigned-evidence visibility checks completed |
+| Three external Review 2 testers | **EXTERNAL ACTION REQUIRED** | No external sessions are claimed; internal project-owner validation is documented separately |
 
 ## 4. Evidence files retained
 
@@ -184,8 +184,8 @@ The following test cases define the expected behavior for important user, valida
 | TC-11 | Staff task access | Assigned staff account | Assigned task is visible | Functionally exercised |
 | TC-12 | Staff completion evidence | Assigned task + after-cleaning image | Staff can submit completion evidence | Functionally exercised |
 | TC-13 | Authority verification | Staff evidence available | Authority can review evidence and make final decision | Functionally exercised |
-| TC-14 | Staff attempts final resolution | Staff role | Final resolution remains unavailable to staff | Runtime security test pending |
-| TC-15 | Reporter attempts authority action | Reporter role | Authority-only action is unavailable | Runtime security test pending |
+| TC-14 | Staff attempts final resolution | Staff role | Final resolution remains unavailable to staff | **Verified in live SQL role probe** |
+| TC-15 | Reporter attempts authority action | Reporter role | Authority-only action is unavailable | **Verified in live SQL role probe** |
 | TC-16 | Invalid/missing session | No valid authenticated session | Protected operation is denied and user is redirected or shown an authentication error | Runtime test pending |
 | TC-17 | Backend/database failure | Supabase operation fails | User receives controlled error feedback; application does not silently report success | Failure-injection test pending |
 | TC-18 | Evidence upload failure | Storage/upload operation fails | Upload failure is shown and report is not falsely marked as successful | Failure-injection test pending |
@@ -232,7 +232,7 @@ Expected behavior is to show a clear user-facing error, preserve data where poss
 
 ### Error Boundary
 
-**VERIFIED COMPLETE.** A temporary controlled runtime error was introduced locally; the Error Boundary fallback appeared successfully with the user-facing failure message and reload action. The temporary trigger and backup were removed after the test.
+**VERIFIED COMPLETE.** A temporary controlled runtime error was introduced locally; the fallback displayed **Something went wrong** and the message **WasteVoice AI encountered an unexpected application error**, with a recovery/reload action available. The temporary trigger and backup were removed after the test.
 
 ### Final automated validation
 
@@ -303,15 +303,16 @@ Verify that the application displays a controlled fallback interface when an une
 - A reload action should be available.
 
 **Actual result:**
-- Not independently re-executed during the current Review 2 audit.
-- No separate Error Boundary screenshot is currently retained under docs/evidence/.
+- Fallback displayed successfully in the local browser.
+- Recovery/reload action was available.
+- Temporary trigger and backup were removed and normal Vite startup succeeded.
 
-**Status:** BLOCKED / EVIDENCE REQUIRED
+**Status:** VERIFIED COMPLETE
 
 **Evidence:**
 - Source implementation exists in src/components/ErrorBoundary.tsx.
 - Application wrapper exists in src/main.tsx.
 
 **Important qualification:**
-- The Error Boundary code can support a controlled runtime test, but the repository should not call that test passed until the execution evidence is retained.
+- The controlled runtime test was executed and passed; the temporary trigger and backup were removed after verification.
 - This test verifies the React rendering-error boundary only. It does not prove that every backend, database, authentication, network, or browser failure is handled by the boundary.

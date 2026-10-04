@@ -24,7 +24,7 @@
 |---|---|---|
 | More granular technical documentation | Fixed | ✅ Database, AI, architecture, testing and setup docs updated |
 | Unit testing | Partially fixed | ✅ AI safety tests added to CI; broader workflow/security tests still require runtime execution |
-| Error boundaries | Fixed in code | 🟡 Code exists; separate retained runtime artifact should still be attached if used as submission evidence |
+| Error boundaries | Fixed and runtime-verified | ✅ Controlled local runtime test showed the fallback/recovery action; no separate permanent screenshot is required for the engineering claim |
 | Expanded code comments | Fixed | ✅ Existing dashboards and workflow code contain extensive inline explanations |
 | API endpoint / database schema documentation | Fixed and externally checked | ✅ Active RPC signatures and live tables inspected against connected Supabase |
 
@@ -37,10 +37,10 @@
 | Frontend | Staff dashboard | Yes | Review 1 controlled screenshots | Yes | COMPLETE AND VERIFIED | High | Runtime role-denial test |
 | Frontend | Create report form | Yes | Controlled workflow | Yes | COMPLETE AND VERIFIED | High | More granular edge-case captures |
 | Frontend | AI Assist UI | Yes | Manual browser test + live Gemini inference | Yes | COMPLETE AND VERIFIED | High | No accuracy percentage claimed |
-| Auth | Supabase authentication | Yes | Controlled role login evidence | Yes | COMPLETE AND VERIFIED | High | Browser login requires real account passwords |
-| Auth | Role routing | Yes | Controlled workflow evidence | Yes | COMPLETE AND VERIFIED | High | Browser role-denial captures remain pending |
-| Backend | Active workflow RPCs | Yes | Live SQL role probes | Yes | VERIFIED COMPLETE | High | Browser capture optional/pending |
-| Database | RLS | Yes / deployed | Live SQL negative-access probes | Yes | VERIFIED COMPLETE | High | Browser capture remains pending |
+| Auth | Supabase authentication | Yes | Manual browser testing | Yes | COMPLETE AND VERIFIED | High | No password is documented |
+| Auth | Role routing | Yes | Manual browser testing | Yes | COMPLETE AND VERIFIED | High | Cross-staff isolation uses a separate pending identity test |
+| Backend | Active workflow RPCs | Yes | Live SQL role probes + browser workflow | Yes | VERIFIED COMPLETE | High | Cross-staff identity test is separate |
+| Database | RLS | Yes / deployed | Live SQL negative-access probes | Yes | VERIFIED COMPLETE | High | Broader attack testing is not claimed |
 | Storage | Private evidence buckets | Yes | Live policy checks + browser evidence retest | Yes | VERIFIED COMPLETE | High | Cross-staff second-identity browser test pending |
 | AI | Structured output schema | Yes | Automated safety tests + live Gemini response | Yes | VERIFIED COMPLETE | High | No statistical accuracy study |
 | AI | Safe fallback | Yes | Deterministic tests | Yes | COMPLETE AND VERIFIED | High | Provider outage capture optional |
@@ -55,8 +55,8 @@
 1. Live Gemini inference has been verified; no statistical AI accuracy percentage is claimed.
 2. The connected Supabase project has three Auth users and three explicit profile rows: Reporter, Authority and Staff. Authentication and role-routing behavior were manually tested.
 3. Supabase security advisors still report SECURITY DEFINER helper-function exposure warnings and leaked-password protection disabled.
-4. Review 2 validation cannot be considered complete without genuine tester evidence.
-5. Existing Review 1 controlled screenshots are workflow evidence, not field-impact evidence.
+4. Review 2 validation cannot be considered complete without genuine external tester evidence.
+5. Existing controlled screenshots are workflow evidence, not field-impact evidence.
 
 ## Readiness
 

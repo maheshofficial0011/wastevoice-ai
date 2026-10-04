@@ -679,7 +679,7 @@ The frontend client intentionally uses the Supabase publishable key. The live Ge
 
 ## Final Project Statement
 
-WasteVoice AI is not presented as a finished autonomous AI waste-management system. At Review 1, it is a working human-controlled prototype that makes the reporting, assignment, evidence and verification process more structured and visible.
+WasteVoice AI is not presented as a finished autonomous AI waste-management system. For Review 2, it is a working human-controlled prototype with live Gemini-assisted report structuring, evidence-backed workflow tracking and human verification. Real-world environmental impact and external-user validation are not claimed without corresponding evidence.
 
 
 ---

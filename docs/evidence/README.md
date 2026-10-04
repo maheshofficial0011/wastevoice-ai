@@ -15,7 +15,7 @@ All evidence entries below must be genuine artifacts or explicit status records.
 |---|---|---|---|---|
 | VERIFIED COMPLETE | 04 Oct 2026 | AI safety/validation boundary | 29 automated tests: 11 AI safety + 8 form-validation + 10 Review 2 regression covered fallback, schema, missing data, mixed content and control-language rejection | tests/report-assistant.test.mjs |
 | VERIFIED COMPLETE | 04 Oct 2026 | Live Gemini provider inference | HTTP 200; source=gemini; providerConfigured=true; model=gemini-3.5-flash-lite; structured output returned | docs/evidence/live-ai-test-matrix.md |
-| IMPLEMENTED — EVIDENCE PENDING | 04 Oct 2026 | Human confirmation UI | Source enforces needsConfirmation=true; browser capture not available | src/pages/AIReportPage.tsx + docs/evidence/live-ai-test-matrix.md |
+| VERIFIED COMPLETE | 04 Oct 2026 | Human confirmation UI | Manual Reporter AI Assist test showed confirmation requirement and human control | src/pages/AIReportPage.tsx + docs/evidence/live-ai-test-matrix.md |
 
 ## 03 — Security
 
@@ -23,7 +23,7 @@ All evidence entries below must be genuine artifacts or explicit status records.
 |---|---|---|---|---|
 | VERIFIED COMPLETE | 04 Oct 2026 | Backend role-denial probes | Reporter/Staff unauthorized actions denied; Staff unassigned report/evidence reads returned 0 | docs/evidence/runtime-security-tests.md |
 | VERIFIED COMPLETE | 04 Oct 2026 | Anonymous active RPC execution | Anonymous EXECUTE removed from active assignment RPC | docs/evidence/runtime-security-tests.md |
-| IMPLEMENTED — EVIDENCE PENDING | 04 Oct 2026 | Browser role-denial capture | No logged-in browser session available | final-review-2-execution-status.md |
+| VERIFIED COMPLETE | 04 Oct 2026 | Browser role-routing checks | Staff wrong-role access and logout redirect were manually tested | final-review-2-execution-status.md |
 
 ## 04 — Storage
 
@@ -37,7 +37,7 @@ All evidence entries below must be genuine artifacts or explicit status records.
 
 | Status | Date | What was tested | Actual result | Evidence location |
 |---|---|---|---|---|
-| IMPLEMENTED — EVIDENCE PENDING | 04 Oct 2026 | Error Boundary source/runtime requirement | ErrorBoundary exists and is mounted in src/main.tsx; controlled browser trigger not captured | docs/evidence/error-boundary-runtime.md |
+| VERIFIED COMPLETE | 04 Oct 2026 | Error Boundary runtime test | Controlled local error displayed fallback/recovery; temporary trigger removed | docs/evidence/error-boundary-runtime.md |
 
 ## 06 — Accessibility
 
@@ -49,7 +49,7 @@ All evidence entries below must be genuine artifacts or explicit status records.
 
 | Status | Date | What was tested | Actual result | Evidence location |
 |---|---|---|---|---|
-| VERIFIED COMPLETE | 04 Oct 2026 | Latest verified expanded CI gate | GitHub Actions run #166 passed install, lint, 29 tests, TypeScript and production build on the reviewed documentation state | .github/workflows/quality.yml + GitHub Actions run #135 |
+| VERIFIED COMPLETE | 04 Oct 2026 | Latest verified expanded CI gate | GitHub Actions run #166 passed install, lint, 29 tests, TypeScript and production build on the reviewed documentation state | .github/workflows/quality.yml + GitHub Actions run #166 |
 | VERIFIED COMPLETE | 04 Oct 2026 | Final local automated test run | 29/29 passed: 11 AI safety + 8 form-validation + 10 Review 2 regression/guard tests | tests/ |
 
 ## 08 — User Validation
