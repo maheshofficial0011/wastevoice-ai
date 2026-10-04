@@ -25,20 +25,19 @@
 - Review 2 report and architecture diagram.
 - Project status, live setup and validation planning documents.
 
-## Near Complete
+## Current external gates
 
-### 1. Live AI activation
-Configure OPENAI_API_KEY and a permitted OPENAI_MODEL in the deployed Edge Function environment.
-Then execute the AI test matrix and retain evidence.
+### 1. Live AI activation — EXTERNAL ACTION REQUIRED
+Configure `OPENAI_API_KEY` and a permitted `OPENAI_MODEL` in the deployed Edge Function environment, then execute the live AI matrix and retain actual outputs.
 
-### 2. Demo role profiles
-The three existing Supabase Auth accounts are mapped to Reporter, Authority and Staff profiles. Browser login still requires their passwords.
+### 2. Browser/runtime evidence — IMPLEMENTED — EVIDENCE PENDING
+The three Auth users are already mapped to Reporter, Authority and Staff profiles. Browser login still requires their passwords. Capture the direct public-URL denial, authorized signed access, expiry behavior, wrong-role evidence access, keyboard checks and Error Boundary runtime screen.
 
-### 3. Security runtime verification
-Execute negative tests for unauthorized report access, unauthorized RPC calls and evidence access.
+### 3. Human validation — EXTERNAL ACTION REQUIRED
+Run at least three real tester sessions, retain exact feedback, implement the highest-value change, and retest the affected task.
 
-### 4. Final UX evidence
-Retain current screenshots plus Review 2 screenshots showing AI Assist, workflow state and failure/edge states.
+### 4. Final submission evidence — EXTERNAL ACTION REQUIRED
+Produce the required presentation/video/recordings and final submission artifacts.
 
 ## Validation Required
 
@@ -50,7 +49,7 @@ Retain current screenshots plus Review 2 screenshots showing AI Assist, workflow
 
 ## External Configuration
 
-- Supabase Auth profile setup for the existing demo accounts.
+- Supabase Auth demo-account passwords for browser sessions (profiles are already mapped).
 - OPENAI_API_KEY secret.
 - OPENAI_MODEL selection.
 - Final production deployment target, if one is required by the submission.
@@ -63,7 +62,7 @@ Retain current screenshots plus Review 2 screenshots showing AI Assist, workflow
 - Run npm run lint.
 - Run npm run build.
 - Verify no provider secrets are committed.
-- Verify no public evidence URLs remain in the client.
+- Verify no unsafe/public evidence references remain directly displayed by the client; recognized legacy public references are converted to signed access.
 - Verify signed evidence previews for permitted roles.
 - Verify staff cannot resolve reports.
 - Verify reporter cannot assign or verify.
@@ -107,4 +106,4 @@ Final completion means the project has:
 
 ## Shortest Credible Path
 
-**Configure demo profiles → configure live AI → run AI cases → test three real users → fix the biggest observed friction → re-test → capture evidence → finalize deck/video → submit Review 2.**
+**Use mapped demo accounts in a real browser → configure live AI → run AI cases → capture storage/error/accessibility evidence → test three real users → fix the biggest observed friction → re-test → finalize deck/video → submit Review 2.**
