@@ -53,12 +53,12 @@ The initial audit found **12 advisories (3 high, 9 moderate)**. Non-breaking loc
 
 **Latest verified CI:**
 - Branch: `review-3-upgrade-2026-11-14`
-- Tested code commit: `be3e5c6c0ebab9fd9573f7cbd9de219bb95495d8`
-- Quality Check **#214: success** on 14 November 2026.
+- Latest branch commit: `400d8afbb05625d9fa654a90cfdc9d60dd49d731`
+- Quality Check **#217: success** on 14 November 2026.
 - `npm ci`, `npm audit --audit-level=high`, lint and production build: passed.
 - `npm test`: **32/32 passed**, 0 failed (14 AI + 8 form + 10 workflow/regression tests).
 - Build: Vite 8.3.8, 82 modules transformed; non-blocking ~713 kB chunk warning.
-- Run: https://github.com/maheshofficial0011/wastevoice-ai/actions/runs/43609429681
+- Run: https://github.com/maheshofficial0011/wastevoice-ai/actions/runs/43609633838
 - Earlier Quality Check #205 passed the original 29-test suite on the dependency-update checkpoint.
 
 **Remaining dependency risk:** the full audit reports **7 moderate advisories** in nested `minimatch` used by TypeScript-ESLint; no high or critical advisories remain after the update. npm suggests a major downgrade to `typescript-eslint@8.36.0` for full remediation. That breaking downgrade was not forced. The build also has a non-blocking large-chunk warning (about 713 kB).
@@ -78,7 +78,7 @@ Existing evidence covers the Reporter → Authority → Staff workflow, live Gem
 3. Added the CI high-severity dependency audit and committed non-breaking lockfile updates.
 4. Hardened `isSafeResult()` to enforce the exact five-field AI response contract; unexpected properties and whitespace-only summaries are rejected. The reporter-supplied location remains authoritative.
 5. Added AI-12 to AI-14 regression tests for unexpected fields, provider-invented location and blank summaries.
-6. Quality Check #214 passed install, high-severity audit, lint, **32/32 tests** and production build.
+6. Quality Check #217 passed install, high-severity audit, lint, **32/32 tests** and production build.
 
 This is a targeted AI validation hardening change, not a new user-facing feature. A further usability change selected from genuine tester feedback and same-task participant retesting remain pending.
 
