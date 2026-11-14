@@ -9,7 +9,7 @@
 [![Build](https://img.shields.io/badge/build-Vite%20%2B%20TypeScript-646CFF)](https://vite.dev/)
 [![Frontend](https://img.shields.io/badge/frontend-React-61DAFB)](https://react.dev/)
 [![Data](https://img.shields.io/badge/data-Supabase-3ECF8E)](https://supabase.com/)
-[![Status](https://img.shields.io/badge/status-Review%202%20prototype-informational)](https://github.com/maheshofficial0011/wastevoice-ai)
+[![Status](https://img.shields.io/badge/status-Review%203%20final%20validation-informational)](https://github.com/maheshofficial0011/wastevoice-ai)
 
 WasteVoice AI is a student-built web application prototype for turning an informal campus waste observation into a structured, evidence-backed workflow. It helps a reporter submit an issue, allows an authority to review and assign it, gives cleaning staff a task and evidence workflow, and keeps final resolution under human authority verification.
 
@@ -45,6 +45,7 @@ The project continues the problem investigated during the C29 AI Immersion activ
 - [22. Local Setup](#22-local-setup)
 - [23. Environment Configuration](#23-environment-configuration)
 - [24. Submission Links](#24-submission-links)
+- [25. Review 3 Final Validation](#25-review-3-final-validation)
 
 ---
 
@@ -671,7 +672,7 @@ The frontend client intentionally uses the Supabase publishable key. The live Ge
 
 ---
 
-## Final Project Statement
+## 25. Review 3 Final Validation\n\nThe Review 2 technical baseline is documented as of 04 October 2026. Review 3 preparation is maintained on the `review-3-upgrade-2026-11-14` branch. The current Review 3 report, execution plan and user-validation kit are linked below. Three genuine tester sessions, feedback-driven changes, retesting and a fresh quality run must be completed and evidenced before validation can be marked complete. No new user feedback, deployment, test run or environmental impact is claimed by this documentation update.\n\n- [`docs/review-3-report.md`](docs/review-3-report.md) — Review 3 report draft (under 8,000 characters).\n- [`docs/review-3-plan.md`](docs/review-3-plan.md) — execution plan, gates and acceptance checklist.\n- [`docs/review-3-validation-kit.md`](docs/review-3-validation-kit.md) — three-tester protocol and feedback ledger.\n- [`docs/evidence/review-3/`](docs/evidence/review-3/) — Review 3 evidence index and pending items.\n\n## Final Project Statement
 
 WasteVoice AI is not presented as a finished autonomous AI waste-management system. For Review 2, it is a working human-controlled prototype with live Gemini-assisted report structuring, evidence-backed workflow tracking and human verification. Real-world environmental impact and  are not claimed without corresponding evidence.
 
