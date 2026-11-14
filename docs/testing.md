@@ -159,7 +159,7 @@ A test should be marked **Passed** only after it is actually executed. A planned
 
 ### Automated Review 2 test coverage
 
-The historical Review 2 baseline contained **29 executable tests**: 11 AI safety tests, 8 Reporter-form validation tests, and 10 regression/guard tests. The Review 3 suite now contains **32 tests**: 14 AI, 8 form-validation and 10 workflow/regression tests. The new AI-12–AI-14 cases are detailed below. Latest green CI is Quality Check **#214**.
+The historical Review 2 baseline contained **29 executable tests**: 11 AI safety tests, 8 Reporter-form validation tests, and 10 regression/guard tests. The Review 3 suite now contains **32 tests**: 14 AI, 8 form-validation and 10 workflow/regression tests. The new AI-12–AI-14 cases are detailed below. Latest green CI is Quality Check **#217**.
 
 
 
@@ -325,6 +325,6 @@ The Edge Function validates provider output locally instead of relying only on t
 | AI-13 | Provider returns an invented location | Use the reporter-supplied location |
 | AI-14 | Provider returns a whitespace-only summary | Reject the provider result |
 
-**Latest execution:** GitHub Actions Quality Check #214, 14 November 2026. `npm test` passed **32/32** (14 AI + 8 form + 10 workflow/regression); lint completed with 0 errors and 16 existing React Hook dependency warnings; the TypeScript/Vite production build passed. The build still emits a non-blocking large-chunk warning. [Run #214](https://github.com/maheshofficial0011/wastevoice-ai/actions/runs/43609429681).
+**Latest execution:** GitHub Actions Quality Check #217, 14 November 2026. `npm test` passed **32/32** (14 AI + 8 form + 10 workflow/regression); lint completed with 0 errors and 16 existing React Hook dependency warnings; the TypeScript/Vite production build passed. The build still emits a non-blocking large-chunk warning. [Run #217](https://github.com/maheshofficial0011/wastevoice-ai/actions/runs/43609633838).
 
 These are deterministic unit/regression tests of the response validator. They do not replace live Gemini edge-case testing or participant usability retesting.
