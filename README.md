@@ -9,7 +9,7 @@
 [![Build](https://img.shields.io/badge/build-Vite%20%2B%20TypeScript-646CFF)](https://vite.dev/)
 [![Frontend](https://img.shields.io/badge/frontend-React-61DAFB)](https://react.dev/)
 [![Data](https://img.shields.io/badge/data-Supabase-3ECF8E)](https://supabase.com/)
-[![Status](https://img.shields.io/badge/status-Review%202%20prototype-informational)](https://github.com/maheshofficial0011/wastevoice-ai)
+[![Status](https://img.shields.io/badge/status-Review%203%20final%20validation-informational)](https://github.com/maheshofficial0011/wastevoice-ai)
 
 WasteVoice AI is a student-built web application prototype for turning an informal campus waste observation into a structured, evidence-backed workflow. It helps a reporter submit an issue, allows an authority to review and assign it, gives cleaning staff a task and evidence workflow, and keeps final resolution under human authority verification.
 
@@ -45,6 +45,8 @@ The project continues the problem investigated during the C29 AI Immersion activ
 - [22. Local Setup](#22-local-setup)
 - [23. Environment Configuration](#23-environment-configuration)
 - [24. Submission Links](#24-submission-links)
+- [25. Review 3 Final Validation](#25-review-3-final-validation)
+- [26. QBee Feedback Closure](#26-qbee-feedback-closure)
 
 ---
 
@@ -56,7 +58,7 @@ The project continues the problem investigated during the C29 AI Immersion activ
 | Programme | Project Better Tomorrow · C29 Semester 3 |
 | Track | Pathway A — Continuation Track |
 | Problem domain | Campus waste reporting and resolution visibility |
-| Current stage | **Review 2 prototype + validation** |
+| Current stage | **Review 3 final validation preparation** |
 | Core workflow | Report → Review → Assign → Clean → Evidence → Verify → Resolve |
 | Frontend | React + TypeScript + Vite |
 | Styling | Tailwind CSS |
@@ -517,13 +519,13 @@ Reporter can **copy the AI-generated structured summary for use in the reporting
 
 ## 17. Testing and Validation
 
-### Automated quality
+### Automated quality (historical Review 2 baseline, 04 October 2026)
 
 - `npm test`: **29/29 passed** (11 AI + 8 form-validation + 10 Review 2 regression/guard tests).
 - `npm run build`: **PASS** — TypeScript compilation and Vite production build; 83 modules transformed.
 - Vite emitted one non-blocking chunk-size optimization warning (>500 kB).
-- `npm audit`: **0 known package vulnerabilities reported by npm**.
-- GitHub Actions run **#173** is the current green 29-test quality gate on `main`; run #172 was an intermediate documentation commit that failed before the final AI response-type correction in `0bcdccd`.
+- `npm audit`: **0 known package vulnerabilities at that historical audit**; this is not a current audit result.
+- GitHub Actions run **#173** was the historical green 29-test quality gate on `main`.
 
 ### Manual browser validation
 
@@ -552,7 +554,7 @@ Manual browser-level accessibility/usability checks passed for Login, New Report
 - Security hardening has been applied and verified against the connected Supabase configuration.
 - Database role-negative runtime tests are verified.
 - Evidence buckets are private and evidence references are resolved through signed URLs.
-- `npm audit` reports 0 known package vulnerabilities. This is a package-vulnerability result, not a complete security certification.
+- Historical `npm audit` on 04 October 2026 reported 0 known package vulnerabilities. The Review 3 branch adds `npm audit --audit-level=high` to CI; use the latest run for its current result. This is not a complete security certification.
 - Supabase advisor warnings remain documented for SECURITY DEFINER helpers and leaked-password protection.
 
 ---
@@ -571,7 +573,7 @@ AI assistance is treated as a co-pilot for development and documentation support
 
 ---
 
-## 20. Review 2 Readiness
+## 20. Review 2 — Historical Submission
 
 ### Completed / demonstrated
 
@@ -592,20 +594,17 @@ AI assistance is treated as a co-pilot for development and documentation support
 - Manual end-to-end Reporter/Authority/Staff validation, Error Boundary runtime test and selected accessibility checks.
 - Review 2 status, validation plan and completion roadmap.
 
-### Remaining before final Review 2 submission
+### Submitted outcome
 
-- Complete only the final presentation, recording, and evidence artifacts explicitly required by the official C29 submission process.
-
+The submitted QBee records show **Review 2: 92%**. This score is retained as the historical review outcome. The score does not replace any separately required tester evidence or later Review 3 validation.
 
 No production-impact metric or AI-accuracy percentage is claimed here.
 
 ---
 
-## 21. Next Review 2 Actions
+## 21. Review 2 Follow-up Notes
 
-1. Complete the final presentation/recording/evidence artifacts explicitly required by the official C29 process.
-2. Optionally add a second Staff identity for manual cross-staff isolation testing.
-3. Keep final claims limited to the evidence retained in the repository.
+The Review 2 report records the technical prototype, live Gemini inference and internal role/workflow testing. The historical project-status ledger separately noted that three external tester sessions were not retained. Review 3 therefore uses a fresh, explicit tester-validation gate. Keep claims limited to retained evidence.
 
 
 ## 22. Local Setup
@@ -671,13 +670,30 @@ The frontend client intentionally uses the Supabase publishable key. The live Ge
 
 ---
 
+## 25. Review 3 Final Validation
+
+Review 3 is the final **30%** review according to the Project Better Tomorrow portal. The submitted QBee records show Review 1 and Review 2 each received **92%** (each labelled 35% in the portal). The Review 3 report and evidence preparation are maintained on `review-3-upgrade-2026-11-14`.
+
+The dependency lockfile was updated in commit `ad52d27`. Quality Check #217 passed `npm ci`, `npm audit --audit-level=high`, lint, 32/32 tests and production build on commit `400d8af`. The latest suite includes three new AI response-contract regression tests. The full audit still reports 7 moderate nested minimatch advisories (0 high/critical); a breaking TypeScript-ESLint downgrade was not forced. Genuine tester sessions, participant feedback-led usability changes/retesting and fresh live security/AI rechecks remain required; no new user feedback or environmental impact is claimed.
+
+- [`docs/review-3-report.md`](docs/review-3-report.md) — current Review 3 report (7,907 characters; under 8,000).
+- [`docs/review-3-plan.md`](docs/review-3-plan.md) — execution plan, gates and acceptance checklist.
+- [`docs/review-3-validation-kit.md`](docs/review-3-validation-kit.md) — three-tester protocol and feedback ledger.
+- [`docs/review-feedback-closure.md`](docs/review-feedback-closure.md) — QBee recommendations mapped to repository evidence.
+- [`docs/project-status.md`](docs/project-status.md) — current review and completion status.
+- [`docs/evidence/review-3/`](docs/evidence/review-3/) — Review 3 evidence index and pending items.
+
+## 26. QBee Feedback Closure
+
+Both previous QBee reviews repeated the same recommendations: granular unit-testing/Error Boundary documentation, expanded code comments, and API/database-schema documentation in README. The Review 2 submission stated these were addressed. See [`docs/review-feedback-closure.md`](docs/review-feedback-closure.md) for the recommendation-to-evidence mapping and qualifications.
+
 ## Final Project Statement
 
-WasteVoice AI is not presented as a finished autonomous AI waste-management system. For Review 2, it is a working human-controlled prototype with live Gemini-assisted report structuring, evidence-backed workflow tracking and human verification. Real-world environmental impact and  are not claimed without corresponding evidence.
+WasteVoice AI is not presented as a finished autonomous AI waste-management system. It is a human-controlled prototype with live Gemini-assisted report structuring, evidence-backed workflow tracking and human verification. Real-world environmental impact is not claimed without corresponding evidence.
 
 
 ---
 
 ## Documentation synchronization
 
-This documentation was audited and synchronized after final validation on **04 October 2026**. The validation baseline was repository HEAD `dd10705` (`dd10705601817d2c91ab83ab28d2ee930512e114`). A later documentation-only commit may update the branch tip; no secrets or passwords are included.
+The historical Review 2 technical baseline was audited on **04 October 2026**. Review 3 documentation and CI updates are tracked on `review-3-upgrade-2026-11-14`; see the linked report for the exact commit and latest run.
