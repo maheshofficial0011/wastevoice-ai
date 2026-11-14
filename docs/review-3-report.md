@@ -15,7 +15,7 @@ The submitted QBee records show **Review 1: 92%** and **Review 2: 92%**. Each wa
 
 ## 2. Problem and evidence carried forward
 
-Earlier campus-park field notes record approximately four accumulation points, waste estimated to have remained for about one week during observation, approximately 8–10 passers during the observed period, and stakeholder feedback that removal could take around 2–3 weeks. These are bounded observations/estimates and stakeholder statements—not campus-wide statistics or an official service-level agreement.
+Field notes record about four campus-park accumulation points, waste observed for roughly a week, 8–10 passers during the observation, and stakeholder-estimated removal in 2–3 weeks. These are bounded observations, not campus-wide statistics or a service-level agreement.
 
 **Refined problem:** Campus waste issues are easy to notice but can be difficult to report, assign, track and verify through a clear, accountable workflow.
 
@@ -38,9 +38,9 @@ The Review 2 score is the submitted QBee result. An older repository status sepa
 
 ## 4. Prototype and AI
 
-- **Reporter:** authentication, report details/location, before evidence, AI Assist review/correction, submission and status tracking.
-- **Authority:** report/evidence review, Staff assignment, monitoring, after-evidence review and final verification/correction.
-- **Staff:** assigned tasks, cleaning progress and after evidence.
+- **Reporter:** creates reports, supplies before evidence, reviews/corrects AI suggestions and tracks status.
+- **Authority:** reviews reports/evidence, assigns Staff and makes the final verification decision.
+- **Staff:** handles assigned tasks, cleaning progress and after evidence.
 - **Human control:** AI cannot assign Staff, change cleaning status, approve evidence or resolve reports. Reporter confirmation and Authority verification remain required.
 
 **Stack:** React 19, TypeScript, Vite, Tailwind, React Router; Supabase Auth, PostgreSQL, Storage, RLS, protected RPCs and Edge Function.
@@ -49,7 +49,7 @@ The Review 2 score is the submitted QBee result. An older repository status sepa
 
 ## 5. Review 3 quality and dependency security
 
-The fresh audit initially found **12 advisories: 3 high and 9 moderate**. A non-breaking lockfile update was tested and committed as `ad52d27`. It updates affected dependencies including Vite 8.3.8, source-map-js 1.2.2, Zod 4.6.7, and related ESLint/TypeScript tooling. The AI response validator and regression tests were updated; database schema, API contracts and workflow states were preserved.
+The initial audit found **12 advisories (3 high, 9 moderate)**. Non-breaking lockfile updates were committed as `ad52d27` (including Vite 8.3.8, source-map-js 1.2.2, Zod 4.6.7 and tooling). The AI validator/tests changed; database schema, API contracts and workflow states were preserved.
 
 **Latest verified CI:**
 - Branch: `review-3-upgrade-2026-11-14`
@@ -67,7 +67,7 @@ Supabase advisor warnings remain documented for SECURITY DEFINER helper-function
 
 ## 6. Prototype validation
 
-Existing internal evidence covers the Reporter → Authority → Staff → evidence → verification workflow, live Gemini response, role/security probes, Error Boundary recovery and selected accessibility/usability checks. The before/after fixture reused one controlled test image; it proves evidence handling only, not real cleaning.
+Existing evidence covers the Reporter → Authority → Staff workflow, live Gemini response, role/security probes, Error Boundary recovery and selected accessibility checks. Before/after used one controlled test image; it does not prove real cleaning.
 
 **Required Review 3 gate:** collect feedback from at least three genuine new testers or re-engage original users. The repository includes a consent-aware protocol and anonymised feedback ledger, but no new sessions or feedback are claimed. After sessions, choose a real friction point, implement a proportionate improvement, add regression coverage and retest the same task.
 
@@ -95,6 +95,6 @@ This is a targeted AI validation hardening change, not a new user-facing feature
 
 ## 9. Integrity declaration
 
-Field observations and stakeholder statements retain their limitations. Controlled tests are not real-world impact. Review 1 and Review 2 scores are the QBee outcomes in the submitted records. No new tester feedback, environmental benefit or Review 3 score is invented. AI supported development, but field evidence, implementation decisions and conclusions remain the student's responsibility.
+Field notes retain their limitations; controlled tests are not real-world impact. Review 1/2 scores come from the submitted QBee records. No tester feedback, environmental benefit or Review 3 score is invented. The student remains responsible for evidence, implementation decisions and conclusions.
 
 **Conclusion:** WasteVoice AI has a working prototype, two previous QBee outcomes of 92%, documented responses to repeated technical feedback, a patched dependency lockfile and a successful CI run with 32/32 tests, including three new AI response-contract regression tests. Review 3 remains incomplete until genuine user validation, feedback-led iteration/retesting and remaining security review are evidenced.
