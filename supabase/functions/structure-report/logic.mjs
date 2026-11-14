@@ -15,7 +15,7 @@ const RESULT_FIELDS = [
   "needsConfirmation",
 ]
 
-const CONTROL_LANGUAGE = /\\b(assign(ed)?|resolve(d)?|approve(d)?|reject(ed)?|mark(?:ed)?\\s+(?:this\\s+)?(?:report|issue)\\s+resolved|cleaning\\s+complete|change\\s+workflow|workflow\\s+status)\\b/i
+const CONTROL_LANGUAGE = /\b(assign(ed)?|resolve(d)?|approve(d)?|reject(ed)?|mark(?:ed)?\s+(?:this\s+)?(?:report|issue)\s+resolved|cleaning\s+complete|change\s+workflow|workflow\s+status)\b/i
 
 export function validateReportInput(body) {
   if (!body || typeof body !== "object") {
@@ -83,7 +83,7 @@ export function localFallback(location, description) {
   return {
     category,
     location: location || "unknown",
-    summary: description.replace(/\\s+/g, " ").slice(0, 180) || "unknown",
+    summary: description.replace(/\s+/g, " ").slice(0, 180) || "unknown",
     missingFields,
     needsConfirmation: true,
   }
@@ -201,5 +201,5 @@ export function buildUserPrompt(location, description, additionalInfo) {
     `Supplied location: ${location || "unknown"}`,
     `Reporter description: ${description}`,
     `Additional information: ${additionalInfo || "unknown"}`,
-  ].join("\\n")
+  ].join("\n")
 }
