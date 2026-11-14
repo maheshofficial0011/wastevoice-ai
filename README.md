@@ -674,9 +674,9 @@ The frontend client intentionally uses the Supabase publishable key. The live Ge
 
 ## 25. Review 3 Final Validation
 
-The Review 2 technical baseline is documented as of 04 October 2026. Review 3 preparation is maintained on the `review-3-upgrade-2026-11-14` branch. The current Review 3 report, execution plan and user-validation kit are linked below. Three genuine tester sessions, feedback-driven changes, retesting and a fresh quality run must be completed and evidenced before validation can be marked complete. No new user feedback, deployment, test run or environmental impact is claimed by this documentation update.
+Review 3 preparation is maintained on `review-3-upgrade-2026-11-14`. Quality Check #188 passed dependency installation, lint, automated tests and production build on commit `375f675`. A later documentation correction is included in the current branch; its workflow result must be checked separately. Three genuine tester sessions, feedback-driven changes, retesting, a standalone `npm audit` and live security/AI rechecks remain pending. No new user feedback or environmental impact is claimed.
 
-- [`docs/review-3-report.md`](docs/review-3-report.md) — Review 3 report draft (under 8,000 characters).
+- [`docs/review-3-report.md`](docs/review-3-report.md) — Review 3 progress/validation report (7,606 characters; under 8,000).
 - [`docs/review-3-plan.md`](docs/review-3-plan.md) — execution plan, gates and acceptance checklist.
 - [`docs/review-3-validation-kit.md`](docs/review-3-validation-kit.md) — three-tester protocol and feedback ledger.
 - [`docs/evidence/review-3/`](docs/evidence/review-3/) — Review 3 evidence index and pending items.
