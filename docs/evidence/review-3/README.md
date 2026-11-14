@@ -5,7 +5,7 @@
 
 | ID | Evidence item | Required contents | Status |
 |---|---|---|---|
-| R3-01 | Automated quality run | Date, commit, CI URL and job results | **Complete** — Quality Check #217 passed on code commit `be3e5c6`; install, high-severity audit threshold, lint, 32 tests and build passed |
+| R3-01 | Automated quality run | Date, commit, CI URL and job results | **Complete** — Quality Check #217 passed on branch snapshot `400d8af`; install, high-severity audit threshold, lint, 32 tests and build passed |
 | R3-02 | Tester T1 | Consent, Reporter task notes, anonymised feedback | Pending genuine session |
 | R3-03 | Tester T2 | AI Assist task notes and accepted/corrected suggestions | Pending genuine session |
 | R3-04 | Tester T3 | Authority/Staff task notes | Pending genuine session |

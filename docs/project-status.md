@@ -37,7 +37,7 @@ Both QBee reviews repeated three recommendations: granular unit-testing/Error Bo
 | Review remaining 7 moderate advisories | Pending |
 | Three genuine tester sessions | Pending |
 | Anonymised feedback and decision ledger | Pending |
-| AI response-contract hardening + regression tests | Complete — AI-12–AI-14; CI #214 green |
+| AI response-contract hardening + regression tests | Complete — AI-12–AI-14; CI #217 green |
 | Participant-feedback-led usability change + same-task retest | Pending tester findings |
 | Same-task retest | Pending |
 | Fresh live role/storage/AI recheck | Pending |
