@@ -1,17 +1,17 @@
 # WASTEVOICE AI — PROJECT BETTER TOMORROW
 ## C29 Semester 3 — Review 3 Final Progress & Prototype Validation Report
 **Pathway:** A — Continuation Track  
-**Audit/report date:** 14 November 2026  
+**Report update:** 14 November 2026  
 **Repository:** https://github.com/maheshofficial0011/wastevoice-ai  
-**Review status:** Review 3 pending; this report does not claim a score or approval.
+**Review status:** Technical preparation checks passed; required user validation remains incomplete. No Review 3 score or approval is claimed.
 
 ## 1. Executive summary
 WasteVoice AI is a student-built, AI-assisted campus waste reporting and resolution-tracking prototype. It addresses the observed gap between noticing unmanaged waste and getting it reported, assigned, cleaned, evidenced and verified. The system supports Reporter, Authority and Staff roles through **Report → AI Assist → Confirm → Review → Assign → Clean → Evidence → Verify → Resolve**.
 
-This is the continuation of the earlier Empathize and Define work under Pathway A. Review 1 and Review 2 each received 92% from QBee. Review 3 is the final 30% phase and remains pending.
+This continues the earlier Empathize and Define work under Pathway A. Review 1 and Review 2 each received 92% from QBee. Review 3 is the final 30% phase. The current work has completed repository documentation preparation and a fresh automated CI run, but the required genuine user-validation gate has not yet been completed.
 
 ## 2. Problem and evidence carried forward
-The project continues the campus-park waste problem documented during the earlier field investigation. The carried-forward notes record approximately four accumulation points, waste estimated to have remained for about one week during the observation, approximately 8–10 people passing during the observed period, and stakeholder feedback that removal could take around 2–3 weeks. These are bounded observations/estimates and stakeholder statements—not campus-wide statistics, an official service-level agreement, or proof of causation.
+The project continues the campus-park waste problem documented during the earlier field investigation. Carried-forward notes record approximately four accumulation points, waste estimated to have remained for about one week during the observation, approximately 8–10 people passing during the observed period, and stakeholder feedback that removal could take around 2–3 weeks. These are bounded observations/estimates and stakeholder statements—not campus-wide statistics, an official service-level agreement, or proof of causation.
 
 **Refined problem:** Campus waste issues are easy to notice but can be difficult to report, assign, track and verify through a clear, accountable workflow.
 
@@ -29,40 +29,48 @@ Frontend: React 19, TypeScript, Vite, Tailwind CSS and React Router. Platform: S
 ## 5. Security, reliability and quality evidence
 The repository records private evidence storage with signed URL access, protected role-aware routes, protected workflow RPCs, role-negative database probes, input/image validation, an application Error Boundary, and a fix/retest for Staff access to assigned before-evidence.
 
-The latest recorded automated baseline (04 October 2026) is:
+**Historical baseline (04 October 2026, main commit `646f91d`):**
 - `npm test`: 29/29 passed (11 AI safety, 8 form validation, 10 workflow/regression tests).
-- `npm run build`: passed; TypeScript and Vite production build.
+- `npm run build`: passed.
 - `npm run lint`: 0 errors; historical report notes 16 non-blocking React Hook dependency warnings.
 - `npm audit`: 0 known package vulnerabilities at that audit.
-- GitHub Actions Quality Check run #185: success on commit `646f91d`.
+- GitHub Actions Quality Check run #185: success.
 
-These are dated results, not a fresh execution on 14 November. A new run is required after the Review 3 changes. The repository also documents remaining Supabase advisor items: SECURITY DEFINER helper-function exposure warnings and leaked-password protection disabled. No claim of complete security certification is made.
+**Fresh Review 3 preparation CI (14 November 2026):**
+- Branch: `review-3-upgrade-2026-11-14`
+- Commit tested: `375f675e17432dd100e6706e9a6340adf93d2d97`
+- GitHub Actions Quality Check run #188: **success**.
+- The job completed dependency installation, lint, automated tests, and TypeScript/production build successfully.
+- Run: https://github.com/maheshofficial0011/wastevoice-ai/actions/runs/43606829217
 
-## 6. Prototype testing and validation status
+This CI result verifies the code at the listed documentation-preparation commit. It does not constitute a fresh standalone `npm audit`, live Supabase security review, live AI adversarial test, or real-user validation. The repository still documents Supabase advisor items: SECURITY DEFINER helper-function exposure warnings and leaked-password protection disabled. No claim of complete security certification is made.
+
+## 6. Prototype testing and Review 3 user validation
 The repository contains controlled internal end-to-end test records for Reporter → Authority → Staff → evidence → verification, live Gemini response checks, role/security probes, Error Boundary recovery and selected accessibility/usability checks. The before/after image fixture was the same controlled test image; it demonstrates evidence workflow only, not actual cleaning.
 
-**Required Review 3 validation gate:** collect feedback from at least three genuine new testers or re-engage original users, as permitted by Pathway A. The repository currently contains a validation kit/template, but no new tester sessions or feedback are claimed in this report. Complete those sessions, record anonymised observations, prioritise a real friction point, implement a proportionate change, and retest it before treating validation as complete.
+**Mandatory validation requirement:** collect feedback from at least three genuine new testers or re-engage original users, as permitted by Pathway A. A protocol and anonymised feedback template have been added, but no new tester sessions or feedback are claimed. The sessions must be run by the student with real participants, permission and controlled test accounts. Until then, the prototype has not passed the Review 3 user-validation gate.
 
-## 7. Iteration and improvements in this Review 3 preparation
-The repository audit identified that the last main-branch commit and CI run are dated 04 October 2026, while the current report date is 14 November 2026. Review 3 preparation therefore adds:
-1. A dated Review 3 plan, acceptance gates and risk register.
-2. A repeatable three-person validation protocol and anonymised feedback template.
-3. A final report that separates implemented capability, dated test evidence, pending user validation and external submission work.
-4. A dedicated evidence index to prevent planned evidence being mistaken for completed evidence.
-5. A branch-based update so the existing `main` branch is preserved pending review.
+## 7. Review 3 work completed in this update
+1. Added a Review 3 execution plan with acceptance gates, risk controls and scope boundaries.
+2. Added a repeatable three-tester protocol and anonymised feedback/change ledger.
+3. Added an evidence index that marks missing artifacts as pending rather than implying completion.
+4. Updated the README with the Review 3 status and document links.
+5. Opened PR #4 to preserve the existing `main` branch pending review.
+6. Ran fresh GitHub Actions Quality Check #188 on the PR head; lint, automated tests and production build passed.
 
-## 8. Outcomes, limitations and next steps
-Expected outcome is improved report completeness, clearer ownership/status visibility and more accountable evidence-based closure. These outcomes must be measured during real user testing; no reduction in waste, faster cleanup, adoption rate or AI accuracy percentage is claimed.
+These changes are repository documentation and CI/readiness improvements. No application feature code, database schema, API contract, deployment or workflow behavior was changed in this Review 3 preparation. No speculative AI feature was added without user evidence.
 
-**Remaining actions before final submission:**
-1. Run the three genuine tester sessions and retain consented, anonymised notes.
-2. Record baseline task completion, time/friction points and user-reported clarity; label sample size and method.
-3. Make one or more changes based on observed feedback and retain before/after evidence.
-4. Re-run `npm ci`, `npm test`, `npm run lint`, `npm run build` and `npm audit`; capture the new GitHub Actions run.
-5. Recheck live AI, role boundaries and permitted evidence access; record any unresolved Supabase advisor warnings.
-6. Prepare the required final presentation/demo and submit the repository/report links in the prescribed portal.
+## 8. Remaining actions before Review 3 can be called complete
+1. Conduct at least three genuine tester sessions using the validation kit; obtain permission and anonymise notes.
+2. Record what each tester completed, where they hesitated, and their actual feedback. Do not invent quotes, timings or success rates.
+3. Complete the feedback ledger and select a proportionate improvement supported by observed findings.
+4. Implement the selected change additively, add a regression test, and retest the same task.
+5. Execute and document the live role/storage and AI edge-case checks in the plan; record unresolved Supabase advisor findings.
+6. Run a fresh `npm audit` separately and save its output; CI #188 did not run this command.
+7. Update the evidence index and report with the real session artifacts, code commit and retest result.
+8. Prepare the institution-required presentation/demo and submit through the prescribed portal.
 
 ## 9. Integrity declaration
-Field observations and stakeholder statements are carried forward with their limitations. Controlled software tests are not represented as real-world impact. No tester feedback, new deployment, fresh test result or environmental benefit is invented. AI supported ideation and development, but field evidence, implementation decisions and final conclusions remain the student's responsibility.
+Field observations and stakeholder statements are carried forward with their limitations. Controlled software tests are not represented as real-world impact. No new tester feedback, deployment, standalone audit result, environmental benefit or Review 3 score is invented. AI supported ideation and development, but field evidence, implementation decisions and final conclusions remain the student's responsibility.
 
-**Current conclusion:** WasteVoice AI has a substantial working prototype and a documented Review 2 technical baseline. Review 3 readiness depends on genuine user validation, feedback-driven retesting, a fresh quality run and completion of the institution's final submission requirements.
+**Current conclusion:** WasteVoice AI has a substantial working prototype, a documented Review 2 baseline and a fresh successful automated CI run for the Review 3 preparation commit. The remaining decisive work is genuine user validation, evidence-led iteration and retesting. Therefore, this is an updated final-phase progress report, not a claim that every Review 3 submission gate is complete.
