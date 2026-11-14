@@ -23,6 +23,20 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Generate non-breaking dependency repair candidate
+        run: npm audit fix
+        continue-on-error: true
+
+      - name: Upload dependency repair candidate for review
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: npm-audit-fix-candidate
+          path: |
+            package.json
+            package-lock.json
+          if-no-files-found: error
+
       - name: Dependency security audit
         run: npm audit --audit-level=high
 
