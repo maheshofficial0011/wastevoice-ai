@@ -57,7 +57,7 @@ The project continues the problem investigated during the C29 AI Immersion activ
 | Programme | Project Better Tomorrow · C29 Semester 3 |
 | Track | Pathway A — Continuation Track |
 | Problem domain | Campus waste reporting and resolution visibility |
-| Current stage | **Review 2 prototype + validation** |
+| Current stage | **Review 3 final validation preparation** |
 | Core workflow | Report → Review → Assign → Clean → Evidence → Verify → Resolve |
 | Frontend | React + TypeScript + Vite |
 | Styling | Tailwind CSS |
