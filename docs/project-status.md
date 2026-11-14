@@ -7,31 +7,33 @@
 
 ## Review outcomes
 
-- **Review 1:** QBee submission record — 92% (35% review).
-- **Review 2:** QBee submission record — 92% (35% review).
+- **Review 1:** QBee submission record — 92% (35%).
+- **Review 2:** QBee submission record — 92% (35%).
 - **Review 3:** pending; no score or approval is claimed.
 
-The Review 1 and Review 2 QBee feedback repeated three recommendations: granular unit-testing/Error Boundary documentation, expanded code comments, and API/database-schema documentation in README. Review 2's submitted report stated that these were addressed. The evidence mapping is in `docs/review-feedback-closure.md`.
+Both QBee reviews repeated three recommendations: granular unit-testing/Error Boundary documentation, expanded code comments, and API/database-schema documentation in README. The Review 2 submission stated these were addressed. Evidence mapping: `docs/review-feedback-closure.md`.
 
-## Project status
+## Current project status
 
 - Core workflow: Reporter → Review → Assign → Clean → Evidence → Verify → Resolve.
-- AI status: live Gemini inference through the deployed `structure-report` Edge Function was verified in the Review 2 record; output remains advisory and human-confirmed.
+- AI: Gemini inference through `structure-report` was verified in the Review 2 record; output remains advisory and human-confirmed.
 - Security: core workflow authorization and private evidence access were tested; Supabase advisor warnings remain.
-- Historical automated suite: 29/29 tests passed; build passed; lint had 0 errors; historical npm audit reported 0 known vulnerabilities.
-- Latest Review 3 branch CI: Quality Check #192 passed on commit `6ad0b082e571eefc97897f062a2a6c5b2b927224` on 14 November 2026. It ran dependency installation, lint, automated tests and production build.
-- Current standalone `npm audit`: not yet evidenced by the latest workflow.
-- Review 3 external validation: three genuine tester sessions and feedback-led retesting are still required. The validation kit is a protocol, not evidence that sessions occurred.
+- Latest CI: Quality Check **#205 passed** on 14 November 2026. It completed `npm ci`, `npm audit --audit-level=high`, lint, 29/29 automated tests and production build.
+- Dependency lockfile: updated in commit `ad52d27`; Vite 8.3.8, source-map-js 1.2.2, Zod 4.6.7 and related tooling updates. The update removed high-severity advisories.
+- Current full audit: **7 moderate**, 0 high, 0 critical. Remaining advisories concern nested minimatch in TypeScript-ESLint; npm's suggested full fix requires a major downgrade, which was not forced.
+- Build note: non-blocking large bundle warning, approximately 713 kB.
+- Review 3 validation: at least three genuine tester sessions and feedback-led retesting remain required. The validation kit is a protocol, not proof of sessions.
 - Production impact: no waste reduction, cleanup-time improvement or adoption metric is claimed.
 
 ## Review 3 completion gates
 
-| Gate | Current state |
+| Gate | Status |
 |---|---|
-| Correct Review 1/2 scores and history | Complete — both submitted QBee results are 92% |
-| Map repeated QBee feedback to repository evidence | Complete — see `docs/review-feedback-closure.md` |
-| Current CI install/lint/test/build | Complete — Quality Check #192 passed |
-| Standalone current dependency audit | Pending |
+| Correct Review 1/2 scores and history | Complete — both 92% |
+| Map repeated QBee feedback to repository evidence | Complete |
+| Dependency lockfile security updates | Complete — high/critical advisories cleared |
+| Current CI install/audit-high/lint/test/build | Complete — Quality Check #205 passed |
+| Review remaining 7 moderate advisories | Pending |
 | Three genuine tester sessions | Pending |
 | Anonymised feedback and decision ledger | Pending |
 | Evidence-backed product change + regression test | Pending tester findings |
@@ -41,8 +43,8 @@ The Review 1 and Review 2 QBee feedback repeated three recommendations: granular
 
 ## Security notes
 
-The repository records Supabase advisor warnings for SECURITY DEFINER helper-function exposure and leaked-password protection being disabled. These remain explicit hardening items. The project is not described as security-certified or production-certified.
+The repository records Supabase advisor warnings for SECURITY DEFINER helper-function exposure and leaked-password protection being disabled. These remain explicit hardening items. No security or production certification is claimed.
 
 ## Evidence integrity
 
-A test is complete only when it has actually been executed and its result can be inspected. Controlled before/after image fixtures demonstrate the software evidence workflow only; they do not prove physical cleaning. Do not convert three tester sessions into campus-wide statistics, and do not invent feedback, timings, AI accuracy or environmental outcomes.
+A test is complete only when actually executed and inspectable. Controlled before/after image fixtures demonstrate software evidence handling only; they do not prove physical cleaning. Do not invent tester quotes, timings, AI accuracy or environmental outcomes.
