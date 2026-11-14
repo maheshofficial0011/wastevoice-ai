@@ -6,9 +6,6 @@ on:
   pull_request:
     branches: [main]
 
-permissions:
-  contents: write
-
 jobs:
   quality:
     runs-on: ubuntu-latest
@@ -16,8 +13,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.pull_request.head.ref || github.ref }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -27,10 +22,6 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
-
-      - name: Apply non-breaking npm security updates
-        run: npm audit fix
-        continue-on-error: true
 
       - name: Dependency security audit
         run: npm audit --audit-level=high
@@ -43,14 +34,3 @@ jobs:
 
       - name: TypeScript and production build
         run: npm run build
-
-      - name: Commit patched dependency lockfile
-        if: github.event_name == 'pull_request' && github.head_ref == 'review-3-upgrade-2026-11-14' && github.event.pull_request.head.repo.full_name == github.repository
-        run: |
-          if ! git diff --quiet -- package-lock.json; then
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add package-lock.json
-            git commit -m "fix: update vulnerable dependency lockfile"
-            git push origin HEAD:${{ github.head_ref }}
-          fi
