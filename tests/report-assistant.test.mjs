@@ -147,3 +147,47 @@ test("AI-11 user prompt contains only supplied fields", () => {
   assert.match(prompt, /Plastic bottles are near the path/)
   assert.match(prompt, /Additional information: unknown/)
 })
+
+test("AI-12 provider output with unexpected properties is rejected", () => {
+  const unsafe = parseSafeResult(
+    JSON.stringify({
+      category: "plastic",
+      location: "Campus Park",
+      summary: "Plastic waste is near the path.",
+      missingFields: [],
+      needsConfirmation: true,
+      workflowAction: "resolve_report",
+    }),
+    "Campus Park",
+  )
+
+  assert.equal(unsafe, null)
+})
+
+test("AI-13 reporter-supplied location overrides provider-generated location", () => {
+  const safe = parseSafeResult(
+    JSON.stringify({
+      category: "plastic",
+      location: "Invented location from provider",
+      summary: "Plastic waste is near the path.",
+      missingFields: [],
+      needsConfirmation: true,
+    }),
+    "Campus Park entrance",
+  )
+
+  assert.equal(safe?.location, "Campus Park entrance")
+})
+
+test("AI-14 provider output with whitespace-only summary is rejected", () => {
+  assert.equal(
+    isSafeResult({
+      category: "unknown",
+      location: "Campus Park",
+      summary: "   ",
+      missingFields: ["more specific observation detail"],
+      needsConfirmation: true,
+    }),
+    false,
+  )
+})
