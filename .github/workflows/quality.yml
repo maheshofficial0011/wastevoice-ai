@@ -24,7 +24,10 @@ jobs:
         run: npm ci
 
       - name: Generate non-breaking dependency repair candidate
-        run: npm audit fix
+        run: |
+          npm audit fix
+          npm pkg set 'overrides.minimatch=^11.0.8'
+          npm install --package-lock-only
         continue-on-error: true
 
       - name: Upload dependency repair candidate for review
