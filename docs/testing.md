@@ -159,7 +159,7 @@ A test should be marked **Passed** only after it is actually executed. A planned
 
 ### Automated Review 2 test coverage
 
-The current repository suite contains **29 executable tests**: 11 AI safety tests, 8 Reporter-form validation tests, and 10 Review 2 regression/guard tests in `tests/review2-regression.test.mjs`. The final green CI checkpoint is GitHub Actions run **#173**.
+The historical Review 2 baseline contained **29 executable tests**: 11 AI safety tests, 8 Reporter-form validation tests, and 10 regression/guard tests. The Review 3 suite now contains **32 tests**: 14 AI, 8 form-validation and 10 workflow/regression tests. The new AI-12–AI-14 cases are detailed below. Latest green CI is Quality Check **#214**.
 
 
 
@@ -314,3 +314,17 @@ Verify that the application displays a controlled fallback interface when an une
 **Important qualification:**
 - The controlled runtime test was executed and passed; the temporary trigger and backup were removed after verification.
 - This test verifies the React rendering-error boundary only. It does not prove that every backend, database, authentication, network, or browser failure is handled by the boundary.
+
+## 13. Review 3 — strict AI response-contract regression tests
+
+The Edge Function validates provider output locally instead of relying only on the provider's response-format instruction. `isSafeResult()` now requires exactly these five keys: `category`, `location`, `summary`, `missingFields` and `needsConfirmation`. Unexpected keys fail closed. A whitespace-only summary is invalid. After validation, the reporter-supplied location is retained as the authoritative location; a model-generated location cannot replace it.
+
+| Test ID | Regression scenario | Expected result |
+|---|---|---|
+| AI-12 | Provider returns an extra `workflowAction` property | Reject the entire provider result and use the existing safe fallback path |
+| AI-13 | Provider returns an invented location | Use the reporter-supplied location |
+| AI-14 | Provider returns a whitespace-only summary | Reject the provider result |
+
+**Latest execution:** GitHub Actions Quality Check #214, 14 November 2026. `npm test` passed **32/32** (14 AI + 8 form + 10 workflow/regression); lint completed with 0 errors and 16 existing React Hook dependency warnings; the TypeScript/Vite production build passed. The build still emits a non-blocking large-chunk warning. [Run #214](https://github.com/maheshofficial0011/wastevoice-ai/actions/runs/43609429681).
+
+These are deterministic unit/regression tests of the response validator. They do not replace live Gemini edge-case testing or participant usability retesting.

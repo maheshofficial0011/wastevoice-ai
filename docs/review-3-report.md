@@ -5,7 +5,7 @@
 **Report date:** 14 November 2026  
 **Repository:** https://github.com/maheshofficial0011/wastevoice-ai  
 **Review weighting:** 30% (Project Better Tomorrow portal)  
-**Status:** Technical/CI work complete; genuine tester validation remains pending. No Review 3 score is claimed.
+**Status:** AI validation hardening and CI complete; genuine tester validation remains pending. No Review 3 score is claimed.
 
 ## 1. Executive summary
 
@@ -49,17 +49,17 @@ The Review 2 score is the submitted QBee result. An older repository status sepa
 
 ## 5. Review 3 quality and dependency security
 
-The fresh audit initially found **12 advisories: 3 high and 9 moderate**. A non-breaking lockfile update was tested and committed as `ad52d27`. It updates affected dependencies including Vite 8.3.8, source-map-js 1.2.2, Zod 4.6.7, and related ESLint/TypeScript tooling. Application source, database schema and API contracts were not changed.
+The fresh audit initially found **12 advisories: 3 high and 9 moderate**. A non-breaking lockfile update was tested and committed as `ad52d27`. It updates affected dependencies including Vite 8.3.8, source-map-js 1.2.2, Zod 4.6.7, and related ESLint/TypeScript tooling. The AI response validator and regression tests were updated; database schema, API contracts and workflow states were preserved.
 
 **Latest verified CI:**
 - Branch: `review-3-upgrade-2026-11-14`
-- Report commit: `6f4b8512533278fe1bb1f5b4ea1685b96037b25a`
-- Lockfile update commit: `ad52d27abcced94d87b365ec55b695c8698b7ed1`
-- Quality Check **#205: success**.
+- Tested code commit: `be3e5c6c0ebab9fd9573f7cbd9de219bb95495d8`
+- Quality Check **#214: success** on 14 November 2026.
 - `npm ci`, `npm audit --audit-level=high`, lint and production build: passed.
-- `npm test`: **29/29 passed**, 0 failed.
-- Build: Vite 8.3.8, 82 modules transformed.
-- Run: https://github.com/maheshofficial0011/wastevoice-ai/actions/runs/43608822799
+- `npm test`: **32/32 passed**, 0 failed (14 AI + 8 form + 10 workflow/regression tests).
+- Build: Vite 8.3.8, 82 modules transformed; non-blocking ~713 kB chunk warning.
+- Run: https://github.com/maheshofficial0011/wastevoice-ai/actions/runs/43609429681
+- Earlier Quality Check #205 passed the original 29-test suite on the dependency-update checkpoint.
 
 **Remaining dependency risk:** the full audit reports **7 moderate advisories** in nested `minimatch` used by TypeScript-ESLint; no high or critical advisories remain after the update. npm suggests a major downgrade to `typescript-eslint@8.36.0` for full remediation. That breaking downgrade was not forced. The build also has a non-blocking large-chunk warning (about 713 kB).
 
@@ -73,20 +73,21 @@ Existing internal evidence covers the Reporter → Authority → Staff → evide
 
 ## 7. Work completed in this update
 
-1. Corrected repository review history using the submitted QBee records.
-2. Mapped repeated QBee feedback to test, Error Boundary, API and database documentation.
-3. Updated the Review 3 report, plan, tester protocol, evidence index, README and project status.
-4. Added a dependency audit to CI and committed non-breaking lockfile security updates.
-5. Verified current CI: high-severity audit threshold, lint, all 29 tests and production build passed.
+1. Corrected review history from the submitted QBee records and mapped repeated feedback to repository evidence.
+2. Updated the Review 3 report, plan, tester protocol, evidence index, README and project status.
+3. Added the CI high-severity dependency audit and committed non-breaking lockfile updates.
+4. Hardened `isSafeResult()` to enforce the exact five-field AI response contract; unexpected properties and whitespace-only summaries are rejected. The reporter-supplied location remains authoritative.
+5. Added AI-12 to AI-14 regression tests for unexpected fields, provider-invented location and blank summaries.
+6. Quality Check #214 passed install, high-severity audit, lint, **32/32 tests** and production build.
 
-No new product feature or schema migration is claimed. User-feedback-led product changes remain pending genuine sessions.
+This is a targeted AI validation hardening change, not a new user-facing feature. A further usability change selected from genuine tester feedback and same-task participant retesting remain pending.
 
 ## 8. Remaining before final submission
 
 1. Run at least three genuine tester sessions with permission and anonymised notes.
 2. Record actual task outcomes, confusion and AI corrections; invent no quotes, timings or success rates.
 3. Complete the feedback decision ledger.
-4. Implement an evidence-backed improvement, add a regression test and retest.
+4. Use genuine tester findings to choose any additional usability improvement and retest the same participant task.
 5. Recheck live role, storage and AI edge cases; document Supabase advisor warnings.
 6. Review the 7 moderate dependency advisories without an untested breaking downgrade.
 7. Add genuine session, code, test and retest artifacts to the evidence index.
@@ -96,4 +97,4 @@ No new product feature or schema migration is claimed. User-feedback-led product
 
 Field observations and stakeholder statements retain their limitations. Controlled tests are not real-world impact. Review 1 and Review 2 scores are the QBee outcomes in the submitted records. No new tester feedback, environmental benefit or Review 3 score is invented. AI supported development, but field evidence, implementation decisions and conclusions remain the student's responsibility.
 
-**Conclusion:** WasteVoice AI has a working prototype, two previous QBee outcomes of 92%, documented responses to repeated technical feedback, a patched dependency lockfile and a successful CI run with 29/29 tests. Review 3 remains incomplete until genuine user validation, feedback-led iteration/retesting and remaining security review are evidenced.
+**Conclusion:** WasteVoice AI has a working prototype, two previous QBee outcomes of 92%, documented responses to repeated technical feedback, a patched dependency lockfile and a successful CI run with 32/32 tests, including three new AI response-contract regression tests. Review 3 remains incomplete until genuine user validation, feedback-led iteration/retesting and remaining security review are evidenced.

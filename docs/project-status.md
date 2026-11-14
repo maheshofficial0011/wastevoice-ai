@@ -18,11 +18,12 @@ Both QBee reviews repeated three recommendations: granular unit-testing/Error Bo
 - Core workflow: Reporter → Review → Assign → Clean → Evidence → Verify → Resolve.
 - AI: Gemini inference through `structure-report` was verified in the Review 2 record; output remains advisory and human-confirmed.
 - Security: core workflow authorization and private evidence access were tested; Supabase advisor warnings remain.
-- Latest CI: Quality Check **#205 passed** on 14 November 2026. It completed `npm ci`, `npm audit --audit-level=high`, lint, 29/29 automated tests and production build.
+- Latest CI: Quality Check **#214 passed** on 14 November 2026. It completed `npm ci`, `npm audit --audit-level=high`, lint, **32/32 automated tests** and production build. The suite now includes 14 AI tests (up from 11), 8 form tests and 10 workflow/regression tests.
 - Dependency lockfile: updated in commit `ad52d27`; Vite 8.3.8, source-map-js 1.2.2, Zod 4.6.7 and related tooling updates. The update removed high-severity advisories.
 - Current full audit: **7 moderate**, 0 high, 0 critical. Remaining advisories concern nested minimatch in TypeScript-ESLint; npm's suggested full fix requires a major downgrade, which was not forced.
 - Build note: non-blocking large bundle warning, approximately 713 kB.
-- Review 3 validation: at least three genuine tester sessions and feedback-led retesting remain required. The validation kit is a protocol, not proof of sessions.
+- AI response hardening: `isSafeResult()` now rejects unexpected provider properties and blank summaries; reporter-supplied location remains authoritative. AI-12–AI-14 cover these cases.
+- Review 3 validation: at least three genuine tester sessions and participant-feedback-led usability retesting remain required. The validation kit is a protocol, not proof of sessions.
 - Production impact: no waste reduction, cleanup-time improvement or adoption metric is claimed.
 
 ## Review 3 completion gates
@@ -32,11 +33,12 @@ Both QBee reviews repeated three recommendations: granular unit-testing/Error Bo
 | Correct Review 1/2 scores and history | Complete — both 92% |
 | Map repeated QBee feedback to repository evidence | Complete |
 | Dependency lockfile security updates | Complete — high/critical advisories cleared |
-| Current CI install/audit-high/lint/test/build | Complete — Quality Check #205 passed |
+| Current CI install/audit-high/lint/test/build | Complete — Quality Check #214 passed |
 | Review remaining 7 moderate advisories | Pending |
 | Three genuine tester sessions | Pending |
 | Anonymised feedback and decision ledger | Pending |
-| Evidence-backed product change + regression test | Pending tester findings |
+| AI response-contract hardening + regression tests | Complete — AI-12–AI-14; CI #214 green |
+| Participant-feedback-led usability change + same-task retest | Pending tester findings |
 | Same-task retest | Pending |
 | Fresh live role/storage/AI recheck | Pending |
 | Final demo and portal submission | Pending |

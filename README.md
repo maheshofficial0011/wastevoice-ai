@@ -674,7 +674,7 @@ The frontend client intentionally uses the Supabase publishable key. The live Ge
 
 Review 3 is the final **30%** review according to the Project Better Tomorrow portal. The submitted QBee records show Review 1 and Review 2 each received **92%** (each labelled 35% in the portal). The Review 3 report and evidence preparation are maintained on `review-3-upgrade-2026-11-14`.
 
-The dependency lockfile was updated in commit `ad52d27`. Quality Check #205 passed `npm ci`, `npm audit --audit-level=high`, lint, 29/29 tests and production build on commit `6f4b851`. The full audit still reports 7 moderate nested minimatch advisories (0 high/critical); a breaking TypeScript-ESLint downgrade was not forced. Genuine tester sessions, feedback-led changes/retesting and fresh live security/AI rechecks remain required; no new user feedback or environmental impact is claimed.
+The dependency lockfile was updated in commit `ad52d27`. Quality Check #214 passed `npm ci`, `npm audit --audit-level=high`, lint, 32/32 tests and production build on commit `be3e5c6`. The latest suite includes three new AI response-contract regression tests. The full audit still reports 7 moderate nested minimatch advisories (0 high/critical); a breaking TypeScript-ESLint downgrade was not forced. Genuine tester sessions, participant feedback-led usability changes/retesting and fresh live security/AI rechecks remain required; no new user feedback or environmental impact is claimed.
 
 - [`docs/review-3-report.md`](docs/review-3-report.md) — current Review 3 report (7,718 characters; under 8,000).
 - [`docs/review-3-plan.md`](docs/review-3-plan.md) — execution plan, gates and acceptance checklist.

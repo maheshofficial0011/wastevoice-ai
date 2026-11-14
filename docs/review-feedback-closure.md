@@ -55,3 +55,15 @@ The full audit still reports 7 moderate advisories in nested minimatch used by T
 - Final demo and portal submission.
 
 Do not mark these complete until real artifacts exist. Do not invent quotes, timings, usability scores, AI accuracy or environmental impact.
+
+
+## 7. Review 3 code-level closure
+
+A further additive hardening change was committed on 14 November 2026:
+- `supabase/functions/structure-report/logic.mjs`: `isSafeResult()` now enforces the exact five-key response contract locally and rejects extra properties, arrays and whitespace-only summaries.
+- The reporter-provided location remains authoritative after model output validation.
+- `tests/report-assistant.test.mjs`: AI-12 rejects unexpected `workflowAction` data; AI-13 checks reporter-location precedence; AI-14 rejects blank summaries.
+- Commits: `bdfd823` (validator), `80dd095` (regression tests), `be3e5c6` (regex/prompt whitespace correction).
+- Quality Check #214 passed: 32/32 tests, lint (0 errors; 16 warnings), dependency high-severity gate and production build. [CI run](https://github.com/maheshofficial0011/wastevoice-ai/actions/runs/43609429681).
+
+This is a tested AI response-contract improvement. It is not participant feedback, a user-interface redesign or proof of live-provider reliability. Three genuine tester sessions and participant-led same-task retesting remain open.
