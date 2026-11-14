@@ -7,7 +7,15 @@ export const VALID_CATEGORIES = [
   "unknown",
 ]
 
-const CONTROL_LANGUAGE = /\b(assign(ed)?|resolve(d)?|approve(d)?|reject(ed)?|mark(?:ed)?\s+(?:this\s+)?(?:report|issue)\s+resolved|cleaning\s+complete|change\s+workflow|workflow\s+status)\b/i
+const RESULT_FIELDS = [
+  "category",
+  "location",
+  "summary",
+  "missingFields",
+  "needsConfirmation",
+]
+
+const CONTROL_LANGUAGE = /\\b(assign(ed)?|resolve(d)?|approve(d)?|reject(ed)?|mark(?:ed)?\\s+(?:this\\s+)?(?:report|issue)\\s+resolved|cleaning\\s+complete|change\\s+workflow|workflow\\s+status)\\b/i
 
 export function validateReportInput(body) {
   if (!body || typeof body !== "object") {
@@ -75,7 +83,7 @@ export function localFallback(location, description) {
   return {
     category,
     location: location || "unknown",
-    summary: description.replace(/\s+/g, " ").slice(0, 180) || "unknown",
+    summary: description.replace(/\\s+/g, " ").slice(0, 180) || "unknown",
     missingFields,
     needsConfirmation: true,
   }
@@ -133,9 +141,19 @@ export function extractOutputText(payload) {
 }
 
 export function isSafeResult(value) {
-  if (!value || typeof value !== "object") return false
+  if (!value || typeof value !== "object" || Array.isArray(value)) return false
 
   const item = value
+
+  // Enforce the same closed five-field contract locally, even when a provider
+  // returns valid JSON with unexpected properties despite its response schema.
+  const keys = Object.keys(item)
+  if (
+    keys.length !== RESULT_FIELDS.length ||
+    !RESULT_FIELDS.every((field) => Object.hasOwn(item, field))
+  ) {
+    return false
+  }
 
   return (
     typeof item.category === "string" &&
@@ -143,7 +161,7 @@ export function isSafeResult(value) {
     typeof item.location === "string" &&
     item.location.length <= 120 &&
     typeof item.summary === "string" &&
-    item.summary.length > 0 &&
+    item.summary.trim().length > 0 &&
     item.summary.length <= 240 &&
     !CONTROL_LANGUAGE.test(item.summary) &&
     Array.isArray(item.missingFields) &&
@@ -183,5 +201,5 @@ export function buildUserPrompt(location, description, additionalInfo) {
     `Supplied location: ${location || "unknown"}`,
     `Reporter description: ${description}`,
     `Additional information: ${additionalInfo || "unknown"}`,
-  ].join("\n")
+  ].join("\\n")
 }
