@@ -672,7 +672,16 @@ The frontend client intentionally uses the Supabase publishable key. The live Ge
 
 ---
 
-## 25. Review 3 Final Validation\n\nThe Review 2 technical baseline is documented as of 04 October 2026. Review 3 preparation is maintained on the `review-3-upgrade-2026-11-14` branch. The current Review 3 report, execution plan and user-validation kit are linked below. Three genuine tester sessions, feedback-driven changes, retesting and a fresh quality run must be completed and evidenced before validation can be marked complete. No new user feedback, deployment, test run or environmental impact is claimed by this documentation update.\n\n- [`docs/review-3-report.md`](docs/review-3-report.md) — Review 3 report draft (under 8,000 characters).\n- [`docs/review-3-plan.md`](docs/review-3-plan.md) — execution plan, gates and acceptance checklist.\n- [`docs/review-3-validation-kit.md`](docs/review-3-validation-kit.md) — three-tester protocol and feedback ledger.\n- [`docs/evidence/review-3/`](docs/evidence/review-3/) — Review 3 evidence index and pending items.\n\n## Final Project Statement
+## 25. Review 3 Final Validation
+
+The Review 2 technical baseline is documented as of 04 October 2026. Review 3 preparation is maintained on the `review-3-upgrade-2026-11-14` branch. The current Review 3 report, execution plan and user-validation kit are linked below. Three genuine tester sessions, feedback-driven changes, retesting and a fresh quality run must be completed and evidenced before validation can be marked complete. No new user feedback, deployment, test run or environmental impact is claimed by this documentation update.
+
+- [`docs/review-3-report.md`](docs/review-3-report.md) — Review 3 report draft (under 8,000 characters).
+- [`docs/review-3-plan.md`](docs/review-3-plan.md) — execution plan, gates and acceptance checklist.
+- [`docs/review-3-validation-kit.md`](docs/review-3-validation-kit.md) — three-tester protocol and feedback ledger.
+- [`docs/evidence/review-3/`](docs/evidence/review-3/) — Review 3 evidence index and pending items.
+
+## Final Project Statement
 
 WasteVoice AI is not presented as a finished autonomous AI waste-management system. For Review 2, it is a working human-controlled prototype with live Gemini-assisted report structuring, evidence-backed workflow tracking and human verification. Real-world environmental impact and  are not claimed without corresponding evidence.
 
